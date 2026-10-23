@@ -51,8 +51,8 @@ class Settings(BaseSettings):
 
     # Groq config
     GROQ_API_KEY: Optional[str] = None
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
-    GROQ_FALLBACK_MODELS: List[str] = ["llama-3.1-8b-instant"]
+    GROQ_MODEL: str = "openai/gpt-oss-120b"
+    GROQ_FALLBACK_MODELS: List[str] = ["qwen/qwen3.8-27b", "openai/gpt-oss-20b"]
 
     # OpenRouter config
     OPENROUTER_API_KEY: Optional[str] = None

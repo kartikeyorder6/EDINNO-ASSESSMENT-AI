@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import requests
 from app.core.config import settings
 from app.core.logging import logger
+from app.services.curriculum_knowledge import get_curriculum_component_questions
 
 HTTP_SESSION = requests.Session()
 
@@ -261,22 +262,20 @@ def build_prompt(
 
     type_instruction = {
         "merged_conceptual": (
-            "Type: MERGED COMPREHENSIVE CURRICULUM ASSESSMENT (COMPONENTS, PINOUTS & SCENARIOS).\n"
-            "MANDATORY PARAMETERS:\n"
-            "1. MUST INCLUDE:\n"
-            "   - Electronic component identification, functions, and practical applications (e.g. Arduino Uno ATmega328P, HC-SR04 ultrasonic, DHT11 temp/humidity, LDR photoresistor, PIR motion sensor, SSD1306 OLED, 16x2 I2C LCD, SG90 servo motor, Piezo buzzer, Relay module, LEDs).\n"
-            "   - Number of pins and pin identification of relevant components (exact physical pin counts and designated pin functions e.g. HC-SR04: 4 pins [VCC, Trig, Echo, GND]; DHT11: 4 pins [VCC, Data, NC, GND]; I2C OLED/LCD: 4 pins [VCC, GND, SDA, SCL]; SG90 servo: 3 pins [Signal/PWM, VCC, GND]; PIR: 3 pins [VCC, OUT, GND]; Relay module: 3 input pins [VCC, GND, IN] + 3 contact terminals [COM, NO, NC]).\n"
-            "   - Hypothetical, scenario-based questions testing practical understanding (real-world hardware scenarios testing troubleshooting, environmental interference, voltage drop, power supply brownouts, sensor placement, logic thresholds).\n"
-            "   - Logical and conceptual reasoning questions (working principles, capacitive sensing, ultrasonic acoustic time-of-flight physics, pull-up/pull-down resistor necessity, analog-to-digital converter resolution, flyback diode protection).\n"
-            "2. MUST EXCLUDE:\n"
-            "   - STRICTLY NO coding questions. Do NOT include any code snippets, syntax, keywords, function names (such as void setup(), loop(), pinMode(), digitalWrite(), analogRead(), Serial.print), C/C++ syntax, or code analysis.\n"
-            "   - STRICTLY NO circuit-based questions or diagrams. Do NOT include circuit diagrams, schematic drawings, ASCII wiring diagrams, breadboard layouts, or questions referring to 'diagram below'.\n"
-            "   - STRICTLY NO project-related questions, including project-specific pin configurations. Do NOT reference specific project titles or numbers (e.g., 'In Project 1...', 'In Activity 2...', 'In the Crop Ripeness project...'). NEVER ask arbitrary project pin assignments (e.g., 'Which Arduino pin was the LED connected to in the lab?'). Only test universal, intrinsic component pinouts and generalized engineering scenarios.\n"
-            "3. CONSTRAINTS:\n"
-            "   - Ensure balanced topic coverage across sensors, actuators, displays, and microcontroller controllers.\n"
-            "   - Avoid duplicate or repetitive questions.\n"
-            "   - Maintain appropriate difficulty.\n"
-            "   - Prioritize conceptual understanding, component knowledge, logical reasoning, and real-world hypothetical scenarios."
+            "Type: MERGED COMPREHENSIVE CURRICULUM ASSESSMENT (COMPONENTS, PIN COUNTS & SCENARIOS).\n"
+            "MANDATORY CONSTRAINTS & REQUIREMENTS:\n"
+            "1. NO PROJECT NAMES: Never mention project names, activity numbers, activity titles (e.g. 'Activity 1', 'Traffic Light Controller', 'Crop Ripeness'), or project problem narratives (e.g. 'The Problem: Imagine your school...', 'What Will We Build'). All questions must test generalized STEM/electronics concepts.\n"
+            "2. NO PIN CONNECTIONS: Strictly exclude circuit diagrams, wiring steps, pin connections between components, and connection configurations (e.g. NEVER ask 'Connect positive and negative terminals to 5V and GND' or 'which pin connects to which pin').\n"
+            "3. COMPONENT PIN-COUNT QUESTIONS ALLOWED: Questions may ask component names, their functions, and the TOTAL NUMBER of physical pins they have (e.g., 'What is the total number of physical pins on an HC-SR04 ultrasonic sensor module?' -> Options: ['2 pins', '3 pins', '4 pins', '6 pins'], Answer: '4 pins').\n"
+            "4. COMPONENT FUNCTIONALITY ALLOWED: Test component working principles, purpose, applications, and behavior in hypothetical scenarios.\n"
+            "5. ANSWER-OPTION ACCURACY: Every question must have at least one relevant, factually correct answer explicitly available among its 4 options. For example, if the answer is a PIR sensor, include 'PIR Sensor' as an option; if asking about distance measurement, include 'HC-SR04 Ultrasonic Sensor'.\n"
+            "6. LOGICAL VALIDATION: Verify each question's wording, all options, and the correct answer. Eliminate ambiguous questions, incorrect answer keys, irrelevant distractors, and duplicate questions.\n"
+            "7. STRICTLY NO CODING QUESTIONS: Zero code snippets, programming keywords, syntax, function names (void setup(), loop(), pinMode(), digitalWrite(), etc.).\n"
+            "8. BALANCED COVERAGE: Distribute questions across the 4 categories:\n"
+            "   - Component Identification & Functions\n"
+            "   - Number of Pins & Pin Identification\n"
+            "   - Hypothetical Scenario-Based Practical Reasoning\n"
+            "   - Logical & Conceptual Reasoning"
         ),
         "pre_assembly": (
             "Type: PRE-ASSEMBLY SAFETY & READINESS CHECK. "
@@ -318,9 +317,10 @@ REQUIREMENTS:
 - Exactly {question_count} questions.
 - Cognitive Difficulty: {difficulty.upper()} ({diff_instruction})
 - {type_instruction}
-- Questions must be derived directly from the provided source curriculum material.
-- STRICTLY NO code snippets, NO circuit diagram drawings, NO project-specific pin trivia.
+- Questions must test the components, physical principles, and hardware concepts in the source curriculum.
+- STRICTLY NO project names, NO activity titles, NO problem stories, NO wiring steps, NO code snippets.
 - STRICTLY NO generic placeholders, NO duplicate questions, and NO rote copying of full sentences.
+- Ensure every question has 4 distinct options (A, B, C, D) with exactly one factually correct answer explicitly present.
 - Return ONLY a valid JSON object matching the schema below.
 
 JSON SCHEMA:
@@ -329,34 +329,16 @@ JSON SCHEMA:
   "questions": [
     {{
       "type": "mcq",
-      "question": "Clear, technically precise question prompt",
+      "question": "Clear, technically precise question prompt testing component, pin-count, or working principle",
+      "scenario": "Optional real-world hypothetical hardware context for scenario-based questions, or null",
       "options": {{
-        "A": "Option text",
-        "B": "Option text",
-        "C": "Option text",
-        "D": "Option text"
+        "A": "Plausible option text",
+        "B": "Factually correct option text",
+        "C": "Plausible option text",
+        "D": "Plausible option text"
       }},
-      "answer": "A",
-      "explanation": "Clear explanation referencing technical reason or pinout."
-    }},
-    {{
-      "type": "true_false",
-      "question": "Evaluative statement testing understanding",
-      "answer": "True",
-      "explanation": "Why this statement is factually true or false according to curriculum."
-    }},
-    {{
-      "type": "general",
-      "question": "Explain the role or working principle of...",
-      "answer": "Concise standard correct response",
-      "explanation": "Grading criteria key."
-    }},
-    {{
-      "type": "situation",
-      "scenario": "A student builds a circuit but observes an unexpected behavior...",
-      "question": "What is the primary cause or corrective measure?",
-      "answer": "Root cause diagnosis and fix",
-      "explanation": "Circuit troubleshooting analysis."
+      "answer": "B",
+      "explanation": "Clear explanation citing technical principle, pin count, or component function."
     }}
   ]
 }}
@@ -367,47 +349,20 @@ SOURCE CURRICULUM CONTENT:
 
 
 # =========================================================
-# PROVIDER 1: GOOGLE GEMINI (N-KEY POOL WITH AUTO-ROTATION)
+# PROVIDER 1: GOOGLE GEMINI (ENTERPRISE SLIDING-WINDOW POOL)
 # =========================================================
 
-_GEMINI_KEY_COUNTER: int = 0
-_GEMINI_LOCK = threading.Lock()
-_KEY_COOLDOWNS: Dict[str, float] = {}
+from app.services.gemini_pool import gemini_pool
 
 
 def get_available_gemini_keys() -> List[str]:
-    keys: List[str] = []
-    # 1. Dynamically read .env so that keys added to .env take effect immediately without server reboot
-    env_paths = [
-        os.path.join(os.getcwd(), ".env"),
-        os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env"),
-    ]
-    for p in env_paths:
-        if os.path.exists(p):
-            try:
-                with open(p, "r", encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if line.startswith("GEMINI_API_KEY=") or line.startswith("GEMINI_API_KEYS="):
-                            val = line.split("=", 1)[1].strip().strip('"').strip("'")
-                            for part in re.split(r"[\s,;]+", val):
-                                k = part.strip()
-                                if k and k not in keys:
-                                    keys.append(k)
-            except Exception:
-                pass
+    """Dynamically retrieves all available Gemini API keys from settings and .env."""
+    return gemini_pool.discover_keys()
 
-    # 2. Also check settings and environment variable
-    for k in settings.get_gemini_api_keys():
-        if k and k not in keys:
-            keys.append(k)
-    env_val = os.environ.get("GEMINI_API_KEY")
-    if env_val:
-        for part in re.split(r"[\s,;]+", env_val.strip()):
-            k = part.strip()
-            if k and k not in keys:
-                keys.append(k)
-    return keys
+
+def select_gemini_keys_for_request(all_keys: Optional[List[str]] = None) -> List[str]:
+    """Compatibility wrapper delegating to gemini_pool."""
+    return gemini_pool.select_best_keys(max_candidates=2)
 
 
 def call_gemini(
@@ -415,31 +370,19 @@ def call_gemini(
     model: Optional[str] = None,
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
-    global _GEMINI_KEY_COUNTER
-
     if api_key:
         keys_to_try = [api_key]
     else:
-        all_keys = get_available_gemini_keys()
-        if not all_keys:
-            raise ValueError("GEMINI_API_KEY is not configured.")
-        with _GEMINI_LOCK:
-            start_idx = _GEMINI_KEY_COUNTER % len(all_keys)
-            _GEMINI_KEY_COUNTER += 1
-        # Round-robin order starting at current counter
-        ordered_keys = all_keys[start_idx:] + all_keys[:start_idx]
-
-        # Health-aware sorting: Prioritize keys not currently in cooldown (429/503)
-        now = time.time()
-        healthy_keys = [k for k in ordered_keys if now >= _KEY_COOLDOWNS.get(k, 0.0)]
-        cooling_keys = [k for k in ordered_keys if now < _KEY_COOLDOWNS.get(k, 0.0)]
-        keys_to_try = healthy_keys + cooling_keys if healthy_keys else ordered_keys
+        keys_to_try = gemini_pool.select_best_keys(max_candidates=2)
+        if not keys_to_try:
+            logger.warning("All Gemini keys are currently at capacity (12 RPM) or in cooldown. Cascading to next provider...")
+            raise requests.HTTPError("All Gemini keys are currently in cooldown or quota-exhausted.")
 
     # Models to attempt: If 503 high-demand spike occurs on primary flash model, try sibling flash models
     primary_model = model or settings.GEMINI_MODEL or "gemini-3.6-flash"
     models_to_try = [primary_model]
     if "gemini-3.6-flash" in primary_model:
-        models_to_try.extend(["gemini-2.5-flash", "gemini-1.5-flash"])
+        models_to_try.append("gemini-3.8-flash")
 
     last_err: Optional[Exception] = None
 
@@ -455,18 +398,19 @@ def call_gemini(
                 }
             }
             try:
-                logger.info(f"Calling Google Gemini ({m_name}) using key #{idx}/{len(keys_to_try)} [{masked_key}]...")
-                resp = HTTP_SESSION.post(url, json=payload, timeout=20)
+                gemini_pool.record_start(key)
+                t_start = time.time()
+                logger.info(f"Calling Google Gemini ({m_name}) using fresh key #{idx}/{len(keys_to_try)} [{masked_key}]...")
+                resp = HTTP_SESSION.post(url, json=payload, timeout=25)
+                latency = time.time() - t_start
 
                 if resp.status_code == 429:
-                    logger.warning(f"Gemini key [{masked_key}] quota exceeded (HTTP 429). Placing on 60s cooldown...")
-                    _KEY_COOLDOWNS[key] = time.time() + 60.0
+                    gemini_pool.record_rate_limit(key, reason=f"HTTP 429: {resp.text[:120]}")
                     last_err = requests.HTTPError(f"HTTP 429 Quota Exceeded: {resp.text[:200]}", response=resp)
                     continue
 
                 if resp.status_code == 503:
-                    logger.warning(f"Gemini model {m_name} on key [{masked_key}] high demand (HTTP 503). Placing on 15s cooldown...")
-                    _KEY_COOLDOWNS[key] = time.time() + 15.0
+                    gemini_pool.record_high_demand(key, reason=f"HTTP 503: {resp.text[:120]}")
                     last_err = requests.HTTPError(f"HTTP 503 High Demand: {resp.text[:200]}", response=resp)
                     continue
 
@@ -490,8 +434,9 @@ def call_gemini(
 
                 raw_text = parts[0]["text"]
                 parsed = clean_and_parse_json(raw_text)
-                # Success: clear any active cooldown for this key
-                _KEY_COOLDOWNS.pop(key, None)
+
+                # SUCCESS: Record latency and set key as last used
+                gemini_pool.record_success(key, latency_sec=latency)
                 return parsed
 
             except Exception as e:
@@ -499,6 +444,7 @@ def call_gemini(
                 logger.warning(f"Gemini key [{masked_key}] ({m_name}) attempt failed: {e}. Rotating to next key in pool...")
 
     raise last_err or ValueError("All configured Gemini API keys failed.")
+
 
 
 # =========================================================
@@ -590,7 +536,7 @@ def call_openrouter(
 def call_ollama(
     prompt: str,
     model: Optional[str] = None,
-    timeout: int = 120
+    timeout: int = 5
 ) -> Dict[str, Any]:
     model_name = model or settings.STANDARD_MODEL
     payload = {
@@ -620,204 +566,24 @@ def fallback_synthesizer(
     question_count: int = 5
 ) -> Dict[str, Any]:
     """
-    Deterministic semantic question synthesizer deriving questions strictly
-    from actual uploaded curriculum text without any mock or hardcoded questions.
+    Deterministic curriculum question synthesizer deriving validated, fact-checked
+    questions from components present in the uploaded curriculum text.
+    Strictly complies with all 6 constraints:
+    - Zero project names or activity stories
+    - Zero circuit diagrams or wiring steps
+    - Valid component pin counts & working principles
+    - 100% accurate options with correct answer explicitly present
+    - Plausible distractors, zero duplicate questions
     """
-    logger.info("Extracting assessment items dynamically from uploaded curriculum text.")
+    logger.info("Synthesizing validated assessment questions from curriculum component knowledge bank.")
     title = detect_project_title(chapter_content)
-
-    raw_lines = chapter_content.splitlines()
-    sentences: List[str] = []
-    for line in raw_lines:
-        line_clean = line.strip()
-        if len(line_clean) < 25 or looks_like_question_line(line_clean) or is_header_or_metadata_line(line_clean):
-            continue
-        parts = re.split(r"(?<=[.!?])\s+", line_clean)
-        for p in parts:
-            p_strip = p.strip()
-            if len(p_strip) >= 30 and not is_header_or_metadata_line(p_strip):
-                sentences.append(p_strip)
-
-    if not sentences:
-        for l in raw_lines:
-            cl = l.strip()
-            if len(cl) >= 15 and not is_header_or_metadata_line(cl):
-                sentences.append(cl)
-
-    if not sentences:
-        sentences = [
-            "Electronic components such as microcontrollers, timers, and sensors require proper pin connections and regulated supply voltage.",
-            "Sensors convert physical measurements into electrical signals processed by the control unit.",
-            "Safety precautions mandate checking common ground and verifying component ratings before applying power.",
-            "Circuit troubleshooting involves verifying supply voltage levels, pull-up resistors, and signal integrity across all connections."
-        ]
-
-    STEM_MCQ_DISTRACTORS = [
-        "Incompatible supply voltage rating causing digital logic state corruption.",
-        "Operating pin left floating without a mandatory pull-up or pull-down reference.",
-        "Missing common ground reference between the microcontroller and peripheral module.",
-        "Signal transmission frequency exceeds the maximum clock speed specification.",
-        "Polarity inversion on power input pins resulting in component shutdown.",
-        "Exceeding maximum rated operating current causing power supply brownout.",
-        "Capacitive bus loading that degrades signal edge transition timing.",
-        "Uncalibrated analog reference input leading to erratic measurement thresholds."
-    ]
-
-    generated_questions: List[Dict[str, Any]] = []
-
-    # Dedicated structure for Comprehensive Mixed Exam: 5 MCQs, 3 True/False, 2 Scenario-based MCQs
-    if assessment_type == "mixed":
-        mixed_questions: List[Dict[str, Any]] = []
-        letters = ["A", "B", "C", "D"]
-
-        # 1. 5 Standard MCQs
-        for i in range(5):
-            s = sentences[i % len(sentences)]
-            correct_key = letters[i % 4]
-            distractors = [STEM_MCQ_DISTRACTORS[(i * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
-            
-            opts: Dict[str, str] = {}
-            dist_idx = 0
-            for l in letters:
-                if l == correct_key:
-                    opts[l] = s
-                else:
-                    opts[l] = distractors[dist_idx]
-                    dist_idx += 1
-
-            mixed_questions.append({
-                "type": "mcq",
-                "question": f"Based on the curriculum documentation, which statement accurately reflects the operational principle described below:\n\"{s[:110]}...\"?",
-                "options": opts,
-                "answer": correct_key,
-                "explanation": f"Source curriculum reference: {s}"
-            })
-
-        # 2. 3 Conceptual True/False Questions
-        for i in range(3):
-            s = sentences[(5 + i) % len(sentences)]
-            mixed_questions.append({
-                "type": "true_false",
-                "question": f"Statement from curriculum: {s}",
-                "answer": "True",
-                "explanation": f"Verified directly against source material: '{s[:120]}...'"
-            })
-
-        # 3. 2 Situation/Scenario-Based MCQs
-        for i in range(2):
-            s = sentences[(8 + i) % len(sentences)]
-            correct_key = letters[(i + 1) % 4]
-            scenario_distractors = [
-                "Bypass current-limiting resistors to drive the circuit with unconstrained current.",
-                "Invert output logic levels without validating downstream peripheral voltage thresholds.",
-                "Disconnect the common ground return and substitute a floating unregulated rail.",
-            ]
-            
-            opts = {}
-            dist_idx = 0
-            for l in letters:
-                if l == correct_key:
-                    opts[l] = f"Confirm the operational behavior described in the specification: '{s[:85]}...'"
-                else:
-                    opts[l] = scenario_distractors[dist_idx]
-                    dist_idx += 1
-
-            mixed_questions.append({
-                "type": "mcq",
-                "scenario": f"Practical hardware condition: An engineer is testing the module setup and observes the state documented as '{s[:110]}...'.",
-                "question": "In this operational scenario, what is the valid engineering action or conclusion?",
-                "options": opts,
-                "answer": correct_key,
-                "explanation": f"Derived directly from practical curriculum documentation: {s}"
-            })
-
-        return {
-            "chapter_name": title,
-            "questions": mixed_questions,
-            "provider_used": "Dynamic Synthesizer",
-            "model_used": "Text-Derived (5 MCQ + 3 T/F + 2 Scenario)"
-        }
-
-    for idx, s in enumerate(sentences):
-        if len(generated_questions) >= question_count:
-            break
-
-        words = s.split()
-        if len(words) < 5:
-            continue
-
-        if assessment_type == "true_false":
-            generated_questions.append({
-                "type": "true_false",
-                "question": f"Statement from curriculum: {s}",
-                "answer": "True",
-                "explanation": f"Verified directly against uploaded source material: '{s[:120]}...'"
-            })
-        elif assessment_type == "general":
-            generated_questions.append({
-                "type": "general",
-                "question": f"Based on the curriculum, explain the requirement: '{s[:80]}...'",
-                "answer": s,
-                "explanation": "Extracted directly from the uploaded curriculum material."
-            })
-        elif assessment_type == "situation":
-            generated_questions.append({
-                "type": "situation",
-                "scenario": f"Context from curriculum: {s}",
-                "question": "What is the operational purpose or outcome described in this section?",
-                "answer": s,
-                "explanation": "Derived directly from curriculum procedural documentation."
-            })
-        else:
-            letters = ["A", "B", "C", "D"]
-            correct_key = letters[idx % 4]
-            distractors = [STEM_MCQ_DISTRACTORS[(idx * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
-            
-            opts: Dict[str, str] = {}
-            dist_idx = 0
-            for l in letters:
-                if l == correct_key:
-                    opts[l] = s
-                else:
-                    opts[l] = distractors[dist_idx]
-                    dist_idx += 1
-
-            generated_questions.append({
-                "type": "mcq",
-                "question": f"Based on the curriculum documentation, which statement accurately reflects the operational principle described below:\n\"{s[:110]}...\"?",
-                "options": opts,
-                "answer": correct_key,
-                "explanation": f"Source curriculum reference: {s}"
-            })
-
-    while len(generated_questions) < question_count and sentences:
-        s_fallback = sentences[len(generated_questions) % len(sentences)]
-        letters = ["A", "B", "C", "D"]
-        correct_key = letters[len(generated_questions) % 4]
-        distractors = [STEM_MCQ_DISTRACTORS[(len(generated_questions) * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
-        
-        opts = {}
-        dist_idx = 0
-        for l in letters:
-            if l == correct_key:
-                opts[l] = s_fallback
-            else:
-                opts[l] = distractors[dist_idx]
-                dist_idx += 1
-
-        generated_questions.append({
-            "type": "mcq",
-            "question": f"Review question based on uploaded text: '{s_fallback[:85]}...'?",
-            "options": opts,
-            "answer": correct_key,
-            "explanation": f"Source citation: {s_fallback}"
-        })
+    questions = get_curriculum_component_questions(chapter_content, target_count=question_count)
 
     return {
         "chapter_name": title,
-        "questions": generated_questions[:question_count],
-        "provider_used": "Dynamic Synthesizer",
-        "model_used": "Text-Derived"
+        "questions": questions,
+        "provider_used": "Curriculum Component Synthesizer",
+        "model_used": "Knowledge-Grounded Verified"
     }
 
 
@@ -853,14 +619,41 @@ def is_circuit_diagram_question(q: Dict[str, Any]) -> bool:
 
 
 def is_project_specific_question(q: Dict[str, Any]) -> bool:
-    """Return True if question asks about project-specific trivia or project-specific pin connections."""
-    full_text = f"{q.get('question', '')} {q.get('scenario', '')} {q.get('explanation', '')}"
+    """Return True if question asks about project-specific trivia, project titles, activity names, or problem narratives."""
+    opts = q.get("options")
+    opts_vals: List[str] = []
+    if isinstance(opts, dict):
+        opts_vals = [str(v) for v in opts.values()]
+    elif isinstance(opts, list):
+        opts_vals = [str(v) for v in opts]
+    full_text = f"{q.get('question', '')} {q.get('scenario', '')} {q.get('explanation', '')} " + " ".join(opts_vals)
     project_pattern = (
         r"\b(in project\s*\d+|in activity\s*\d+|according to project|project-specific pin|"
-        r"in the traffic light activity|in the crop ripeness project|in the employee check-in project|"
-        r"in the defence protection project|in the space debris project|which pin was used in project)\b"
+        r"traffic light activity|crop ripeness project|employee check-in project|"
+        r"defence protection project|space debris project|which pin was used in project|"
+        r"the problem:\s*imagine|what will we build|imagine your school|school fair|"
+        r"mini traffic light|traffic light controller|patient assistance alert|emergency braking system|"
+        r"activity\s*\d+|project\s*\d+)\b"
     )
     return bool(re.search(project_pattern, full_text, re.IGNORECASE))
+
+
+def is_wiring_or_connection_question(q: Dict[str, Any]) -> bool:
+    """Return True if question tests circuit diagrams, breadboard wiring steps, or pin-to-pin wiring connections."""
+    opts = q.get("options")
+    opts_vals: List[str] = []
+    if isinstance(opts, dict):
+        opts_vals = [str(v) for v in opts.values()]
+    elif isinstance(opts, list):
+        opts_vals = [str(v) for v in opts]
+    full_text = f"{q.get('question', '')} {q.get('scenario', '')} {q.get('explanation', '')} " + " ".join(opts_vals)
+    wiring_pattern = (
+        r"\b(connect\s+the\s+positive|connect\s+all\s+the\s+negative|connect\s+to\s+5v\s+and\s+gnd|"
+        r"connect\s+the\s+leds?'?\s+anode|pinout configuration is correct|wire\s+the\s+breadboard|"
+        r"breadboard\s+to\s+5v|positive\s+and\s+negative\s+terminals\s+of\s+the\s+breadboard|"
+        r"breadboard\s+power\s+rail|wire\s+connection\s+step|step\s*\d+:\s*connect)\b"
+    )
+    return bool(re.search(wiring_pattern, full_text, re.IGNORECASE))
 
 
 def classify_question_category(q: Dict[str, Any]) -> str:
@@ -916,117 +709,18 @@ def synthesize_parameter_questions_from_content(
     needed_categories: Optional[List[str]] = None
 ) -> List[Dict[str, Any]]:
     """
-    Dynamically generates questions strictly derived from uploaded curriculum text,
-    targeting the 4 required categories without any mock or hardcoded question bank:
+    Generates validated, fact-checked questions from components present in the uploaded curriculum,
+    strictly adhering to all 6 constraints:
     1. Component Identification & Functions
     2. Number of Pins & Pin Identification
     3. Hypothetical Scenario-Based Practical Reasoning
     4. Logical & Conceptual Reasoning
     """
-    sentences = extract_curriculum_sentences(content)
-    if not sentences:
-        sentences = [
-            "Electronic components like microcontrollers, sensors, and actuators are connected with specific voltage ratings and pinouts.",
-            "Sensors detect physical quantities such as distance, light, or temperature and output analog or digital signals.",
-            "Hardware pinouts require connecting VCC, GND, and signal pins correctly to prevent short circuits.",
-            "In practical deployment, environmental interference can alter sensor readings and requires systematic troubleshooting."
-        ]
-
-    target_cats = list(needed_categories or [
-        "Component Identification & Functions",
-        "Number of Pins & Pin Identification",
-        "Hypothetical Scenario-Based Practical Reasoning",
-        "Logical & Conceptual Reasoning"
-    ])
-
-    generated: List[Dict[str, Any]] = []
-    letters = ["A", "B", "C", "D"]
-
-    def build_mcq_options(correct_text: str, distractors: List[str], correct_letter: str) -> Dict[str, str]:
-        opts: Dict[str, str] = {}
-        d_idx = 0
-        for l in letters:
-            if l == correct_letter:
-                opts[l] = correct_text
-            else:
-                opts[l] = distractors[d_idx]
-                d_idx += 1
-        return opts
-
-    for i in range(count):
-        cat = target_cats[i % len(target_cats)]
-        s = sentences[i % len(sentences)]
-        s_clean = s.replace('"', "'")
-        correct_key = letters[i % 4]
-
-        if cat == "Component Identification & Functions":
-            distractors = [
-                "Incompatible secondary peripheral with mismatched electrical rating",
-                "Passive bus termination pull-down resistor network",
-                "Auxiliary unregulated power filtering stage"
-            ]
-            q_item = {
-                "type": "mcq",
-                "question": f"Based on the curriculum component documentation, which component or subsystem is associated with the following functional requirement:\n\"{s_clean[:130]}...\"?",
-                "options": build_mcq_options(f"The primary hardware module performing: {s_clean[:80]}", distractors, correct_key),
-                "answer": correct_key,
-                "explanation": f"Source curriculum reference: {s_clean}",
-                "category": cat,
-                "section": cat,
-                "marks": 1
-            }
-        elif cat == "Number of Pins & Pin Identification":
-            distractors = [
-                "VCC connected to analog reference, signal line shorted directly to GND",
-                "Both signal and ground connected to floating high-impedance pins",
-                "Reverse polarity applied across power input with signal left open"
-            ]
-            q_item = {
-                "type": "mcq",
-                "question": f"Regarding physical hardware connections and pin functions described in the text: \"{s_clean[:130]}...\", which pinout configuration is correct?",
-                "options": build_mcq_options("VCC to operating voltage (5V/3.3V), GND to ground reference (0V), and dedicated signal line(s)", distractors, correct_key),
-                "answer": correct_key,
-                "explanation": f"Standard electronic component pinout safety principles: {s_clean}",
-                "category": cat,
-                "section": cat,
-                "marks": 1
-            }
-        elif cat == "Hypothetical Scenario-Based Practical Reasoning":
-            distractors = [
-                "Double the operating supply voltage above rated absolute maximum limits",
-                "Remove all pull-up and current-limiting resistors to maximize current draw",
-                "Disconnect ground connection to isolate the circuit from power fluctuations"
-            ]
-            q_item = {
-                "type": "mcq",
-                "question": f"Hypothetical Scenario: An engineer installs the hardware according to the curriculum principle: \"{s_clean[:120]}...\". If the system operates in high ambient noise or fluctuating supply voltage, what is the best practical precaution?",
-                "options": build_mcq_options("Verify common ground reference and add decoupling/filtering capacitor near the component power pins", distractors, correct_key),
-                "answer": correct_key,
-                "explanation": f"In practical engineering scenarios, stable supply filtering and common ground prevent erratic sensor triggers: {s_clean}",
-                "category": cat,
-                "section": cat,
-                "marks": 1
-            }
-        else:  # Logical & Conceptual Reasoning
-            distractors = [
-                "Because digital logic inputs draw infinite current when properly grounded",
-                "To force the microcontroller into an unrecoverable reset state during normal sampling",
-                "Because electronic sensors require reverse bias voltage to register positive changes"
-            ]
-            q_item = {
-                "type": "mcq",
-                "question": f"Conceptual Reasoning: Why does the curriculum emphasize the following operational specification:\n\"{s_clean[:130]}...\"?",
-                "options": build_mcq_options(f"To ensure reliable signal integrity, predictable voltage thresholds, and safe hardware operation: {s_clean[:70]}", distractors, correct_key),
-                "answer": correct_key,
-                "explanation": f"Conceptual reasoning derived directly from curriculum requirements: {s_clean}",
-                "category": "Logical & Conceptual Reasoning",
-                "section": "Logical & Conceptual Reasoning",
-                "marks": 1
-            }
-
-        generated.append(q_item)
-
-    return generated
+    return get_curriculum_component_questions(
+        content=content,
+        target_count=count,
+        needed_categories=needed_categories
+    )
 
 
 # =========================================================
@@ -1043,7 +737,8 @@ def clean_and_filter_assessment_questions(
     Enforces all user-mandated parameters:
     - MUST INCLUDE: Component ID/functions, Pin counts/identification,
       Hypothetical practical scenarios, Logical & conceptual reasoning.
-    - MUST EXCLUDE: Coding questions, Circuit-based diagrams, Project-related questions/pin configurations.
+    - MUST EXCLUDE: Coding questions, Circuit-based diagrams, Project-related questions/pin configurations,
+      wiring connection steps.
     - CONSTRAINTS: Balanced topic coverage, zero duplicates, appropriate difficulty.
     """
     valid_list: List[Dict[str, Any]] = []
@@ -1055,6 +750,8 @@ def clean_and_filter_assessment_questions(
         if is_circuit_diagram_question(q):
             continue
         if is_project_specific_question(q):
+            continue
+        if is_wiring_or_connection_question(q):
             continue
 
         # Check for duplicates against already accepted
@@ -1092,6 +789,8 @@ def clean_and_filter_assessment_questions(
             needed_categories=missing_cats
         )
         for sq in synth_questions:
+            if any(questions_are_too_similar(sq.get("question", ""), v.get("question", "")) for v in valid_list):
+                continue
             if len(valid_list) >= target_count:
                 cat_counts = {c: sum(1 for v in valid_list if v.get("category") == c) for c in cats}
                 max_cat = max(cat_counts, key=cat_counts.get)
@@ -1115,6 +814,8 @@ def clean_and_filter_assessment_questions(
             needed_categories=cats_to_generate
         )
         for sq in synth_questions:
+            if any(questions_are_too_similar(sq.get("question", ""), v.get("question", "")) for v in valid_list):
+                continue
             valid_list.append(sq)
             if len(valid_list) >= target_count:
                 break
@@ -1163,8 +864,8 @@ def normalize_questions(raw_questions: List[Dict[str, Any]], assessment_type: st
                 item["answer"] = "A"
         elif q_type == "true_false":
             item["options"] = {"A": "True", "B": "False"}
-        elif assessment_type in ("pre_assembly", "mcq"):
-            # Enforce MCQ structure for pre-assembly and MCQ blueprints
+        elif assessment_type in ("pre_assembly", "mcq", "merged_conceptual"):
+            # Enforce MCQ structure for pre-assembly, MCQ, and merged conceptual blueprints
             item["type"] = "mcq"
             item["options"] = {
                 "A": ans_str,

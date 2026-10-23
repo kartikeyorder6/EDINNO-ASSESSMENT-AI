@@ -359,3 +359,14 @@ async def get_chapter_quizzes_overview():
         }
     }
 
+
+@router.get("/system/key-pool", summary="Gemini API Key Pool Telemetry")
+async def get_gemini_key_pool_telemetry():
+    """
+    Returns real-time capacity, RPM usage, active cooldowns, and latency metrics
+    for all configured Google Gemini API keys in the pool.
+    """
+    from app.services.gemini_pool import gemini_pool
+    return gemini_pool.get_telemetry()
+
+

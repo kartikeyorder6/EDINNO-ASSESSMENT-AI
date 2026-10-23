@@ -18,12 +18,13 @@ def clean_and_parse_json(raw: str):
 
 
 def test_gemini_3_6_flash():
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.GEMINI_MODEL}:generateContent?key={settings.GEMINI_API_KEY}"
+    gemini_key = settings.gemini_api_keys[0] if settings.gemini_api_keys else settings.GEMINI_API_KEY
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.GEMINI_MODEL}:generateContent?key={gemini_key}"
     res = requests.post(url, json={
         "contents": [{"parts": [{"text": "Return JSON {\"status\": \"ok\", \"provider\": \"gemini\"}"}]}],
         "generationConfig": {"response_mime_type": "application/json"}
     }, timeout=30)
-    assert res.status_code in [200, 429]
+    assert res.status_code in [200, 429, 503]
     if res.status_code == 200:
         data = clean_and_parse_json(res.json()["candidates"][0]["content"]["parts"][0]["text"])
         assert data["status"] == "ok"

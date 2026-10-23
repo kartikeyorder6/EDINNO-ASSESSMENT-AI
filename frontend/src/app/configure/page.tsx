@@ -28,9 +28,9 @@ export default function ConfigurePage() {
   const router = useRouter();
   const { extractedResources, activeChapterName, setAssessmentPayload } = useAssessment();
 
-  const [assessmentType, setAssessmentType] = useState<string>("merged_conceptual");
+  const [assessmentType, setAssessmentType] = useState<string>("mixed");
   const [selectedSource, setSelectedSource] = useState<string>("ALL");
-  const [questionCount, setQuestionCount] = useState<number>(12);
+  const [questionCount, setQuestionCount] = useState<number>(10);
   const [difficulty, setDifficulty] = useState<string>("medium");
   const [selectedProvider, setSelectedProvider] = useState<string>("auto");
   const [showGuardrailsDetails, setShowGuardrailsDetails] = useState<boolean>(false);
@@ -42,12 +42,21 @@ export default function ConfigurePage() {
 
   const blueprints = [
     {
+      id: "mixed",
+      title: "Comprehensive Mixed Exam",
+      subtitle: "10 Questions: 5 MCQs + 3 T/F + 2 Scenarios",
+      desc: "Structured exam featuring 5 component & pinout MCQs, 3 conceptual True/False checks, and 2 scenario-based practical MCQs.",
+      tag: "5 MCQ • 3 T/F • 2 Scenarios",
+      recommended: true,
+      icon: Layers,
+      iconColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
+    },
+    {
       id: "merged_conceptual",
       title: "Merged Curriculum Assessment",
       subtitle: "Pinouts, Components & Scenario Reasoning",
       desc: "Flagship exam: pin identification, roles, practical scenarios, and conceptual logic. Strictly zero code and schematics.",
       tag: "Flagship • Strict Guardrails",
-      recommended: true,
       icon: Sparkles,
       iconColor: "text-blue-600 bg-blue-50 border-blue-200",
     },
@@ -59,15 +68,6 @@ export default function ConfigurePage() {
       tag: "Lab Safety",
       icon: ShieldCheck,
       iconColor: "text-amber-600 bg-amber-50 border-amber-200",
-    },
-    {
-      id: "mixed",
-      title: "Comprehensive Mixed Exam",
-      subtitle: "10 Questions: 5 MCQs + 3 T/F + 2 Scenarios",
-      desc: "Structured exam featuring 5 component & pinout MCQs, 3 conceptual True/False checks, and 2 scenario-based practical MCQs.",
-      tag: "5 MCQ • 3 T/F • 2 Scenarios",
-      icon: Layers,
-      iconColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
     },
     {
       id: "mcq",

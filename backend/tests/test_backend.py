@@ -292,5 +292,46 @@ def test_gemini_api_key_pool():
     assert keys == ["key1", "key2", "key3", "key4", "key5"]
 
 
+def test_smart_key_rotation_and_cooldown():
+    import time
+    from app.services.gemini_pool import GeminiKeyPool, GeminiKeyMetadata
+    pool = GeminiKeyPool()
+    keys = ["key_A", "key_B", "key_C"]
+    pool.discover_keys = lambda: list(keys)
+    for k in keys:
+        pool._keys_meta[k] = GeminiKeyMetadata(k)
+
+    # Request 1: Picks a key (e.g. key_A)
+    chosen_1 = pool.select_best_keys(max_candidates=1)[0]
+    pool.record_start(chosen_1)
+    pool.record_success(chosen_1, latency_sec=4.0)
+
+    # Request 2: MUST NOT pick chosen_1!
+    chosen_2 = pool.select_best_keys(max_candidates=1)[0]
+    assert chosen_2 != chosen_1, f"Expected fresh key, got previously used {chosen_1}"
+    pool.record_start(chosen_2)
+    pool.record_success(chosen_2, latency_sec=4.2)
+
+    # Request 3: MUST NOT pick chosen_2!
+    chosen_3 = pool.select_best_keys(max_candidates=1)[0]
+    assert chosen_3 != chosen_2, f"Expected fresh key, got previously used {chosen_2}"
+    pool.record_start(chosen_3)
+    pool.record_success(chosen_3, latency_sec=3.9)
+
+    # Test Quota / Cooldown: Mark key_A on 429 cooldown
+    pool.record_rate_limit("key_A")
+    for _ in range(5):
+        candidates = pool.select_best_keys(max_candidates=3)
+        assert "key_A" not in candidates, "Key on cooldown must NEVER be returned in candidate list"
+
+    # All keys on cooldown -> returns [] immediately
+    pool.record_rate_limit("key_B")
+    pool.record_rate_limit("key_C")
+    candidates = pool.select_best_keys(max_candidates=3)
+    assert candidates == [], "When all keys are on cooldown, candidates must be empty"
+
+
+
+
 
 
