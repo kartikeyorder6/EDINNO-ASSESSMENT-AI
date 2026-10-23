@@ -27,6 +27,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,7 +47,8 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
-# Health check
+# Health check for Render & UptimeRobot pings
+@app.get("/", tags=["System"])
 @app.get("/health", tags=["System"])
 @app.get("/api/health", tags=["System"])
 async def health_check():
