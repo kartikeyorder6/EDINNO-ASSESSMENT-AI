@@ -1,0 +1,2940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light dark"
+    >
+
+    <title>
+        Content Merge | EDINNO AI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body data-theme="dark">
+
+
+<script>
+
+(function () {
+
+    try {
+
+        const savedTheme =
+            localStorage.getItem(
+                "edinnoTheme"
+            );
+
+        if (
+            savedTheme === "light"
+            ||
+            savedTheme === "dark"
+        ) {
+
+            document.body.setAttribute(
+                "data-theme",
+                savedTheme
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to restore theme.",
+            error
+        );
+
+    }
+
+})();
+
+</script>
+
+
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div>
+
+
+            <div class="brand">
+
+
+                <div
+                    class="brand-logo"
+                    aria-hidden="true"
+                >
+                    ⚡
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h2>
+                        EDINNO
+                    </h2>
+
+                    <span>
+                        ASSESSMENT AI
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="sidebar-menu">
+
+
+                <p class="menu-label">
+                    WORKSPACE
+                </p>
+
+
+                <div class="menu-item active">
+                    ✦ &nbsp; Assessment Studio
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="sidebar-footer">
+
+            <span class="online-dot"></span>
+
+            Local AI Assessment Engine
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="top-header-layout">
+
+
+            <div class="page-header">
+
+
+                <div class="eyebrow">
+                    ✦ STEP 02 — CONTENT MERGE
+                </div>
+
+
+                <h1>
+
+                    Review your
+
+                    <span>
+                        merged content.
+                    </span>
+
+                </h1>
+
+
+                <p class="page-description">
+
+                    Confirm your uploaded learning resources
+                    before choosing the assessment format.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 THEME
+                 ============================================= -->
+
+            <div
+                class="theme-switcher"
+                role="group"
+                aria-label="Theme selection"
+            >
+
+
+                <button
+                    type="button"
+                    id="theme-light-btn"
+                    class="theme-option"
+                    aria-label="Switch to Light Mode"
+                    aria-pressed="false"
+                >
+
+                    <span class="theme-option-icon">
+                        ☀
+                    </span>
+
+                    <span>
+                        Light
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="theme-dark-btn"
+                    class="theme-option"
+                    aria-label="Switch to Night Mode"
+                    aria-pressed="true"
+                >
+
+                    <span class="theme-option-icon">
+                        ☾
+                    </span>
+
+                    <span>
+                        Night
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+             ================================================= -->
+
+        <div class="progress-steps">
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    01
+                </span>
+
+                <span>
+                    Setup
+                </span>
+
+            </div>
+
+
+            <div class="progress-step active">
+
+                <span class="step-number">
+                    02
+                </span>
+
+                <span>
+                    Content Merge
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    03
+                </span>
+
+                <span>
+                    Assessment Type
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    04
+                </span>
+
+                <span>
+                    Results
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROJECT / CHAPTER INFO
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon merge-main-icon"
+                    aria-hidden="true"
+                >
+                    ⇄
+                </div>
+
+
+                <div>
+
+
+                    <h2 id="merge-title">
+                        Learning Content
+                    </h2>
+
+
+                    <p id="merge-subtitle">
+                        Reviewing uploaded resources...
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 WORKFLOW INFORMATION
+                 ============================================= -->
+
+            <div class="merge-info-grid">
+
+
+                <div class="merge-info-card">
+
+
+                    <div
+                        class="merge-info-icon workflow-info-icon"
+                        aria-hidden="true"
+                    >
+                        ✦
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Workflow
+                        </span>
+
+                        <strong id="workflow-name">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="merge-info-card">
+
+
+                    <div
+                        class="merge-info-icon name-info-icon"
+                        aria-hidden="true"
+                    >
+                        ▤
+                    </div>
+
+
+                    <div>
+
+                        <span id="content-name-label">
+                            Chapter
+                        </span>
+
+                        <strong id="content-name">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    class="merge-info-card"
+                    id="grade-info-card"
+                    style="display: none;"
+                >
+
+
+                    <div
+                        class="merge-info-icon grade-info-icon"
+                        aria-hidden="true"
+                    >
+                        ★
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Grade
+                        </span>
+
+                        <strong id="grade-name">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESOURCE COUNTS
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon resource-main-icon"
+                    aria-hidden="true"
+                >
+                    PDF
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Resource Summary
+                    </h2>
+
+
+                    <p>
+
+                        Resources successfully included in the
+                        merged learning content.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="merge-resource-grid">
+
+
+                <!-- TOPICS -->
+
+                <div class="merge-resource-card topic-resource-card">
+
+
+                    <div
+                        class="merge-resource-orb topic-orb"
+                        aria-hidden="true"
+                    >
+                        T
+                    </div>
+
+
+                    <div>
+
+                        <strong id="topic-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Topics
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ACTIVITIES -->
+
+                <div class="merge-resource-card activity-resource-card">
+
+
+                    <div
+                        class="merge-resource-orb activity-orb"
+                        aria-hidden="true"
+                    >
+                        A
+                    </div>
+
+
+                    <div>
+
+                        <strong id="activity-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Activities
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PROJECTS -->
+
+                <div class="merge-resource-card project-resource-card">
+
+
+                    <div
+                        class="merge-resource-orb project-orb"
+                        aria-hidden="true"
+                    >
+                        P
+                    </div>
+
+
+                    <div>
+
+                        <strong id="project-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Projects
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TOTAL PDF -->
+
+                <div class="merge-resource-card total-resource-card">
+
+
+                    <div
+                        class="merge-resource-orb total-orb"
+                        aria-hidden="true"
+                    >
+                        Σ
+                    </div>
+
+
+                    <div>
+
+                        <strong id="total-pdf-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Total PDFs
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONTENT STATS
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon stats-main-icon"
+                    aria-hidden="true"
+                >
+                    #
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Merged Content Statistics
+                    </h2>
+
+
+                    <p>
+
+                        A quick overview of the extracted
+                        educational content.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="merge-stats-grid">
+
+
+                <div class="merge-stat-card">
+
+
+                    <div
+                        class="merge-stat-icon word-stat-icon"
+                        aria-hidden="true"
+                    >
+                        W
+                    </div>
+
+
+                    <div>
+
+                        <strong id="word-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Words
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="merge-stat-card">
+
+
+                    <div
+                        class="merge-stat-icon char-stat-icon"
+                        aria-hidden="true"
+                    >
+                        C
+                    </div>
+
+
+                    <div>
+
+                        <strong id="character-count">
+                            0
+                        </strong>
+
+                        <span>
+                            Characters
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="merge-stat-card">
+
+
+                    <div
+                        class="merge-stat-icon file-stat-icon"
+                        aria-hidden="true"
+                    >
+                        F
+                    </div>
+
+
+                    <div>
+
+                        <strong id="file-count-stat">
+                            0
+                        </strong>
+
+                        <span>
+                            Files Merged
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FILES
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon files-main-icon"
+                    aria-hidden="true"
+                >
+                    ☷
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Uploaded Files
+                    </h2>
+
+
+                    <p>
+
+                        These PDF files are included in this
+                        assessment source.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="merged-file-list"
+                id="merged-file-list"
+            >
+
+
+                <div class="merged-empty-state">
+
+                    <div class="merged-empty-icon">
+                        PDF
+                    </div>
+
+                    <span>
+                        Loading selected resources...
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             READY STATUS
+             ================================================= -->
+
+        <section class="merge-ready-panel">
+
+
+            <div class="merge-ready-left">
+
+
+                <div
+                    class="merge-ready-icon"
+                    aria-hidden="true"
+                >
+                    ✓
+                </div>
+
+
+                <div>
+
+
+                    <strong id="merge-ready-title">
+                        Content ready
+                    </strong>
+
+
+                    <span id="merge-ready-message">
+
+                        Your merged resources are ready for
+                        assessment generation.
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="merge-ready-badge"
+                id="merge-ready-badge"
+            >
+                READY
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ERROR
+             ================================================= -->
+
+        <div
+            class="merge-error-panel"
+            id="merge-error-panel"
+            style="display: none;"
+        >
+
+            <strong>
+                Content unavailable
+            </strong>
+
+            <span id="merge-error-message">
+                Return to the setup page and upload your resources again.
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+             ================================================= -->
+
+        <div class="merge-navigation">
+
+
+            <a
+                href="/"
+                class="merge-back-btn"
+                id="merge-back-button"
+            >
+                ← Back to Setup
+            </a>
+
+
+            <button
+                type="button"
+                id="continue-assessment-btn"
+                class="continue-btn merge-continue-btn"
+            >
+
+                Choose Assessment Type
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // =====================================================
+        // THEME
+        // =====================================================
+
+        const lightButton =
+            document.getElementById(
+                "theme-light-btn"
+            );
+
+
+        const darkButton =
+            document.getElementById(
+                "theme-dark-btn"
+            );
+
+
+        function getTheme() {
+
+            return (
+                document.body.getAttribute(
+                    "data-theme"
+                ) === "light"
+            )
+                ? "light"
+                : "dark";
+
+        }
+
+
+        function updateThemeButtons() {
+
+            const lightActive =
+                getTheme() === "light";
+
+
+            lightButton.classList.toggle(
+                "active",
+                lightActive
+            );
+
+
+            darkButton.classList.toggle(
+                "active",
+                !lightActive
+            );
+
+
+            lightButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "true"
+                    : "false"
+            );
+
+
+            darkButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "false"
+                    : "true"
+            );
+
+        }
+
+
+        function setTheme(theme) {
+
+            document.body.setAttribute(
+                "data-theme",
+                theme
+            );
+
+
+            try {
+
+                localStorage.setItem(
+                    "edinnoTheme",
+                    theme
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Unable to save theme.",
+                    error
+                );
+
+            }
+
+
+            updateThemeButtons();
+
+        }
+
+
+        lightButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "light"
+                );
+
+            }
+        );
+
+
+        darkButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "dark"
+                );
+
+            }
+        );
+
+
+        updateThemeButtons();
+
+
+
+        // =====================================================
+        // ELEMENTS
+        // =====================================================
+
+        const mergeTitle =
+            document.getElementById(
+                "merge-title"
+            );
+
+
+        const mergeSubtitle =
+            document.getElementById(
+                "merge-subtitle"
+            );
+
+
+        const workflowName =
+            document.getElementById(
+                "workflow-name"
+            );
+
+
+        const contentNameLabel =
+            document.getElementById(
+                "content-name-label"
+            );
+
+
+        const contentName =
+            document.getElementById(
+                "content-name"
+            );
+
+
+        const gradeInfoCard =
+            document.getElementById(
+                "grade-info-card"
+            );
+
+
+        const gradeName =
+            document.getElementById(
+                "grade-name"
+            );
+
+
+        const topicCount =
+            document.getElementById(
+                "topic-count"
+            );
+
+
+        const activityCount =
+            document.getElementById(
+                "activity-count"
+            );
+
+
+        const projectCount =
+            document.getElementById(
+                "project-count"
+            );
+
+
+        const totalPDFCount =
+            document.getElementById(
+                "total-pdf-count"
+            );
+
+
+        const wordCount =
+            document.getElementById(
+                "word-count"
+            );
+
+
+        const characterCount =
+            document.getElementById(
+                "character-count"
+            );
+
+
+        const fileCountStat =
+            document.getElementById(
+                "file-count-stat"
+            );
+
+
+        const mergedFileList =
+            document.getElementById(
+                "merged-file-list"
+            );
+
+
+        const continueButton =
+            document.getElementById(
+                "continue-assessment-btn"
+            );
+
+
+        const backButton =
+            document.getElementById(
+                "merge-back-button"
+            );
+
+
+        const readyTitle =
+            document.getElementById(
+                "merge-ready-title"
+            );
+
+
+        const readyMessage =
+            document.getElementById(
+                "merge-ready-message"
+            );
+
+
+        const readyBadge =
+            document.getElementById(
+                "merge-ready-badge"
+            );
+
+
+        const errorPanel =
+            document.getElementById(
+                "merge-error-panel"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "merge-error-message"
+            );
+
+
+
+        // =====================================================
+        // HELPERS
+        // =====================================================
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function formatNumber(value) {
+
+            const number =
+                Number(value) || 0;
+
+
+            return number.toLocaleString(
+                "en-IN"
+            );
+
+        }
+
+
+        function calculateWords(text) {
+
+            const clean =
+                String(text || "")
+                    .trim();
+
+
+            if (!clean) {
+
+                return 0;
+
+            }
+
+
+            return clean
+                .split(/\s+/)
+                .filter(Boolean)
+                .length;
+
+        }
+
+
+        function workflowDisplayName(
+            workflow
+        ) {
+
+            if (
+                workflow ===
+                "chapter_completion"
+            ) {
+
+                return "Chapter Completion Quiz";
+
+            }
+
+
+            if (
+                workflow ===
+                "master_assessment"
+            ) {
+
+                return "Master Assessment";
+
+            }
+
+
+            if (
+                workflow ===
+                "pre_assembly"
+            ) {
+
+                return "Pre Assembly Quiz";
+
+            }
+
+
+            return "Assessment";
+
+        }
+
+
+
+        // =====================================================
+        // LOAD MERGED DATA
+        // =====================================================
+
+        const storedData =
+            sessionStorage.getItem(
+                "edinnoMergedData"
+            );
+
+
+        if (!storedData) {
+
+            continueButton.disabled =
+                true;
+
+
+            readyTitle.textContent =
+                "Content not found";
+
+
+            readyMessage.textContent =
+                "No merged assessment content is available.";
+
+
+            readyBadge.textContent =
+                "NOT READY";
+
+
+            readyBadge.classList.add(
+                "not-ready"
+            );
+
+
+            errorPanel.style.display =
+                "flex";
+
+
+            errorMessage.textContent =
+                (
+                    "Return to Setup and upload your PDFs again."
+                );
+
+
+            mergedFileList.innerHTML =
+                `
+                    <div class="merged-empty-state">
+
+                        <div class="merged-empty-icon">
+                            !
+                        </div>
+
+                        <span>
+                            No merged resources found.
+                        </span>
+
+                    </div>
+                `;
+
+
+            return;
+
+        }
+
+
+
+        let mergedData;
+
+
+        try {
+
+            mergedData =
+                JSON.parse(
+                    storedData
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read merged data.",
+                error
+            );
+
+
+            continueButton.disabled =
+                true;
+
+
+            errorPanel.style.display =
+                "flex";
+
+
+            errorMessage.textContent =
+                (
+                    "Stored resource information is invalid. "
+                    +
+                    "Please upload your PDFs again."
+                );
+
+
+            return;
+
+        }
+
+
+
+        // =====================================================
+        // WORKFLOW
+        // =====================================================
+
+        const workflow =
+            mergedData.workflow
+            ||
+            sessionStorage.getItem(
+                "edinnoAssessmentWorkflow"
+            )
+            ||
+            "chapter_completion";
+
+
+        const isMaster =
+            workflow ===
+            "master_assessment";
+
+
+        workflowName.textContent =
+            workflowDisplayName(
+                workflow
+            );
+
+
+        if (isMaster) {
+
+            mergeTitle.textContent =
+                "Master Assessment Content";
+
+
+            mergeSubtitle.textContent =
+                (
+                    "Review the complete grade-level resource library "
+                    +
+                    "before selecting the Master Assessment format."
+                );
+
+
+            contentNameLabel.textContent =
+                "Assessment";
+
+
+            contentName.textContent =
+                (
+                    mergedData.chapterName
+                    ||
+                    (
+                        mergedData.grade
+                            ? `Grade ${mergedData.grade} Master Assessment`
+                            : "Master Assessment"
+                    )
+                );
+
+
+            gradeInfoCard.style.display =
+                "flex";
+
+
+            gradeName.textContent =
+                mergedData.grade
+                    ? `Grade ${mergedData.grade}`
+                    : "—";
+
+
+            backButton.textContent =
+                "← Back to Master Setup";
+
+
+            readyTitle.textContent =
+                "Master resources ready";
+
+
+            readyMessage.textContent =
+                (
+                    "Your grade-level resource library is merged "
+                    +
+                    "and ready for assessment generation."
+                );
+
+        } else {
+
+            mergeTitle.textContent =
+                "Chapter Completion Content";
+
+
+            mergeSubtitle.textContent =
+                (
+                    "Review the merged chapter resources before "
+                    +
+                    "selecting your assessment format."
+                );
+
+
+            contentNameLabel.textContent =
+                "Chapter";
+
+
+            contentName.textContent =
+                mergedData.chapterName
+                ||
+                "Untitled Chapter";
+
+
+            backButton.textContent =
+                "← Back to Chapter Setup";
+
+
+            readyTitle.textContent =
+                "Chapter content ready";
+
+
+            readyMessage.textContent =
+                (
+                    "Your chapter resources are merged "
+                    +
+                    "and ready for assessment generation."
+                );
+
+        }
+
+
+
+        // =====================================================
+        // RESOURCE COUNTS
+        // =====================================================
+
+        const topics =
+            Number(
+                mergedData.topics
+                || 0
+            );
+
+
+        const activities =
+            Number(
+                mergedData.activities
+                || 0
+            );
+
+
+        const projects =
+            Number(
+                mergedData.projects
+                || 0
+            );
+
+
+        const files =
+            Array.isArray(
+                mergedData.files
+            )
+                ? mergedData.files
+                : [];
+
+
+        let totalFiles =
+            Number(
+                mergedData.total_files
+                ||
+                mergedData.totalResources
+                ||
+                files.length
+                ||
+                (
+                    topics
+                    +
+                    activities
+                    +
+                    projects
+                )
+                ||
+                0
+            );
+
+
+        topicCount.textContent =
+            formatNumber(
+                topics
+            );
+
+
+        activityCount.textContent =
+            formatNumber(
+                activities
+            );
+
+
+        projectCount.textContent =
+            formatNumber(
+                projects
+            );
+
+
+        totalPDFCount.textContent =
+            formatNumber(
+                totalFiles
+            );
+
+
+        fileCountStat.textContent =
+            formatNumber(
+                totalFiles
+            );
+
+
+
+        // =====================================================
+        // CONTENT STATS
+        // =====================================================
+
+        const combinedContent =
+            String(
+                mergedData.combined_content
+                ||
+                ""
+            );
+
+
+        const totalWords =
+            calculateWords(
+                combinedContent
+            );
+
+
+        const totalCharacters =
+            combinedContent.length;
+
+
+        wordCount.textContent =
+            formatNumber(
+                totalWords
+            );
+
+
+        characterCount.textContent =
+            formatNumber(
+                totalCharacters
+            );
+
+
+
+        // =====================================================
+        // FILE LIST
+        // =====================================================
+
+        if (files.length) {
+
+            mergedFileList.innerHTML =
+                files
+                    .map(
+                        function (
+                            filename,
+                            index
+                        ) {
+
+                            return `
+
+                                <div class="merged-file-card">
+
+                                    <div class="merged-file-left">
+
+                                        <div
+                                            class="merged-file-icon"
+                                            aria-hidden="true"
+                                        >
+                                            PDF
+                                        </div>
+
+                                        <div class="merged-file-info">
+
+                                            <strong>
+                                                ${escapeHTML(filename)}
+                                            </strong>
+
+                                            <span>
+                                                Resource ${index + 1}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="merged-file-check">
+                                        ✓
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        } else {
+
+            mergedFileList.innerHTML =
+                `
+
+                    <div class="merged-empty-state">
+
+                        <div class="merged-empty-icon">
+                            ✓
+                        </div>
+
+                        <span>
+                            ${formatNumber(totalFiles)}
+                            PDF resource${totalFiles === 1 ? "" : "s"}
+                            successfully merged.
+                        </span>
+
+                    </div>
+
+                `;
+
+        }
+
+
+
+        // =====================================================
+        // FINAL VALIDATION
+        // =====================================================
+
+        const validContent =
+            totalFiles > 0
+            &&
+            combinedContent.trim().length > 0;
+
+
+        if (!validContent) {
+
+            continueButton.disabled =
+                true;
+
+
+            readyBadge.textContent =
+                "NOT READY";
+
+
+            readyBadge.classList.add(
+                "not-ready"
+            );
+
+
+            readyTitle.textContent =
+                "Merged content unavailable";
+
+
+            readyMessage.textContent =
+                (
+                    "The uploaded files do not contain readable "
+                    +
+                    "merged text."
+                );
+
+
+            errorPanel.style.display =
+                "flex";
+
+
+            errorMessage.textContent =
+                (
+                    "Return to Setup and verify that the uploaded "
+                    +
+                    "PDFs contain selectable text."
+                );
+
+        } else {
+
+            continueButton.disabled =
+                false;
+
+
+            readyBadge.textContent =
+                "READY";
+
+
+            readyBadge.classList.remove(
+                "not-ready"
+            );
+
+
+            errorPanel.style.display =
+                "none";
+
+        }
+
+
+
+        // =====================================================
+        // CONTINUE
+        // =====================================================
+
+        continueButton.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    continueButton.disabled
+                ) {
+
+                    return;
+
+                }
+
+
+                sessionStorage.setItem(
+                    "edinnoAssessmentWorkflow",
+                    workflow
+                );
+
+
+                sessionStorage.removeItem(
+                    "edinnoGeneratedAssessment"
+                );
+
+
+                sessionStorage.removeItem(
+                    "edinnoAssessmentType"
+                );
+
+
+                window.location.replace(
+                    "/assessment-type"
+                );
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC CSS
+     ========================================================= -->
+
+<style>
+
+
+/* =========================================================
+   INFO GRID
+   ========================================================= */
+
+.merge-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 13px;
+
+}
+
+
+.merge-info-card {
+
+    min-height: 88px;
+
+    padding:
+        15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+}
+
+
+.merge-info-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 2px 0
+        rgba(255,255,255,0.23),
+
+        0 9px 20px
+        var(--shadow-soft);
+
+}
+
+
+.workflow-info-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.name-info-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.grade-info-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.merge-info-card span {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.merge-info-card strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 15px;
+
+    line-height: 1.35;
+
+}
+
+
+/* =========================================================
+   RESOURCE GRID
+   ========================================================= */
+
+.merge-resource-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    gap: 13px;
+
+}
+
+
+.merge-resource-card {
+
+    min-height: 102px;
+
+    padding:
+        17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+    box-shadow:
+        0 9px 24px
+        var(--shadow-soft);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.merge-resource-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 13px 29px
+        var(--shadow-medium);
+
+}
+
+
+.merge-resource-orb {
+
+    width: 51px;
+
+    height: 51px;
+
+    min-width: 51px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 2px 0
+        rgba(255,255,255,0.27),
+
+        0 10px 22px
+        var(--shadow-soft);
+
+    animation:
+        mergeOrbFloat
+        3.8s ease-in-out infinite;
+
+}
+
+
+.topic-orb {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.activity-orb {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.project-orb {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.total-orb {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--orange-light),
+            var(--orange-dark)
+        );
+
+}
+
+
+.merge-resource-card strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 25px;
+
+    line-height: 1;
+
+}
+
+
+.merge-resource-card span {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.merge-stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 13px;
+
+}
+
+
+.merge-stat-card {
+
+    min-height: 100px;
+
+    padding:
+        17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+}
+
+
+.merge-stat-icon {
+
+    width: 49px;
+
+    height: 49px;
+
+    min-width: 49px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+}
+
+
+.word-stat-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.char-stat-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.file-stat-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.merge-stat-card strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 22px;
+
+}
+
+
+.merge-stat-card span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   FILE LIST
+   ========================================================= */
+
+.merged-file-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 10px;
+
+}
+
+
+.merged-file-card {
+
+    min-width: 0;
+
+    padding:
+        13px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.merged-file-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(118,85,232,0.26);
+
+}
+
+
+.merged-file-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+}
+
+
+.merged-file-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red-light),
+            var(--red-dark)
+        );
+
+}
+
+
+.merged-file-info {
+
+    min-width: 0;
+
+}
+
+
+.merged-file-info strong {
+
+    display: block;
+
+    overflow: hidden;
+
+    color:
+        var(--text-main);
+
+    font-size: 12px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.merged-file-info span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.merged-file-check {
+
+    width: 28px;
+
+    height: 28px;
+
+    min-width: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color:
+        var(--green);
+
+    background:
+        rgba(46,203,149,0.08);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.merged-empty-state {
+
+    grid-column:
+        1 / -1;
+
+    min-height: 100px;
+
+    padding:
+        20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    border-radius: 16px;
+
+    border:
+        1px dashed
+        var(--border-medium);
+
+    color:
+        var(--text-muted);
+
+    background:
+        var(--surface-soft);
+
+    font-size: 13px;
+
+}
+
+
+.merged-empty-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color:
+        var(--text-main);
+
+    background:
+        var(--surface-main);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   READY PANEL
+   ========================================================= */
+
+.merge-ready-panel {
+
+    margin-top: 20px;
+
+    padding:
+        17px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    border-radius: 19px;
+
+    border:
+        1px solid
+        rgba(46,203,149,0.20);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(46,203,149,0.08),
+            transparent
+        ),
+
+        var(--surface-main);
+
+    box-shadow:
+        0 12px 30px
+        var(--shadow-soft);
+
+}
+
+
+.merge-ready-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.merge-ready-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 23px
+        rgba(46,203,149,0.20);
+
+}
+
+
+.merge-ready-left strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 14px;
+
+}
+
+
+.merge-ready-left span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+}
+
+
+.merge-ready-badge {
+
+    padding:
+        7px 11px;
+
+    border-radius: 999px;
+
+    color:
+        var(--green);
+
+    border:
+        1px solid
+        rgba(46,203,149,0.25);
+
+    background:
+        rgba(46,203,149,0.08);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+.merge-ready-badge.not-ready {
+
+    color:
+        var(--red);
+
+    border-color:
+        rgba(244,86,112,0.25);
+
+    background:
+        rgba(244,86,112,0.08);
+
+}
+
+
+/* =========================================================
+   ERROR PANEL
+   ========================================================= */
+
+.merge-error-panel {
+
+    margin-top: 12px;
+
+    padding:
+        14px 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        rgba(244,86,112,0.24);
+
+    background:
+        rgba(244,86,112,0.07);
+
+}
+
+
+.merge-error-panel strong {
+
+    color:
+        var(--red);
+
+    font-size: 13px;
+
+}
+
+
+.merge-error-panel span {
+
+    color:
+        var(--text-soft);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.merge-navigation {
+
+    padding-bottom: 20px;
+
+}
+
+
+.merge-continue-btn {
+
+    min-width: 220px;
+
+}
+
+
+/* =========================================================
+   ICON COLORS
+   ========================================================= */
+
+.merge-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.resource-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red-light),
+            var(--red-dark)
+        );
+
+    font-size: 10px;
+
+}
+
+
+.stats-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.files-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes mergeOrbFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+    .merge-resource-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+
+    .merge-info-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .merge-info-grid,
+    .merge-resource-grid,
+    .merge-stats-grid,
+    .merged-file-list {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .merge-ready-panel {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .merge-ready-badge {
+
+        margin-left:
+            60px;
+
+    }
+
+
+    .merge-continue-btn {
+
+        width:
+            100%;
+
+        min-width:
+            0;
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .merge-resource-orb {
+
+        animation:
+            none !important;
+
+    }
+
+}
+
+</style>
+
+
+</body>
+
+</html>

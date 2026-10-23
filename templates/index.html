@@ -1,0 +1,4936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light dark"
+    >
+
+    <title>
+        EDINNO AI Assessment Engine
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body data-theme="dark">
+
+
+<script>
+
+(function () {
+
+    try {
+
+        const savedTheme =
+            localStorage.getItem(
+                "edinnoTheme"
+            );
+
+        if (
+            savedTheme === "light"
+            ||
+            savedTheme === "dark"
+        ) {
+
+            document.body.setAttribute(
+                "data-theme",
+                savedTheme
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to restore theme.",
+            error
+        );
+
+    }
+
+})();
+
+</script>
+
+
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div>
+
+
+            <div class="brand">
+
+
+                <div
+                    class="brand-logo"
+                    aria-hidden="true"
+                >
+                    ⚡
+                </div>
+
+
+                <div class="brand-text">
+
+
+                    <h2>
+                        EDINNO
+                    </h2>
+
+
+                    <span>
+                        ASSESSMENT AI
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="sidebar-menu">
+
+
+                <p class="menu-label">
+                    WORKSPACE
+                </p>
+
+
+                <div class="menu-item active">
+                    ✦ &nbsp; Assessment Studio
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="sidebar-footer">
+
+            <span class="online-dot"></span>
+
+            Local AI Assessment Engine
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="top-header-layout">
+
+
+            <div class="page-header">
+
+
+                <div class="eyebrow">
+                    ✦ AI-POWERED ASSESSMENT ENGINE
+                </div>
+
+
+                <h1>
+
+                    Build smarter
+
+                    <span>
+                        assessments.
+                    </span>
+
+                </h1>
+
+
+                <p class="page-description">
+
+                    Upload educational ebooks and generate
+                    original assessments grounded in your
+                    learning content.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 THEME
+                 ============================================= -->
+
+            <div
+                class="theme-switcher"
+                role="group"
+                aria-label="Theme selection"
+            >
+
+
+                <button
+                    type="button"
+                    id="theme-light-btn"
+                    class="theme-option"
+                    aria-label="Switch to Light Mode"
+                    aria-pressed="false"
+                >
+
+                    <span class="theme-option-icon">
+                        ☀
+                    </span>
+
+                    <span>
+                        Light
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="theme-dark-btn"
+                    class="theme-option"
+                    aria-label="Switch to Night Mode"
+                    aria-pressed="true"
+                >
+
+                    <span class="theme-option-icon">
+                        ☾
+                    </span>
+
+                    <span>
+                        Night
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             WORKFLOW SELECTION
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="workflow-main-icon"
+                    aria-hidden="true"
+                >
+                    ✦
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Choose Assessment Workflow
+                    </h2>
+
+
+                    <p>
+                        Select how you want to build your assessment.
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="workflow-selection-grid">
+
+
+                <!-- =========================================
+                     PRE ASSEMBLY
+                     ========================================= -->
+
+                <label class="workflow-card workflow-pre">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentWorkflow"
+                        value="pre_assembly"
+                    >
+
+
+                    <div class="workflow-card-content">
+
+
+                        <div
+                            class="workflow-3d-icon red-icon"
+                            aria-hidden="true"
+                        >
+
+                            <span class="workflow-main-symbol">
+                                ⚙
+                            </span>
+
+                            <span class="workflow-orbit"></span>
+
+                        </div>
+
+
+                        <h3>
+                            Pre Assembly Quiz
+                        </h3>
+
+
+                        <p>
+
+                            Upload one Project ebook and
+                            generate 5 basic component-focused
+                            MCQs.
+
+                        </p>
+
+
+                        <span class="workflow-pill red-pill">
+                            PROJECT
+                        </span>
+
+
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     CHAPTER COMPLETION
+                     ========================================= -->
+
+                <label class="workflow-card workflow-chapter">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentWorkflow"
+                        value="chapter_completion"
+                    >
+
+
+                    <div class="workflow-card-content">
+
+
+                        <div
+                            class="workflow-3d-icon yellow-icon"
+                            aria-hidden="true"
+                        >
+
+                            <span class="workflow-main-symbol">
+                                ▤
+                            </span>
+
+                            <span class="workflow-orbit"></span>
+
+                        </div>
+
+
+                        <h3>
+                            Chapter Completion Quiz
+                        </h3>
+
+
+                        <p>
+
+                            Upload available Topics, Activities
+                            and Projects from one chapter.
+
+                        </p>
+
+
+                        <span class="workflow-pill yellow-pill">
+                            CHAPTER
+                        </span>
+
+
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MASTER ASSESSMENT
+                     ========================================= -->
+
+                <label class="workflow-card workflow-master">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentWorkflow"
+                        value="master_assessment"
+                    >
+
+
+                    <div class="workflow-card-content">
+
+
+                        <div
+                            class="workflow-3d-icon green-icon"
+                            aria-hidden="true"
+                        >
+
+                            <span class="workflow-main-symbol">
+                                ★
+                            </span>
+
+                            <span class="workflow-orbit"></span>
+
+                        </div>
+
+
+                        <h3>
+                            Master Assessment
+                        </h3>
+
+
+                        <p>
+
+                            Build a final grade-level
+                            assessment from a large resource
+                            library.
+
+                        </p>
+
+
+                        <span class="workflow-pill green-pill">
+                            MASTER
+                        </span>
+
+
+                    </div>
+
+
+                </label>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PRE ASSEMBLY
+             ================================================= -->
+
+        <section
+            class="chapter-card workflow-detail-card"
+            id="pre-assembly-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon icon-red"
+                    aria-hidden="true"
+                >
+                    ⚙
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Pre Assembly Quiz
+                    </h2>
+
+
+                    <p>
+
+                        Upload one Project ebook to generate
+                        five original component-focused MCQs.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="form-group">
+
+
+                <label for="preAssemblyChapterName">
+                    Project Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="preAssemblyChapterName"
+                    placeholder="Project name will be detected automatically"
+                >
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PRE UPLOAD CARD
+                 ============================================= -->
+
+            <div
+                class="modern-upload-card pre-upload-card"
+                id="pre-assembly-upload-card"
+            >
+
+
+                <div
+                    class="modern-upload-icon red-upload-icon"
+                    aria-hidden="true"
+                >
+                    PDF
+                </div>
+
+
+                <div class="modern-upload-info">
+
+
+                    <strong>
+                        Project Ebook PDF
+                    </strong>
+
+
+                    <span id="pre-assembly-file-name">
+                        No PDF selected
+                    </span>
+
+
+                </div>
+
+
+                <label class="compact-select-btn">
+
+                    Select PDF
+
+                    <input
+                        type="file"
+                        id="pre-assembly-pdf"
+                        accept=".pdf,application/pdf"
+                        hidden
+                    >
+
+                </label>
+
+
+            </div>
+
+
+
+            <div
+                class="upload-summary-panel compact-summary-panel"
+                id="pre-assembly-summary"
+            >
+
+                Select one Project ebook.
+
+            </div>
+
+
+
+            <div class="workflow-action-bar">
+
+
+                <button
+                    type="button"
+                    class="workflow-back-btn"
+                    data-back-workflows
+                >
+
+                    <span>
+                        ←
+                    </span>
+
+                    Back to Workflows
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="pre-assembly-generate-btn"
+                    class="continue-btn workflow-primary-btn"
+                    disabled
+                >
+
+                    Generate Pre Assembly Quiz
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CHAPTER COMPLETION
+             ================================================= -->
+
+        <section
+            class="chapter-card workflow-detail-card"
+            id="chapter-completion-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon icon-yellow"
+                    aria-hidden="true"
+                >
+                    ▤
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Chapter Completion Quiz
+                    </h2>
+
+
+                    <p>
+
+                        Upload the resources actually available
+                        in this chapter.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CHAPTER NAME
+                 ============================================= -->
+
+            <div class="form-group">
+
+
+                <label for="chapterName">
+                    Chapter Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="chapterName"
+                    placeholder="Example: Smart Systems and Automation"
+                    autocomplete="off"
+                >
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 LIMIT SUMMARY
+                 ============================================= -->
+
+            <div class="chapter-resource-rule">
+
+
+                <div class="rule-item">
+
+
+                    <div class="rule-icon topic-rule-icon">
+                        T
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Topics
+                        </strong>
+
+                        <span>
+                            Upload up to 5 PDFs
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="rule-item">
+
+
+                    <div class="rule-icon activity-rule-icon">
+                        A
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Activities
+                        </strong>
+
+                        <span>
+                            Upload up to 4 PDFs
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="rule-item">
+
+
+                    <div class="rule-icon project-rule-icon">
+                        P
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Projects
+                        </strong>
+
+                        <span>
+                            Upload up to 10 PDFs
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 TOPICS
+                 ============================================= -->
+
+            <div
+                class="modern-resource-card"
+                id="chapter-topic-upload-card"
+            >
+
+
+                <div
+                    class="modern-upload-icon topic-upload-icon"
+                    aria-hidden="true"
+                >
+                    T
+                </div>
+
+
+                <div class="modern-upload-info">
+
+
+                    <strong>
+                        Topic PDFs
+                    </strong>
+
+
+                    <span>
+                        Upload available Topic ebooks. Maximum 5.
+                    </span>
+
+
+                    <small
+                        class="modern-upload-status"
+                        id="chapter-topic-status"
+                    >
+                        No Topic PDFs selected
+                    </small>
+
+
+                </div>
+
+
+                <label class="compact-select-btn">
+
+                    Select Topics
+
+                    <input
+                        type="file"
+                        id="chapter-topic-files"
+                        accept=".pdf,application/pdf"
+                        multiple
+                        hidden
+                    >
+
+                </label>
+
+
+                <div
+                    class="chapter-selected-files modern-file-list"
+                    id="chapter-topic-list"
+                ></div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 ACTIVITIES
+                 ============================================= -->
+
+            <div
+                class="modern-resource-card"
+                id="chapter-activity-upload-card"
+            >
+
+
+                <div
+                    class="modern-upload-icon activity-upload-icon"
+                    aria-hidden="true"
+                >
+                    A
+                </div>
+
+
+                <div class="modern-upload-info">
+
+
+                    <strong>
+                        Activity PDFs
+                    </strong>
+
+
+                    <span>
+                        Upload available Activity ebooks. Maximum 4.
+                    </span>
+
+
+                    <small
+                        class="modern-upload-status"
+                        id="chapter-activity-status"
+                    >
+                        No Activity PDFs selected
+                    </small>
+
+
+                </div>
+
+
+                <label class="compact-select-btn">
+
+                    Select Activities
+
+                    <input
+                        type="file"
+                        id="chapter-activity-files"
+                        accept=".pdf,application/pdf"
+                        multiple
+                        hidden
+                    >
+
+                </label>
+
+
+                <div
+                    class="chapter-selected-files modern-file-list"
+                    id="chapter-activity-list"
+                ></div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PROJECTS
+                 ============================================= -->
+
+            <div
+                class="modern-resource-card"
+                id="chapter-project-upload-card"
+            >
+
+
+                <div
+                    class="modern-upload-icon project-upload-icon"
+                    aria-hidden="true"
+                >
+                    P
+                </div>
+
+
+                <div class="modern-upload-info">
+
+
+                    <strong>
+                        Project PDFs
+                    </strong>
+
+
+                    <span>
+                        Upload available Project ebooks. Maximum 10.
+                    </span>
+
+
+                    <small
+                        class="modern-upload-status"
+                        id="chapter-project-status"
+                    >
+                        No Project PDFs selected
+                    </small>
+
+
+                </div>
+
+
+                <label class="compact-select-btn">
+
+                    Select Projects
+
+                    <input
+                        type="file"
+                        id="chapter-project-files"
+                        accept=".pdf,application/pdf"
+                        multiple
+                        hidden
+                    >
+
+                </label>
+
+
+                <div
+                    class="chapter-selected-files modern-file-list"
+                    id="chapter-project-list"
+                ></div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CHAPTER SUMMARY
+                 ============================================= -->
+
+            <div
+                class="chapter-auto-summary"
+                id="chapter-upload-summary"
+            >
+
+
+                <div class="chapter-summary-left">
+
+
+                    <div class="chapter-summary-orb">
+                        ✓
+                    </div>
+
+
+                    <div>
+
+
+                        <strong>
+                            Resource Summary
+                        </strong>
+
+
+                        <span id="chapter-resource-count-text">
+                            No PDFs selected
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    class="chapter-validation-badge"
+                    id="chapter-validation-badge"
+                >
+                    INCOMPLETE
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="chapter-validation-message"
+                id="chapter-validation-message"
+            >
+
+                Enter Chapter Name and upload at least one PDF.
+
+            </div>
+
+
+
+            <div class="workflow-action-bar">
+
+
+                <button
+                    type="button"
+                    class="workflow-back-btn"
+                    data-back-workflows
+                >
+
+                    <span>
+                        ←
+                    </span>
+
+                    Back to Workflows
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="chapter-continue-btn"
+                    class="continue-btn workflow-primary-btn"
+                    disabled
+                >
+
+                    Continue to Content Merge
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             MASTER ASSESSMENT
+             ================================================= -->
+
+        <section
+            class="chapter-card workflow-detail-card"
+            id="master-assessment-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon icon-green"
+                    aria-hidden="true"
+                >
+                    ★
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Master Assessment
+                    </h2>
+
+
+                    <p>
+
+                        Select a Grade and upload its complete
+                        resource library.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 GRADE GRID
+                 ============================================= -->
+
+            <div class="master-grade-grid">
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="6"
+                >
+                    <span class="grade-3d-orb">6</span>
+                    Grade 6
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="7"
+                >
+                    <span class="grade-3d-orb">7</span>
+                    Grade 7
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="8"
+                >
+                    <span class="grade-3d-orb">8</span>
+                    Grade 8
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="9"
+                >
+                    <span class="grade-3d-orb">9</span>
+                    Grade 9
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="10"
+                >
+                    <span class="grade-3d-orb">10</span>
+                    Grade 10
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="11"
+                >
+                    <span class="grade-3d-orb">11</span>
+                    Grade 11
+                </button>
+
+
+                <button
+                    type="button"
+                    class="master-grade-card"
+                    data-grade="12"
+                >
+                    <span class="grade-3d-orb">12</span>
+                    Grade 12
+                </button>
+
+
+            </div>
+
+
+
+            <div
+                class="upload-summary-panel compact-summary-panel"
+                id="master-grade-status"
+            >
+
+                Select Grade 6–12.
+
+            </div>
+
+
+
+            <!-- =============================================
+                 MASTER RESOURCE UPLOAD
+                 ============================================= -->
+
+            <div
+                id="master-resource-upload-section"
+                style="display: none;"
+            >
+
+
+                <h3
+                    class="master-resource-heading"
+                    id="master-resource-title"
+                >
+                    Grade Resources
+                </h3>
+
+
+
+                <!-- TOPICS -->
+
+                <div class="modern-resource-card">
+
+
+                    <div
+                        class="modern-upload-icon topic-upload-icon"
+                        aria-hidden="true"
+                    >
+                        T
+                    </div>
+
+
+                    <div class="modern-upload-info">
+
+
+                        <strong>
+                            Topic PDFs
+                        </strong>
+
+
+                        <span>
+                            Upload available Topic resources.
+                        </span>
+
+
+                        <small
+                            class="modern-upload-status"
+                            id="master-topic-status"
+                        >
+                            No Topic PDFs selected
+                        </small>
+
+
+                    </div>
+
+
+                    <label class="compact-select-btn">
+
+                        Select Topics
+
+                        <input
+                            type="file"
+                            id="master-topic-files"
+                            accept=".pdf,application/pdf"
+                            multiple
+                            hidden
+                        >
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- ACTIVITIES -->
+
+                <div class="modern-resource-card">
+
+
+                    <div
+                        class="modern-upload-icon activity-upload-icon"
+                        aria-hidden="true"
+                    >
+                        A
+                    </div>
+
+
+                    <div class="modern-upload-info">
+
+
+                        <strong>
+                            Activity PDFs
+                        </strong>
+
+
+                        <span>
+                            Upload available Activity resources.
+                        </span>
+
+
+                        <small
+                            class="modern-upload-status"
+                            id="master-activity-status"
+                        >
+                            No Activity PDFs selected
+                        </small>
+
+
+                    </div>
+
+
+                    <label class="compact-select-btn">
+
+                        Select Activities
+
+                        <input
+                            type="file"
+                            id="master-activity-files"
+                            accept=".pdf,application/pdf"
+                            multiple
+                            hidden
+                        >
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- PROJECTS -->
+
+                <div class="modern-resource-card">
+
+
+                    <div
+                        class="modern-upload-icon project-upload-icon"
+                        aria-hidden="true"
+                    >
+                        P
+                    </div>
+
+
+                    <div class="modern-upload-info">
+
+
+                        <strong>
+                            Project PDFs
+                        </strong>
+
+
+                        <span>
+                            Upload available Project resources.
+                        </span>
+
+
+                        <small
+                            class="modern-upload-status"
+                            id="master-project-status"
+                        >
+                            No Project PDFs selected
+                        </small>
+
+
+                    </div>
+
+
+                    <label class="compact-select-btn">
+
+                        Select Projects
+
+                        <input
+                            type="file"
+                            id="master-project-files"
+                            accept=".pdf,application/pdf"
+                            multiple
+                            hidden
+                        >
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- MASTER SUMMARY -->
+
+                <div
+                    class="chapter-auto-summary"
+                    id="master-footer"
+                >
+
+
+                    <div class="chapter-summary-left">
+
+
+                        <div class="chapter-summary-orb">
+                            ★
+                        </div>
+
+
+                        <div>
+
+
+                            <strong>
+                                Master Resource Summary
+                            </strong>
+
+
+                            <span id="master-resource-count-text">
+
+                                0 Topics • 0 Activities •
+                                0 Projects • 0 PDFs
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    class="upload-summary-panel compact-summary-panel"
+                    id="master-upload-summary"
+                >
+
+                    Upload at least one PDF overall.
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="workflow-action-bar">
+
+
+                <button
+                    type="button"
+                    class="workflow-back-btn"
+                    data-back-workflows
+                >
+
+                    <span>
+                        ←
+                    </span>
+
+                    Back to Workflows
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="master-continue-btn"
+                    class="continue-btn workflow-primary-btn"
+                    disabled
+                >
+
+                    Continue to Content Merge
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // =====================================================
+        // THEME
+        // =====================================================
+
+        const lightButton =
+            document.getElementById(
+                "theme-light-btn"
+            );
+
+        const darkButton =
+            document.getElementById(
+                "theme-dark-btn"
+            );
+
+
+        function getTheme() {
+
+            return (
+                document.body.getAttribute(
+                    "data-theme"
+                ) === "light"
+            )
+                ? "light"
+                : "dark";
+
+        }
+
+
+        function updateThemeButtons() {
+
+            const lightActive =
+                getTheme() === "light";
+
+
+            lightButton.classList.toggle(
+                "active",
+                lightActive
+            );
+
+
+            darkButton.classList.toggle(
+                "active",
+                !lightActive
+            );
+
+
+            lightButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "true"
+                    : "false"
+            );
+
+
+            darkButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "false"
+                    : "true"
+            );
+
+        }
+
+
+        function setTheme(theme) {
+
+            document.body.setAttribute(
+                "data-theme",
+                theme
+            );
+
+
+            try {
+
+                localStorage.setItem(
+                    "edinnoTheme",
+                    theme
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Unable to save theme.",
+                    error
+                );
+
+            }
+
+
+            updateThemeButtons();
+
+        }
+
+
+        lightButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "light"
+                );
+
+            }
+        );
+
+
+        darkButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "dark"
+                );
+
+            }
+        );
+
+
+        updateThemeButtons();
+
+
+
+        // =====================================================
+        // WORKFLOW
+        // =====================================================
+
+        const workflowInputs =
+            document.querySelectorAll(
+                'input[name="assessmentWorkflow"]'
+            );
+
+
+        const preSection =
+            document.getElementById(
+                "pre-assembly-section"
+            );
+
+
+        const chapterSection =
+            document.getElementById(
+                "chapter-completion-section"
+            );
+
+
+        const masterSection =
+            document.getElementById(
+                "master-assessment-section"
+            );
+
+
+        function showWorkflow(value) {
+
+            preSection.style.display =
+                value === "pre_assembly"
+                    ? "block"
+                    : "none";
+
+
+            chapterSection.style.display =
+                value === "chapter_completion"
+                    ? "block"
+                    : "none";
+
+
+            masterSection.style.display =
+                value === "master_assessment"
+                    ? "block"
+                    : "none";
+
+
+            if (value) {
+
+                setTimeout(
+                    function () {
+
+                        const target =
+                            value === "pre_assembly"
+                                ? preSection
+                                : (
+                                    value === "chapter_completion"
+                                        ? chapterSection
+                                        : masterSection
+                                );
+
+
+                        target.scrollIntoView({
+                            behavior:
+                                "smooth",
+
+                            block:
+                                "start"
+                        });
+
+                    },
+                    100
+                );
+
+            }
+
+        }
+
+
+        workflowInputs.forEach(
+            function (input) {
+
+                input.addEventListener(
+                    "change",
+                    function () {
+
+                        if (!this.checked) {
+                            return;
+                        }
+
+
+                        sessionStorage.setItem(
+                            "edinnoAssessmentWorkflow",
+                            this.value
+                        );
+
+
+                        showWorkflow(
+                            this.value
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        // =====================================================
+        // BACK TO WORKFLOWS
+        // =====================================================
+
+        const workflowBackButtons =
+            document.querySelectorAll(
+                "[data-back-workflows]"
+            );
+
+
+        workflowBackButtons.forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        preSection.style.display =
+                            "none";
+
+
+                        chapterSection.style.display =
+                            "none";
+
+
+                        masterSection.style.display =
+                            "none";
+
+
+                        workflowInputs.forEach(
+                            function (input) {
+
+                                input.checked =
+                                    false;
+
+                            }
+                        );
+
+
+                        sessionStorage.removeItem(
+                            "edinnoAssessmentWorkflow"
+                        );
+
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        // =====================================================
+        // SHARED HELPERS
+        // =====================================================
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function getPDFFiles(
+            fileList
+        ) {
+
+            return Array.from(
+                fileList || []
+            ).filter(
+                function (file) {
+
+                    return file.name
+                        .toLowerCase()
+                        .endsWith(".pdf");
+
+                }
+            );
+
+        }
+
+
+        function renderFileList(
+            element,
+            files
+        ) {
+
+            if (!files.length) {
+
+                element.innerHTML =
+                    "";
+
+                return;
+
+            }
+
+
+            element.innerHTML =
+                files
+                    .map(
+                        function (
+                            file,
+                            index
+                        ) {
+
+                            return `
+
+                                <div
+                                    class="chapter-file-chip"
+                                    title="${escapeHTML(file.name)}"
+                                >
+
+                                    <span class="chapter-file-chip-icon">
+                                        PDF
+                                    </span>
+
+                                    <span class="chapter-file-chip-name">
+                                        ${index + 1}. ${escapeHTML(file.name)}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+        function filenameToTitle(filename) {
+
+            return String(
+                filename || ""
+            )
+                .replace(
+                    /\.pdf$/i,
+                    ""
+                )
+                .replace(
+                    /[_-]+/g,
+                    " "
+                )
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+                .trim();
+
+        }
+
+
+
+        // =====================================================
+        // PRE ASSEMBLY
+        // =====================================================
+
+        const prePDFInput =
+            document.getElementById(
+                "pre-assembly-pdf"
+            );
+
+
+        const preFileName =
+            document.getElementById(
+                "pre-assembly-file-name"
+            );
+
+
+        const preProjectName =
+            document.getElementById(
+                "preAssemblyChapterName"
+            );
+
+
+        const preSummary =
+            document.getElementById(
+                "pre-assembly-summary"
+            );
+
+
+        const preGenerateButton =
+            document.getElementById(
+                "pre-assembly-generate-btn"
+            );
+
+
+        let selectedPrePDF =
+            null;
+
+
+        prePDFInput.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    this.files
+                    &&
+                    this.files[0];
+
+
+                if (!file) {
+
+                    selectedPrePDF =
+                        null;
+
+
+                    preFileName.textContent =
+                        "No PDF selected";
+
+
+                    preSummary.textContent =
+                        "Select one Project ebook.";
+
+
+                    preGenerateButton.disabled =
+                        true;
+
+
+                    return;
+
+                }
+
+
+                if (
+                    !file.name
+                        .toLowerCase()
+                        .endsWith(".pdf")
+                ) {
+
+                    alert(
+                        "Please select a PDF file."
+                    );
+
+
+                    this.value =
+                        "";
+
+
+                    selectedPrePDF =
+                        null;
+
+
+                    return;
+
+                }
+
+
+                selectedPrePDF =
+                    file;
+
+
+                preFileName.textContent =
+                    file.name;
+
+
+                preProjectName.value =
+                    filenameToTitle(
+                        file.name
+                    );
+
+
+                preSummary.textContent =
+                    "Project PDF selected. Detecting project name...";
+
+
+                preGenerateButton.disabled =
+                    false;
+
+
+                try {
+
+                    const formData =
+                        new FormData();
+
+
+                    formData.append(
+                        "ebook_pdf",
+                        file
+                    );
+
+
+                    const response =
+                        await fetch(
+                            "/detect-project-name",
+                            {
+
+                                method:
+                                    "POST",
+
+                                body:
+                                    formData,
+
+                                cache:
+                                    "no-store"
+
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        response.ok
+                        &&
+                        result.project_name
+                    ) {
+
+                        preProjectName.value =
+                            result.project_name;
+
+                    }
+
+
+                    preSummary.textContent =
+                        "Project ebook ready.";
+
+
+                } catch (error) {
+
+                    console.warn(
+                        "Project name detection failed.",
+                        error
+                    );
+
+
+                    preSummary.textContent =
+                        "Project ebook ready.";
+
+                }
+
+            }
+        );
+
+
+        preGenerateButton.addEventListener(
+            "click",
+            async function () {
+
+                if (!selectedPrePDF) {
+
+                    alert(
+                        "Please select a Project ebook PDF."
+                    );
+
+                    return;
+
+                }
+
+
+                const originalHTML =
+                    preGenerateButton.innerHTML;
+
+
+                preGenerateButton.disabled =
+                    true;
+
+
+                preGenerateButton.textContent =
+                    "Generating Quiz...";
+
+
+                try {
+
+                    const formData =
+                        new FormData();
+
+
+                    formData.append(
+                        "ebook_pdf",
+                        selectedPrePDF
+                    );
+
+
+                    formData.append(
+                        "project_name",
+                        preProjectName.value.trim()
+                    );
+
+
+                    const response =
+                        await fetch(
+                            "/generate-pre-assembly",
+                            {
+
+                                method:
+                                    "POST",
+
+                                body:
+                                    formData,
+
+                                cache:
+                                    "no-store"
+
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok
+                        ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message
+                            ||
+                            "Unable to generate Pre Assembly Quiz."
+                        );
+
+                    }
+
+
+                    sessionStorage.setItem(
+                        "edinnoGeneratedAssessment",
+                        JSON.stringify(
+                            result.assessment
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentType",
+                        "pre_assembly"
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentWorkflow",
+                        "pre_assembly"
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoMergedData",
+                        JSON.stringify(
+                            {
+
+                                workflow:
+                                    "pre_assembly",
+
+                                chapterName:
+                                    preProjectName.value.trim()
+                                    ||
+                                    filenameToTitle(
+                                        selectedPrePDF.name
+                                    ),
+
+                                topics:
+                                    0,
+
+                                activities:
+                                    0,
+
+                                projects:
+                                    1,
+
+                                total_files:
+                                    1,
+
+                                files: [
+                                    selectedPrePDF.name
+                                ]
+
+                            }
+                        )
+                    );
+
+
+                    window.location.replace(
+                        "/results"
+                    );
+
+
+                } catch (error) {
+
+                    alert(
+                        "Error: "
+                        +
+                        (
+                            error.message
+                            ||
+                            "Unable to generate quiz."
+                        )
+                    );
+
+
+                    preGenerateButton.disabled =
+                        false;
+
+
+                    preGenerateButton.innerHTML =
+                        originalHTML;
+
+                }
+
+            }
+        );
+
+
+
+        // =====================================================
+        // CHAPTER COMPLETION
+        // =====================================================
+
+        const chapterNameInput =
+            document.getElementById(
+                "chapterName"
+            );
+
+
+        const chapterTopicInput =
+            document.getElementById(
+                "chapter-topic-files"
+            );
+
+
+        const chapterActivityInput =
+            document.getElementById(
+                "chapter-activity-files"
+            );
+
+
+        const chapterProjectInput =
+            document.getElementById(
+                "chapter-project-files"
+            );
+
+
+        const chapterTopicStatus =
+            document.getElementById(
+                "chapter-topic-status"
+            );
+
+
+        const chapterActivityStatus =
+            document.getElementById(
+                "chapter-activity-status"
+            );
+
+
+        const chapterProjectStatus =
+            document.getElementById(
+                "chapter-project-status"
+            );
+
+
+        const chapterTopicList =
+            document.getElementById(
+                "chapter-topic-list"
+            );
+
+
+        const chapterActivityList =
+            document.getElementById(
+                "chapter-activity-list"
+            );
+
+
+        const chapterProjectList =
+            document.getElementById(
+                "chapter-project-list"
+            );
+
+
+        const chapterResourceText =
+            document.getElementById(
+                "chapter-resource-count-text"
+            );
+
+
+        const chapterValidationBadge =
+            document.getElementById(
+                "chapter-validation-badge"
+            );
+
+
+        const chapterValidationMessage =
+            document.getElementById(
+                "chapter-validation-message"
+            );
+
+
+        const chapterContinueButton =
+            document.getElementById(
+                "chapter-continue-btn"
+            );
+
+
+        let chapterTopicFiles =
+            [];
+
+
+        let chapterActivityFiles =
+            [];
+
+
+        let chapterProjectFiles =
+            [];
+
+
+        function readableCount(
+            count,
+            singular,
+            plural
+        ) {
+
+            if (count === 0) {
+
+                return `No ${plural} selected`;
+
+            }
+
+
+            if (count === 1) {
+
+                return `1 ${singular} selected`;
+
+            }
+
+
+            return `${count} ${plural} selected`;
+
+        }
+
+
+        function validateChapterResources() {
+
+            const topicCount =
+                chapterTopicFiles.length;
+
+
+            const activityCount =
+                chapterActivityFiles.length;
+
+
+            const projectCount =
+                chapterProjectFiles.length;
+
+
+            const total =
+                topicCount
+                +
+                activityCount
+                +
+                projectCount;
+
+
+            chapterTopicStatus.textContent =
+                readableCount(
+                    topicCount,
+                    "Topic PDF",
+                    "Topic PDFs"
+                );
+
+
+            chapterActivityStatus.textContent =
+                readableCount(
+                    activityCount,
+                    "Activity PDF",
+                    "Activity PDFs"
+                );
+
+
+            chapterProjectStatus.textContent =
+                readableCount(
+                    projectCount,
+                    "Project PDF",
+                    "Project PDFs"
+                );
+
+
+            if (total === 0) {
+
+                chapterResourceText.textContent =
+                    "No PDFs selected";
+
+            } else {
+
+                chapterResourceText.textContent =
+                    (
+                        `${topicCount} Topics • `
+                        +
+                        `${activityCount} Activities • `
+                        +
+                        `${projectCount} Projects • `
+                        +
+                        `${total} PDFs`
+                    );
+
+            }
+
+
+            let valid =
+                true;
+
+
+            let message =
+                "";
+
+
+            if (
+                !chapterNameInput.value.trim()
+            ) {
+
+                valid =
+                    false;
+
+
+                message =
+                    "Enter the Chapter Name.";
+
+            } else if (
+                topicCount > 5
+            ) {
+
+                valid =
+                    false;
+
+
+                message =
+                    "Maximum 5 Topic PDFs are allowed.";
+
+            } else if (
+                activityCount > 4
+            ) {
+
+                valid =
+                    false;
+
+
+                message =
+                    "Maximum 4 Activity PDFs are allowed.";
+
+            } else if (
+                projectCount > 10
+            ) {
+
+                valid =
+                    false;
+
+
+                message =
+                    "Maximum 10 Project PDFs are allowed.";
+
+            } else if (
+                total < 1
+            ) {
+
+                valid =
+                    false;
+
+
+                message =
+                    "Upload at least one PDF from any resource category.";
+
+            }
+
+
+            chapterContinueButton.disabled =
+                !valid;
+
+
+            chapterValidationBadge.textContent =
+                valid
+                    ? "READY"
+                    : "INCOMPLETE";
+
+
+            chapterValidationBadge.classList.toggle(
+                "ready",
+                valid
+            );
+
+
+            chapterValidationMessage.textContent =
+                valid
+                    ? (
+                        `${total} PDF${total === 1 ? "" : "s"} ready for merge.`
+                    )
+                    : message;
+
+        }
+
+
+        chapterNameInput.addEventListener(
+            "input",
+            validateChapterResources
+        );
+
+
+        chapterTopicInput.addEventListener(
+            "change",
+            function () {
+
+                const files =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                if (
+                    files.length > 5
+                ) {
+
+                    alert(
+                        "Maximum 5 Topic PDFs are allowed."
+                    );
+
+
+                    this.value =
+                        "";
+
+
+                    chapterTopicFiles =
+                        [];
+
+                } else {
+
+                    chapterTopicFiles =
+                        files;
+
+                }
+
+
+                renderFileList(
+                    chapterTopicList,
+                    chapterTopicFiles
+                );
+
+
+                validateChapterResources();
+
+            }
+        );
+
+
+        chapterActivityInput.addEventListener(
+            "change",
+            function () {
+
+                const files =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                if (
+                    files.length > 4
+                ) {
+
+                    alert(
+                        "Maximum 4 Activity PDFs are allowed."
+                    );
+
+
+                    this.value =
+                        "";
+
+
+                    chapterActivityFiles =
+                        [];
+
+                } else {
+
+                    chapterActivityFiles =
+                        files;
+
+                }
+
+
+                renderFileList(
+                    chapterActivityList,
+                    chapterActivityFiles
+                );
+
+
+                validateChapterResources();
+
+            }
+        );
+
+
+        chapterProjectInput.addEventListener(
+            "change",
+            function () {
+
+                const files =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                if (
+                    files.length > 10
+                ) {
+
+                    alert(
+                        "Maximum 10 Project PDFs are allowed."
+                    );
+
+
+                    this.value =
+                        "";
+
+
+                    chapterProjectFiles =
+                        [];
+
+                } else {
+
+                    chapterProjectFiles =
+                        files;
+
+                }
+
+
+                renderFileList(
+                    chapterProjectList,
+                    chapterProjectFiles
+                );
+
+
+                validateChapterResources();
+
+            }
+        );
+
+
+        chapterContinueButton.addEventListener(
+            "click",
+            async function () {
+
+                validateChapterResources();
+
+
+                if (
+                    chapterContinueButton.disabled
+                ) {
+
+                    return;
+
+                }
+
+
+                const allFiles = [
+                    ...chapterTopicFiles,
+                    ...chapterActivityFiles,
+                    ...chapterProjectFiles
+                ];
+
+
+                const originalHTML =
+                    chapterContinueButton.innerHTML;
+
+
+                chapterContinueButton.disabled =
+                    true;
+
+
+                chapterContinueButton.textContent =
+                    "Reading & Merging PDFs...";
+
+
+                try {
+
+                    const formData =
+                        new FormData();
+
+
+                    allFiles.forEach(
+                        function (file) {
+
+                            formData.append(
+                                "pdfs",
+                                file
+                            );
+
+                        }
+                    );
+
+
+                    const response =
+                        await fetch(
+                            "/upload-pdfs",
+                            {
+
+                                method:
+                                    "POST",
+
+                                body:
+                                    formData,
+
+                                cache:
+                                    "no-store"
+
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok
+                        ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message
+                            ||
+                            "Unable to merge PDFs."
+                        );
+
+                    }
+
+
+                    const mergedData = {
+
+                        workflow:
+                            "chapter_completion",
+
+                        chapterName:
+                            chapterNameInput.value.trim(),
+
+                        topics:
+                            chapterTopicFiles.length,
+
+                        activities:
+                            chapterActivityFiles.length,
+
+                        projects:
+                            chapterProjectFiles.length,
+
+                        totalResources:
+                            allFiles.length,
+
+                        total_files:
+                            result.total_files,
+
+                        files:
+                            result.files,
+
+                        combined_content:
+                            result.combined_content
+
+                    };
+
+
+                    sessionStorage.setItem(
+                        "edinnoMergedData",
+                        JSON.stringify(
+                            mergedData
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentWorkflow",
+                        "chapter_completion"
+                    );
+
+
+                    sessionStorage.removeItem(
+                        "edinnoGeneratedAssessment"
+                    );
+
+
+                    sessionStorage.removeItem(
+                        "edinnoAssessmentType"
+                    );
+
+
+                    window.location.replace(
+                        "/merge"
+                    );
+
+
+                } catch (error) {
+
+                    alert(
+                        "Error: "
+                        +
+                        (
+                            error.message
+                            ||
+                            "Unable to upload PDFs."
+                        )
+                    );
+
+
+                    chapterContinueButton.disabled =
+                        false;
+
+
+                    chapterContinueButton.innerHTML =
+                        originalHTML;
+
+                }
+
+            }
+        );
+
+
+        validateChapterResources();
+
+
+
+        // =====================================================
+        // MASTER
+        // =====================================================
+
+        const masterGradeCards =
+            document.querySelectorAll(
+                ".master-grade-card"
+            );
+
+
+        const masterGradeStatus =
+            document.getElementById(
+                "master-grade-status"
+            );
+
+
+        const masterResourceSection =
+            document.getElementById(
+                "master-resource-upload-section"
+            );
+
+
+        const masterResourceTitle =
+            document.getElementById(
+                "master-resource-title"
+            );
+
+
+        const masterTopicInput =
+            document.getElementById(
+                "master-topic-files"
+            );
+
+
+        const masterActivityInput =
+            document.getElementById(
+                "master-activity-files"
+            );
+
+
+        const masterProjectInput =
+            document.getElementById(
+                "master-project-files"
+            );
+
+
+        const masterTopicStatus =
+            document.getElementById(
+                "master-topic-status"
+            );
+
+
+        const masterActivityStatus =
+            document.getElementById(
+                "master-activity-status"
+            );
+
+
+        const masterProjectStatus =
+            document.getElementById(
+                "master-project-status"
+            );
+
+
+        const masterResourceText =
+            document.getElementById(
+                "master-resource-count-text"
+            );
+
+
+        const masterSummary =
+            document.getElementById(
+                "master-upload-summary"
+            );
+
+
+        const masterContinueButton =
+            document.getElementById(
+                "master-continue-btn"
+            );
+
+
+        let selectedMasterGrade =
+            null;
+
+
+        let masterTopicFiles =
+            [];
+
+
+        let masterActivityFiles =
+            [];
+
+
+        let masterProjectFiles =
+            [];
+
+
+        masterGradeCards.forEach(
+            function (card) {
+
+                card.addEventListener(
+                    "click",
+                    function () {
+
+                        selectedMasterGrade =
+                            this.dataset.grade;
+
+
+                        masterGradeCards.forEach(
+                            function (item) {
+
+                                item.classList.remove(
+                                    "selected"
+                                );
+
+                            }
+                        );
+
+
+                        this.classList.add(
+                            "selected"
+                        );
+
+
+                        masterGradeStatus.textContent =
+                            (
+                                `Grade ${selectedMasterGrade} selected.`
+                            );
+
+
+                        masterResourceTitle.textContent =
+                            (
+                                `Grade ${selectedMasterGrade} Resources`
+                            );
+
+
+                        masterResourceSection.style.display =
+                            "block";
+
+
+                        sessionStorage.setItem(
+                            "edinnoMasterGrade",
+                            selectedMasterGrade
+                        );
+
+
+                        updateMasterSummary();
+
+                    }
+                );
+
+            }
+        );
+
+
+        function updateMasterSummary() {
+
+            const topicCount =
+                masterTopicFiles.length;
+
+
+            const activityCount =
+                masterActivityFiles.length;
+
+
+            const projectCount =
+                masterProjectFiles.length;
+
+
+            const total =
+                topicCount
+                +
+                activityCount
+                +
+                projectCount;
+
+
+            masterTopicStatus.textContent =
+                readableCount(
+                    topicCount,
+                    "Topic PDF",
+                    "Topic PDFs"
+                );
+
+
+            masterActivityStatus.textContent =
+                readableCount(
+                    activityCount,
+                    "Activity PDF",
+                    "Activity PDFs"
+                );
+
+
+            masterProjectStatus.textContent =
+                readableCount(
+                    projectCount,
+                    "Project PDF",
+                    "Project PDFs"
+                );
+
+
+            masterResourceText.textContent =
+                (
+                    `${topicCount} Topics • `
+                    +
+                    `${activityCount} Activities • `
+                    +
+                    `${projectCount} Projects • `
+                    +
+                    `${total} PDFs`
+                );
+
+
+            const ready =
+                Boolean(
+                    selectedMasterGrade
+                )
+                &&
+                total > 0;
+
+
+            masterContinueButton.disabled =
+                !ready;
+
+
+            masterSummary.textContent =
+                ready
+                    ? `${total} resource PDF${total === 1 ? "" : "s"} ready.`
+                    : "Upload at least one PDF overall.";
+
+        }
+
+
+        masterTopicInput.addEventListener(
+            "change",
+            function () {
+
+                masterTopicFiles =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                updateMasterSummary();
+
+            }
+        );
+
+
+        masterActivityInput.addEventListener(
+            "change",
+            function () {
+
+                masterActivityFiles =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                updateMasterSummary();
+
+            }
+        );
+
+
+        masterProjectInput.addEventListener(
+            "change",
+            function () {
+
+                masterProjectFiles =
+                    getPDFFiles(
+                        this.files
+                    );
+
+
+                updateMasterSummary();
+
+            }
+        );
+
+
+        masterContinueButton.addEventListener(
+            "click",
+            async function () {
+
+                const allFiles = [
+                    ...masterTopicFiles,
+                    ...masterActivityFiles,
+                    ...masterProjectFiles
+                ];
+
+
+                if (
+                    !selectedMasterGrade
+                    ||
+                    !allFiles.length
+                ) {
+
+                    return;
+
+                }
+
+
+                const originalHTML =
+                    masterContinueButton.innerHTML;
+
+
+                masterContinueButton.disabled =
+                    true;
+
+
+                masterContinueButton.textContent =
+                    "Reading & Merging PDFs...";
+
+
+                try {
+
+                    const formData =
+                        new FormData();
+
+
+                    allFiles.forEach(
+                        function (file) {
+
+                            formData.append(
+                                "pdfs",
+                                file
+                            );
+
+                        }
+                    );
+
+
+                    const response =
+                        await fetch(
+                            "/upload-pdfs",
+                            {
+
+                                method:
+                                    "POST",
+
+                                body:
+                                    formData,
+
+                                cache:
+                                    "no-store"
+
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (
+                        !response.ok
+                        ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message
+                            ||
+                            "Unable to merge PDFs."
+                        );
+
+                    }
+
+
+                    const mergedData = {
+
+                        workflow:
+                            "master_assessment",
+
+                        grade:
+                            selectedMasterGrade,
+
+                        chapterName:
+                            (
+                                `Grade ${selectedMasterGrade} Master Assessment`
+                            ),
+
+                        topics:
+                            masterTopicFiles.length,
+
+                        activities:
+                            masterActivityFiles.length,
+
+                        projects:
+                            masterProjectFiles.length,
+
+                        totalResources:
+                            allFiles.length,
+
+                        total_files:
+                            result.total_files,
+
+                        files:
+                            result.files,
+
+                        combined_content:
+                            result.combined_content
+
+                    };
+
+
+                    sessionStorage.setItem(
+                        "edinnoMergedData",
+                        JSON.stringify(
+                            mergedData
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentWorkflow",
+                        "master_assessment"
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoMasterGrade",
+                        selectedMasterGrade
+                    );
+
+
+                    sessionStorage.removeItem(
+                        "edinnoGeneratedAssessment"
+                    );
+
+
+                    sessionStorage.removeItem(
+                        "edinnoAssessmentType"
+                    );
+
+
+                    window.location.replace(
+                        "/merge"
+                    );
+
+
+                } catch (error) {
+
+                    alert(
+                        "Error: "
+                        +
+                        (
+                            error.message
+                            ||
+                            "Unable to upload PDFs."
+                        )
+                    );
+
+
+                    masterContinueButton.disabled =
+                        false;
+
+
+                    masterContinueButton.innerHTML =
+                        originalHTML;
+
+                }
+
+            }
+        );
+
+
+        updateMasterSummary();
+
+
+    }
+);
+
+</script>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC CSS
+     ========================================================= -->
+
+<style>
+
+
+/* =========================================================
+   WORKFLOW GRID
+   ========================================================= */
+
+.workflow-selection-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 18px;
+
+}
+
+
+.workflow-card {
+
+    position: relative;
+
+    cursor: pointer;
+
+}
+
+
+.workflow-card input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.workflow-card-content {
+
+    min-height: 250px;
+
+    height: 100%;
+
+    padding: 23px;
+
+    border-radius: 23px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--glass-highlight),
+            transparent
+        ),
+
+        var(--surface-main);
+
+    box-shadow:
+
+        0 18px 42px
+        var(--shadow-soft),
+
+        inset 0 1px 0
+        var(--glass-highlight);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+
+}
+
+
+.workflow-card:hover
+.workflow-card-content {
+
+    transform:
+        translateY(-5px);
+
+}
+
+
+.workflow-card
+input:checked
++
+.workflow-card-content {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 22px 48px
+        var(--shadow-medium);
+
+}
+
+
+.workflow-pre
+input:checked
++
+.workflow-card-content {
+
+    border-color:
+        rgba(255,79,102,0.45);
+
+}
+
+
+.workflow-chapter
+input:checked
++
+.workflow-card-content {
+
+    border-color:
+        rgba(255,216,77,0.48);
+
+}
+
+
+.workflow-master
+input:checked
++
+.workflow-card-content {
+
+    border-color:
+        rgba(53,223,161,0.48);
+
+}
+
+
+.workflow-card-content h3 {
+
+    margin:
+        17px
+        0
+        8px;
+
+    color:
+        var(--text-main);
+
+    font-size: 22px;
+
+}
+
+
+.workflow-card-content p {
+
+    color:
+        var(--text-soft);
+
+    font-size: 15px;
+
+    line-height: 1.65;
+
+}
+
+
+.workflow-pill {
+
+    display: inline-flex;
+
+    margin-top: 8px;
+
+    padding:
+        7px
+        11px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.red-pill {
+
+    color:
+        var(--red);
+
+    background:
+        rgba(255,79,102,0.08);
+
+}
+
+
+.yellow-pill {
+
+    color:
+        #a87b00;
+
+    background:
+        rgba(255,216,77,0.10);
+
+}
+
+
+body[data-theme="dark"]
+.yellow-pill {
+
+    color:
+        var(--yellow-light);
+
+}
+
+
+.green-pill {
+
+    color:
+        var(--green-dark);
+
+    background:
+        rgba(53,223,161,0.09);
+
+}
+
+
+body[data-theme="dark"]
+.green-pill {
+
+    color:
+        var(--green-light);
+
+}
+
+
+/* =========================================================
+   WORKFLOW 3D ICONS
+   ========================================================= */
+
+.workflow-3d-icon {
+
+    position: relative;
+
+    width: 63px;
+
+    height: 63px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    color: #ffffff;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 2px 0
+        rgba(255,255,255,0.32);
+
+    animation:
+        workflowFloat
+        4s ease-in-out infinite;
+
+}
+
+
+.workflow-orbit {
+
+    position: absolute;
+
+    inset: -7px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.16);
+
+    animation:
+        workflowOrbit
+        7s linear infinite;
+
+}
+
+
+.red-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red-light),
+            var(--red-dark)
+        );
+
+}
+
+
+.yellow-icon {
+
+    color:
+        #352800;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--yellow-light),
+            var(--yellow-dark)
+        );
+
+}
+
+
+.green-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+/* =========================================================
+   DETAIL CARDS
+   ========================================================= */
+
+.workflow-detail-card {
+
+    scroll-margin-top: 20px;
+
+}
+
+
+/* =========================================================
+   MODERN UPLOAD CARD
+   ========================================================= */
+
+.modern-upload-card,
+.modern-resource-card {
+
+    margin-top: 16px;
+
+    padding:
+        18px 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        58px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap:
+        12px
+        16px;
+
+    min-height: 96px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--glass-highlight),
+            transparent
+        ),
+
+        var(--surface-main);
+
+    box-shadow:
+        0 14px 34px
+        var(--shadow-soft);
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+
+}
+
+
+.modern-upload-card:hover,
+.modern-resource-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 18px 40px
+        var(--shadow-medium);
+
+}
+
+
+/* =========================================================
+   MODERN ICON
+   ========================================================= */
+
+.modern-upload-icon {
+
+    width: 56px;
+
+    height: 56px;
+
+    min-width: 56px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    box-shadow:
+
+        inset 0 2px 0
+        rgba(255,255,255,0.28),
+
+        0 10px 22px
+        rgba(0,0,0,0.10);
+
+    animation:
+        uploadFloat
+        3.7s ease-in-out infinite;
+
+}
+
+
+.red-upload-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red-light),
+            var(--red-dark)
+        );
+
+}
+
+
+.topic-upload-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.activity-upload-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.project-upload-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+/* =========================================================
+   UPLOAD INFO
+   ========================================================= */
+
+.modern-upload-info {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 4px;
+
+}
+
+
+.modern-upload-info strong {
+
+    color:
+        var(--text-main);
+
+    font-size: 16px;
+
+    line-height: 1.3;
+
+}
+
+
+.modern-upload-info > span {
+
+    color:
+        var(--text-soft);
+
+    font-size: 13px;
+
+    line-height: 1.45;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.modern-upload-status {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   COMPACT SELECT BUTTONS
+   ========================================================= */
+
+.compact-select-btn {
+
+    width: auto;
+
+    min-width: 124px;
+
+    max-width: 180px;
+
+    min-height: 44px;
+
+    padding:
+        10px
+        16px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    justify-self: end;
+
+    border-radius: 13px;
+
+    border:
+        1px solid
+        var(--border-medium);
+
+    color:
+        var(--text-main);
+
+    background:
+        var(--surface-soft);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px
+        var(--shadow-soft);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.compact-select-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(110,91,255,0.40);
+
+    box-shadow:
+        0 10px 25px
+        var(--shadow-medium);
+
+}
+
+
+.compact-select-btn:active {
+
+    transform:
+        translateY(0)
+        scale(0.98);
+
+}
+
+
+/* =========================================================
+   FILE LIST
+   ========================================================= */
+
+.modern-file-list {
+
+    grid-column:
+        2 / 4;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding-top: 5px;
+
+}
+
+
+.chapter-file-chip {
+
+    max-width: 330px;
+
+    min-height: 34px;
+
+    padding:
+        7px
+        10px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--text-soft);
+
+    font-size: 12px;
+
+}
+
+
+.chapter-file-chip-icon {
+
+    flex: none;
+
+    color:
+        var(--red);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.chapter-file-chip-name {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   RULE CARDS
+   ========================================================= */
+
+.chapter-resource-rule {
+
+    margin-top: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap: 12px;
+
+}
+
+
+.rule-item {
+
+    padding:
+        14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+}
+
+
+.rule-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+}
+
+
+.topic-rule-icon {
+
+    background:
+        var(--purple);
+
+}
+
+
+.activity-rule-icon {
+
+    background:
+        var(--blue);
+
+}
+
+
+.project-rule-icon {
+
+    background:
+        var(--green-dark);
+
+}
+
+
+.rule-item strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+}
+
+
+.rule-item span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.chapter-auto-summary {
+
+    margin-top: 18px;
+
+    padding:
+        17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--glass-highlight),
+            transparent
+        ),
+
+        var(--surface-soft);
+
+}
+
+
+.chapter-summary-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.chapter-summary-orb {
+
+    width: 47px;
+
+    height: 47px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+    box-shadow:
+        0 12px 25px
+        rgba(53,223,161,0.18);
+
+    animation:
+        summaryFloatHome
+        3.5s ease-in-out infinite;
+
+}
+
+
+.chapter-summary-left strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+}
+
+
+.chapter-summary-left span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 13px;
+
+}
+
+
+.chapter-validation-badge {
+
+    padding:
+        7px
+        11px;
+
+    border-radius: 999px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+}
+
+
+.chapter-validation-badge.ready {
+
+    color:
+        var(--green-dark);
+
+    border-color:
+        rgba(53,223,161,0.30);
+
+    background:
+        rgba(53,223,161,0.08);
+
+}
+
+
+body[data-theme="dark"]
+.chapter-validation-badge.ready {
+
+    color:
+        var(--green-light);
+
+}
+
+
+.chapter-validation-message {
+
+    margin:
+        10px
+        0
+        0;
+
+    color:
+        var(--text-soft);
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   COMPACT SUMMARY PANEL
+   ========================================================= */
+
+.compact-summary-panel {
+
+    margin-top: 14px;
+
+    padding:
+        12px 14px;
+
+    min-height: auto;
+
+}
+
+
+/* =========================================================
+   ACTION BAR
+   ========================================================= */
+
+.workflow-action-bar {
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    border-top:
+        1px solid
+        var(--border-soft);
+
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.workflow-back-btn {
+
+    min-height: 46px;
+
+    padding:
+        10px
+        17px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        var(--border-medium);
+
+    color:
+        var(--text-soft);
+
+    background:
+        var(--surface-main);
+
+    font-family:
+        inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px
+        var(--shadow-soft);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.workflow-back-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    color:
+        var(--text-main);
+
+    border-color:
+        rgba(110,91,255,0.35);
+
+    box-shadow:
+        0 11px 25px
+        var(--shadow-medium);
+
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.workflow-primary-btn {
+
+    width: auto !important;
+
+    min-width: 230px;
+
+    max-width: 370px;
+
+    margin: 0 !important;
+
+    padding:
+        12px
+        20px;
+
+    flex: none;
+
+}
+
+
+.workflow-primary-btn:disabled {
+
+    opacity: 0.48;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   MASTER
+   ========================================================= */
+
+.master-grade-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            7,
+            minmax(0,1fr)
+        );
+
+    gap: 10px;
+
+}
+
+
+.master-grade-card {
+
+    padding:
+        14px
+        8px;
+
+    cursor: pointer;
+
+    border-radius: 17px;
+
+    color:
+        var(--text-main);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-main);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.master-grade-card:hover,
+.master-grade-card.selected {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(53,223,161,0.40);
+
+    box-shadow:
+        0 12px 28px
+        var(--shadow-soft);
+
+}
+
+
+.grade-3d-orb {
+
+    width: 44px;
+
+    height: 44px;
+
+    margin:
+        0 auto
+        8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+    box-shadow:
+        0 10px 22px
+        rgba(53,223,161,0.20);
+
+    animation:
+        gradeHomeFloat
+        3.8s ease-in-out infinite;
+
+}
+
+
+.master-resource-heading {
+
+    margin:
+        24px
+        0
+        8px;
+
+    color:
+        var(--text-main);
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes workflowFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px);
+
+    }
+
+}
+
+
+@keyframes workflowOrbit {
+
+    from {
+
+        transform:
+            rotateZ(0deg);
+
+    }
+
+    to {
+
+        transform:
+            rotateZ(360deg);
+
+    }
+
+}
+
+
+@keyframes uploadFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+@keyframes summaryFloatHome {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+@keyframes gradeHomeFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .master-grade-grid {
+
+        grid-template-columns:
+            repeat(
+                4,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width: 950px) {
+
+    .workflow-selection-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .chapter-resource-rule {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media (max-width: 760px) {
+
+    .modern-upload-card,
+    .modern-resource-card {
+
+        grid-template-columns:
+            52px
+            minmax(0, 1fr);
+
+        padding:
+            16px;
+
+    }
+
+
+    .modern-upload-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        min-width: 50px;
+
+    }
+
+
+    .modern-upload-info {
+
+        grid-column: 2;
+
+    }
+
+
+    .compact-select-btn {
+
+        grid-column:
+            1 / -1;
+
+        width: 100%;
+
+        max-width: none;
+
+        justify-self: stretch;
+
+        margin-top: 4px;
+
+    }
+
+
+    .modern-file-list {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    .chapter-file-chip {
+
+        max-width: 100%;
+
+    }
+
+
+    .workflow-action-bar {
+
+        flex-direction:
+            column-reverse;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    .workflow-back-btn,
+    .workflow-primary-btn {
+
+        width: 100% !important;
+
+        max-width: none;
+
+    }
+
+
+    .chapter-auto-summary {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .master-grade-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .workflow-3d-icon,
+    .workflow-orbit,
+    .modern-upload-icon,
+    .chapter-summary-orb,
+    .grade-3d-orb {
+
+        animation:
+            none !important;
+
+    }
+
+}
+
+</style>
+
+
+</body>
+
+</html>

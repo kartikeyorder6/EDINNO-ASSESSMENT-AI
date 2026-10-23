@@ -1,0 +1,33 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Abhijeet Singh", email = "masterabhijeetsingh@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.161.1",
+    "google-genai>=2.33.0",
+    "pydantic>=2.14.1",
+    "pydantic-settings>=2.16.1",
+    "pymupdf>=2.0",
+    "python-multipart>=0.0.32",
+    "reportlab>=5.1.0",
+    "requests>=2.34.2",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+backend = "backend:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+]

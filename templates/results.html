@@ -1,0 +1,3562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light dark"
+    >
+
+    <title>
+        Assessment Results | EDINNO AI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body data-theme="dark">
+
+
+<script>
+
+(function () {
+
+    try {
+
+        const savedTheme =
+            localStorage.getItem(
+                "edinnoTheme"
+            );
+
+        if (
+            savedTheme === "light"
+            ||
+            savedTheme === "dark"
+        ) {
+
+            document.body.setAttribute(
+                "data-theme",
+                savedTheme
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to restore theme.",
+            error
+        );
+
+    }
+
+})();
+
+</script>
+
+
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div>
+
+
+            <div class="brand">
+
+
+                <div
+                    class="brand-logo"
+                    aria-hidden="true"
+                >
+                    ⚡
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h2>
+                        EDINNO
+                    </h2>
+
+                    <span>
+                        ASSESSMENT AI
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="sidebar-menu">
+
+
+                <p class="menu-label">
+                    WORKSPACE
+                </p>
+
+
+                <div class="menu-item active">
+                    ✦ &nbsp; Assessment Studio
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="sidebar-footer">
+
+            <span class="online-dot"></span>
+
+            Local AI Assessment Engine
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="top-header-layout">
+
+
+            <div class="page-header">
+
+
+                <div class="eyebrow">
+                    ✦ STEP 04 — RESULTS
+                </div>
+
+
+                <h1>
+
+                    Your assessment is
+
+                    <span>
+                        ready.
+                    </span>
+
+                </h1>
+
+
+                <p
+                    class="page-description"
+                    id="results-description"
+                >
+
+                    Review the generated assessment,
+                    verify the answer key and download
+                    the final PDF.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 THEME
+                 ============================================= -->
+
+            <div
+                class="theme-switcher"
+                role="group"
+                aria-label="Theme selection"
+            >
+
+
+                <button
+                    type="button"
+                    id="theme-light-btn"
+                    class="theme-option"
+                    aria-label="Switch to Light Mode"
+                    aria-pressed="false"
+                >
+
+                    <span class="theme-option-icon">
+                        ☀
+                    </span>
+
+                    <span>
+                        Light
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="theme-dark-btn"
+                    class="theme-option"
+                    aria-label="Switch to Night Mode"
+                    aria-pressed="true"
+                >
+
+                    <span class="theme-option-icon">
+                        ☾
+                    </span>
+
+                    <span>
+                        Night
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+             ================================================= -->
+
+        <div class="progress-steps">
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    01
+                </span>
+
+                <span>
+                    Setup
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    02
+                </span>
+
+                <span>
+                    Content Merge
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    03
+                </span>
+
+                <span>
+                    Assessment Type
+                </span>
+
+            </div>
+
+
+            <div class="progress-step active">
+
+                <span class="step-number">
+                    04
+                </span>
+
+                <span>
+                    Results
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ASSESSMENT SUMMARY
+             ================================================= -->
+
+        <section class="chapter-card result-summary-card">
+
+
+            <div class="result-summary-left">
+
+
+                <div
+                    class="result-summary-icon"
+                    aria-hidden="true"
+                >
+                    ✓
+                </div>
+
+
+                <div>
+
+
+                    <span>
+                        Assessment
+                    </span>
+
+
+                    <strong id="result-title">
+                        Generated Assessment
+                    </strong>
+
+
+                    <small id="result-meta">
+                        Loading...
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="result-workflow-badge"
+                id="result-workflow-badge"
+            >
+                READY
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATS
+             ================================================= -->
+
+        <section class="results-stat-grid">
+
+
+            <div class="results-stat-card">
+
+
+                <div class="results-stat-icon purple-result-stat">
+                    Q
+                </div>
+
+
+                <div>
+
+                    <strong id="result-question-count">
+                        0
+                    </strong>
+
+                    <span>
+                        Questions
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="results-stat-card">
+
+
+                <div class="results-stat-icon blue-result-stat">
+                    T
+                </div>
+
+
+                <div>
+
+                    <strong id="result-type-name">
+                        —
+                    </strong>
+
+                    <span>
+                        Assessment Type
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="results-stat-card">
+
+
+                <div class="results-stat-icon green-result-stat">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Ready
+                    </strong>
+
+                    <span>
+                        Generation Status
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUESTIONS
+             ================================================= -->
+
+        <section class="chapter-card">
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon questions-main-icon"
+                    aria-hidden="true"
+                >
+                    Q
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Assessment Questions
+                    </h2>
+
+
+                    <p id="question-section-description">
+
+                        Review all generated questions below.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                id="assessment-results"
+                class="results-question-list"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ANSWER KEY
+             ================================================= -->
+
+        <section
+            class="chapter-card answer-key-section"
+            id="answer-key-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon answer-key-main-icon"
+                    aria-hidden="true"
+                >
+                    ✓
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Answer Key
+                    </h2>
+
+
+                    <p>
+
+                        Correct answers for the generated assessment.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                id="answer-key-list"
+                class="answer-key-grid"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EMPTY / ERROR STATE
+             ================================================= -->
+
+        <section
+            class="result-error-panel"
+            id="result-error-panel"
+            style="display: none;"
+        >
+
+
+            <div class="result-error-icon">
+                !
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Assessment unavailable
+                </strong>
+
+                <span id="result-error-message">
+
+                    No generated assessment was found.
+
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACTIONS
+             ================================================= -->
+
+        <div class="results-action-bar">
+
+
+            <div class="results-action-left">
+
+
+                <button
+                    type="button"
+                    id="home-btn"
+                    class="result-secondary-btn"
+                >
+
+                    ← Back to Home
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="regenerate-btn"
+                    class="result-secondary-btn"
+                >
+
+                    ↻ Generate Again
+
+                </button>
+
+
+            </div>
+
+
+
+            <button
+                type="button"
+                id="download-pdf-btn"
+                class="continue-btn download-result-btn"
+            >
+
+                Download Assessment PDF
+
+                <span>
+                    ↓
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // =====================================================
+        // THEME
+        // =====================================================
+
+        const lightButton =
+            document.getElementById(
+                "theme-light-btn"
+            );
+
+
+        const darkButton =
+            document.getElementById(
+                "theme-dark-btn"
+            );
+
+
+        function getTheme() {
+
+            return (
+                document.body.getAttribute(
+                    "data-theme"
+                ) === "light"
+            )
+                ? "light"
+                : "dark";
+
+        }
+
+
+        function updateThemeButtons() {
+
+            const lightActive =
+                getTheme() === "light";
+
+
+            lightButton.classList.toggle(
+                "active",
+                lightActive
+            );
+
+
+            darkButton.classList.toggle(
+                "active",
+                !lightActive
+            );
+
+
+            lightButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "true"
+                    : "false"
+            );
+
+
+            darkButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "false"
+                    : "true"
+            );
+
+        }
+
+
+        function setTheme(theme) {
+
+            document.body.setAttribute(
+                "data-theme",
+                theme
+            );
+
+
+            try {
+
+                localStorage.setItem(
+                    "edinnoTheme",
+                    theme
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Unable to save theme.",
+                    error
+                );
+
+            }
+
+
+            updateThemeButtons();
+
+        }
+
+
+        lightButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "light"
+                );
+
+            }
+        );
+
+
+        darkButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "dark"
+                );
+
+            }
+        );
+
+
+        updateThemeButtons();
+
+
+
+        // =====================================================
+        // ELEMENTS
+        // =====================================================
+
+        const resultsContainer =
+            document.getElementById(
+                "assessment-results"
+            );
+
+
+        const answerKeySection =
+            document.getElementById(
+                "answer-key-section"
+            );
+
+
+        const answerKeyList =
+            document.getElementById(
+                "answer-key-list"
+            );
+
+
+        const resultTitle =
+            document.getElementById(
+                "result-title"
+            );
+
+
+        const resultMeta =
+            document.getElementById(
+                "result-meta"
+            );
+
+
+        const workflowBadge =
+            document.getElementById(
+                "result-workflow-badge"
+            );
+
+
+        const questionCountElement =
+            document.getElementById(
+                "result-question-count"
+            );
+
+
+        const typeNameElement =
+            document.getElementById(
+                "result-type-name"
+            );
+
+
+        const questionDescription =
+            document.getElementById(
+                "question-section-description"
+            );
+
+
+        const errorPanel =
+            document.getElementById(
+                "result-error-panel"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "result-error-message"
+            );
+
+
+        const homeButton =
+            document.getElementById(
+                "home-btn"
+            );
+
+
+        const regenerateButton =
+            document.getElementById(
+                "regenerate-btn"
+            );
+
+
+        const downloadButton =
+            document.getElementById(
+                "download-pdf-btn"
+            );
+
+
+
+        // =====================================================
+        // LOAD DATA
+        // =====================================================
+
+        const storedAssessment =
+            sessionStorage.getItem(
+                "edinnoGeneratedAssessment"
+            );
+
+
+        const storedMergedData =
+            sessionStorage.getItem(
+                "edinnoMergedData"
+            );
+
+
+        const storedAssessmentType =
+            sessionStorage.getItem(
+                "edinnoAssessmentType"
+            );
+
+
+        const storedWorkflow =
+            sessionStorage.getItem(
+                "edinnoAssessmentWorkflow"
+            );
+
+
+        if (!storedAssessment) {
+
+            showError(
+                "No generated assessment was found. Please generate an assessment again."
+            );
+
+            return;
+
+        }
+
+
+
+        let assessment;
+        let mergedData = {};
+
+
+        try {
+
+            assessment =
+                JSON.parse(
+                    storedAssessment
+                );
+
+
+            if (storedMergedData) {
+
+                mergedData =
+                    JSON.parse(
+                        storedMergedData
+                    );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read assessment.",
+                error
+            );
+
+
+            showError(
+                "Stored assessment data is invalid."
+            );
+
+
+            return;
+
+        }
+
+
+
+        const questions =
+            Array.isArray(
+                assessment.questions
+            )
+                ? assessment.questions
+                : [];
+
+
+        if (!questions.length) {
+
+            showError(
+                "The generated assessment does not contain any questions."
+            );
+
+            return;
+
+        }
+
+
+
+        const assessmentType =
+            assessment.assessment_type
+            ||
+            storedAssessmentType
+            ||
+            "assessment";
+
+
+        const workflow =
+            storedWorkflow
+            ||
+            mergedData.workflow
+            ||
+            (
+                assessmentType ===
+                "pre_assembly"
+                    ? "pre_assembly"
+                    : "chapter_completion"
+            );
+
+
+        const isPreAssembly =
+            workflow ===
+            "pre_assembly"
+            ||
+            assessmentType ===
+            "pre_assembly";
+
+
+        const isMaster =
+            workflow ===
+            "master_assessment"
+            ||
+            assessmentType.startsWith(
+                "master_"
+            );
+
+
+
+        // =====================================================
+        // HELPERS
+        // =====================================================
+
+        function escapeHTML(value) {
+
+            return String(
+                value ?? ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        function cleanOptionText(
+            option
+        ) {
+
+            return String(
+                option || ""
+            )
+                .replace(
+                    /^\s*[a-dA-D][\)\.\:\-]\s*/,
+                    ""
+                )
+                .trim();
+
+        }
+
+
+        function cleanAnswer(
+            answer
+        ) {
+
+            const value =
+                String(
+                    answer ?? ""
+                )
+                    .trim();
+
+
+            if (!value) {
+
+                return "—";
+
+            }
+
+
+            const lower =
+                value.toLowerCase();
+
+
+            if (
+                lower === "true"
+            ) {
+
+                return "True";
+
+            }
+
+
+            if (
+                lower === "false"
+            ) {
+
+                return "False";
+
+            }
+
+
+            if (
+                [
+                    "a",
+                    "b",
+                    "c",
+                    "d"
+                ].includes(
+                    lower
+                )
+            ) {
+
+                return lower.toUpperCase();
+
+            }
+
+
+            return value;
+
+        }
+
+
+        function normalizeQuestionType(
+            question,
+            index
+        ) {
+
+            const explicitType =
+                String(
+                    question.question_type
+                    ||
+                    ""
+                )
+                    .trim()
+                    .toLowerCase();
+
+
+            if (
+                explicitType
+            ) {
+
+                return explicitType;
+
+            }
+
+
+            if (
+                Array.isArray(
+                    question.options
+                )
+                &&
+                question.options.length === 4
+            ) {
+
+                return "mcq";
+
+            }
+
+
+            const answer =
+                String(
+                    question.answer
+                    ||
+                    ""
+                )
+                    .trim()
+                    .toLowerCase();
+
+
+            if (
+                answer === "true"
+                ||
+                answer === "false"
+            ) {
+
+                return "true_false";
+
+            }
+
+
+            if (
+                question.left
+                ||
+                question.right
+                ||
+                question.match
+                ||
+                question.term
+            ) {
+
+                return "matching";
+
+            }
+
+
+            if (
+                isMaster
+                &&
+                (
+                    question.scenario
+                    ||
+                    question.situation
+                )
+            ) {
+
+                return "situation";
+
+            }
+
+
+            if (
+                assessmentType === "mixed"
+                &&
+                index < 5
+            ) {
+
+                return "mcq";
+
+            }
+
+
+            if (
+                assessmentType === "mixed"
+                &&
+                index >= 5
+            ) {
+
+                return "true_false";
+
+            }
+
+
+            return "general";
+
+        }
+
+
+        function typeDisplayName(
+            type
+        ) {
+
+            const names = {
+
+                pre_assembly:
+                    "Pre Assembly",
+
+                mcq:
+                    "Multiple Choice",
+
+                true_false:
+                    "True / False",
+
+                general:
+                    "General",
+
+                matching:
+                    "Matching",
+
+                mixed:
+                    "Mixed",
+
+                master_mcq_tf:
+                    "Master Mixed",
+
+                master_mcq_situation:
+                    "Master Mixed",
+
+                master_tf_situation:
+                    "Master Mixed",
+
+                master_all:
+                    "Master Mixed",
+
+                situation:
+                    "Situation-Based"
+
+            };
+
+
+            return (
+                names[type]
+                ||
+                "Assessment"
+            );
+
+        }
+
+
+        function questionTypeLabel(
+            type
+        ) {
+
+            const labels = {
+
+                mcq:
+                    "MCQ",
+
+                true_false:
+                    "TRUE / FALSE",
+
+                general:
+                    "GENERAL",
+
+                matching:
+                    "MATCHING",
+
+                situation:
+                    "SITUATION-BASED"
+
+            };
+
+
+            return (
+                labels[type]
+                ||
+                "QUESTION"
+            );
+
+        }
+
+
+        function getQuestionText(
+            question
+        ) {
+
+            return (
+                question.question
+                ||
+                question.prompt
+                ||
+                question.statement
+                ||
+                question.text
+                ||
+                question.scenario
+                ||
+                question.situation
+                ||
+                "Question"
+            );
+
+        }
+
+
+        function getAssessmentTitle() {
+
+            if (isPreAssembly) {
+
+                return (
+                    mergedData.chapterName
+                    ||
+                    mergedData.project_name
+                    ||
+                    "Pre Assembly Quiz"
+                );
+
+            }
+
+
+            if (isMaster) {
+
+                return (
+                    mergedData.chapterName
+                    ||
+                    (
+                        mergedData.grade
+                            ? `Grade ${mergedData.grade} Master Assessment`
+                            : "Master Assessment"
+                    )
+                );
+
+            }
+
+
+            return (
+                mergedData.chapterName
+                ||
+                "Chapter Completion Quiz"
+            );
+
+        }
+
+
+
+        // =====================================================
+        // PAGE SUMMARY
+        // =====================================================
+
+        resultTitle.textContent =
+            getAssessmentTitle();
+
+
+        questionCountElement.textContent =
+            questions.length;
+
+
+        typeNameElement.textContent =
+            typeDisplayName(
+                assessmentType
+            );
+
+
+        if (isPreAssembly) {
+
+            workflowBadge.textContent =
+                "PRE ASSEMBLY";
+
+
+            resultMeta.textContent =
+                (
+                    `${questions.length} MCQs • Project-based quiz`
+                );
+
+
+            questionDescription.textContent =
+                (
+                    "Student-facing questions are shown without answers. "
+                    +
+                    "Use the separate Answer Key below."
+                );
+
+        } else if (isMaster) {
+
+            workflowBadge.textContent =
+                "MASTER";
+
+
+            resultMeta.textContent =
+                (
+                    `${questions.length} Questions`
+                    +
+                    (
+                        mergedData.grade
+                            ? ` • Grade ${mergedData.grade}`
+                            : ""
+                    )
+                );
+
+
+            questionDescription.textContent =
+                (
+                    "Review the generated Master Assessment "
+                    +
+                    "and its educator-facing answers."
+                );
+
+        } else {
+
+            workflowBadge.textContent =
+                "CHAPTER";
+
+
+            resultMeta.textContent =
+                (
+                    `${questions.length} Questions • `
+                    +
+                    typeDisplayName(
+                        assessmentType
+                    )
+                );
+
+
+            questionDescription.textContent =
+                (
+                    "Review the generated Chapter Completion assessment."
+                );
+
+        }
+
+
+
+        // =====================================================
+        // QUESTION RENDERING
+        // =====================================================
+
+        function renderMCQ(
+            question,
+            number,
+            showAnswer
+        ) {
+
+            const options =
+                Array.isArray(
+                    question.options
+                )
+                    ? question.options
+                    : [];
+
+
+            const letters =
+                [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ];
+
+
+            const optionHTML =
+                options
+                    .map(
+                        function (
+                            option,
+                            index
+                        ) {
+
+                            return `
+
+                                <div class="result-option-row">
+
+                                    <span class="result-option-letter">
+                                        ${letters[index] || ""}
+                                    </span>
+
+                                    <span class="result-option-text">
+                                        ${escapeHTML(
+                                            cleanOptionText(
+                                                option
+                                            )
+                                        )}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+
+            return `
+
+                <article class="result-question-card modern-result-question">
+
+                    <div class="result-question-header">
+
+                        <div class="result-question-number">
+                            ${number}
+                        </div>
+
+                        <div class="result-question-heading">
+
+                            <span class="result-question-type mcq-type">
+                                MCQ
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(
+                                    getQuestionText(
+                                        question
+                                    )
+                                )}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="result-options-list">
+                        ${optionHTML}
+                    </div>
+
+                    ${
+                        showAnswer
+                            ? `
+
+                                <div class="result-inline-answer">
+
+                                    <span>
+                                        Correct Answer
+                                    </span>
+
+                                    <strong>
+                                        ${escapeHTML(
+                                            cleanAnswer(
+                                                question.answer
+                                            )
+                                        )}
+                                    </strong>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+                </article>
+
+            `;
+
+        }
+
+
+        function renderTrueFalse(
+            question,
+            number,
+            showAnswer
+        ) {
+
+            return `
+
+                <article class="result-question-card modern-result-question">
+
+                    <div class="result-question-header">
+
+                        <div class="result-question-number">
+                            ${number}
+                        </div>
+
+                        <div class="result-question-heading">
+
+                            <span class="result-question-type tf-type">
+                                TRUE / FALSE
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(
+                                    getQuestionText(
+                                        question
+                                    )
+                                )}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tf-choice-row">
+
+                        <span>
+                            True
+                        </span>
+
+                        <span>
+                            False
+                        </span>
+
+                    </div>
+
+                    ${
+                        showAnswer
+                            ? `
+
+                                <div class="result-inline-answer">
+
+                                    <span>
+                                        Correct Answer
+                                    </span>
+
+                                    <strong>
+                                        ${escapeHTML(
+                                            cleanAnswer(
+                                                question.answer
+                                            )
+                                        )}
+                                    </strong>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+                </article>
+
+            `;
+
+        }
+
+
+        function renderGeneral(
+            question,
+            number,
+            showAnswer
+        ) {
+
+            return `
+
+                <article class="result-question-card modern-result-question">
+
+                    <div class="result-question-header">
+
+                        <div class="result-question-number">
+                            ${number}
+                        </div>
+
+                        <div class="result-question-heading">
+
+                            <span class="result-question-type general-type">
+                                GENERAL
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(
+                                    getQuestionText(
+                                        question
+                                    )
+                                )}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        showAnswer
+                            ? `
+
+                                <div class="result-general-answer">
+
+                                    <span>
+                                        Suggested Answer
+                                    </span>
+
+                                    <p>
+                                        ${escapeHTML(
+                                            question.answer
+                                            ||
+                                            question.expected_answer
+                                            ||
+                                            "—"
+                                        )}
+                                    </p>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+                </article>
+
+            `;
+
+        }
+
+
+        function renderMatching(
+            question,
+            number,
+            showAnswer
+        ) {
+
+            const left =
+                question.left
+                ||
+                question.term
+                ||
+                question.item
+                ||
+                question.question
+                ||
+                `Item ${number}`;
+
+
+            const right =
+                question.right
+                ||
+                question.match
+                ||
+                question.description
+                ||
+                question.answer
+                ||
+                "—";
+
+
+            return `
+
+                <article class="result-question-card modern-result-question">
+
+                    <div class="result-question-header">
+
+                        <div class="result-question-number">
+                            ${number}
+                        </div>
+
+                        <div class="result-question-heading">
+
+                            <span class="result-question-type matching-type">
+                                MATCHING
+                            </span>
+
+                            <h3>
+                                ${escapeHTML(
+                                    String(left)
+                                )}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        showAnswer
+                            ? `
+
+                                <div class="matching-answer-row">
+
+                                    <span>
+                                        Matches with
+                                    </span>
+
+                                    <strong>
+                                        ${escapeHTML(
+                                            String(right)
+                                        )}
+                                    </strong>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+                </article>
+
+            `;
+
+        }
+
+
+        function renderSituation(
+            question,
+            number,
+            showAnswer
+        ) {
+
+            const scenario =
+                question.scenario
+                ||
+                question.situation
+                ||
+                "";
+
+
+            const questionText =
+                question.question
+                ||
+                question.prompt
+                ||
+                question.text
+                ||
+                "";
+
+
+            return `
+
+                <article class="result-question-card modern-result-question situation-result-card">
+
+                    <div class="result-question-header">
+
+                        <div class="result-question-number">
+                            ${number}
+                        </div>
+
+                        <div class="result-question-heading">
+
+                            <span class="result-question-type situation-type">
+                                SITUATION-BASED
+                            </span>
+
+                            ${
+                                scenario
+                                    ? `
+
+                                        <div class="situation-context">
+                                            ${escapeHTML(
+                                                scenario
+                                            )}
+                                        </div>
+
+                                    `
+                                    : ""
+                            }
+
+                            <h3>
+                                ${escapeHTML(
+                                    questionText
+                                    ||
+                                    scenario
+                                    ||
+                                    "Situation-Based Question"
+                                )}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    ${
+                        showAnswer
+                            ? `
+
+                                <div class="result-general-answer">
+
+                                    <span>
+                                        Suggested Answer
+                                    </span>
+
+                                    <p>
+                                        ${escapeHTML(
+                                            question.answer
+                                            ||
+                                            question.expected_answer
+                                            ||
+                                            "—"
+                                        )}
+                                    </p>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+                </article>
+
+            `;
+
+        }
+
+
+
+        // =====================================================
+        // RENDER ALL QUESTIONS
+        // =====================================================
+
+        const showInlineAnswers =
+            !isPreAssembly;
+
+
+        resultsContainer.innerHTML =
+            questions
+                .map(
+                    function (
+                        question,
+                        index
+                    ) {
+
+                        const type =
+                            normalizeQuestionType(
+                                question,
+                                index
+                            );
+
+
+                        const number =
+                            index + 1;
+
+
+                        if (
+                            type === "mcq"
+                        ) {
+
+                            return renderMCQ(
+                                question,
+                                number,
+                                showInlineAnswers
+                            );
+
+                        }
+
+
+                        if (
+                            type ===
+                            "true_false"
+                        ) {
+
+                            return renderTrueFalse(
+                                question,
+                                number,
+                                showInlineAnswers
+                            );
+
+                        }
+
+
+                        if (
+                            type === "matching"
+                        ) {
+
+                            return renderMatching(
+                                question,
+                                number,
+                                showInlineAnswers
+                            );
+
+                        }
+
+
+                        if (
+                            type === "situation"
+                        ) {
+
+                            return renderSituation(
+                                question,
+                                number,
+                                showInlineAnswers
+                            );
+
+                        }
+
+
+                        return renderGeneral(
+                            question,
+                            number,
+                            showInlineAnswers
+                        );
+
+                    }
+                )
+                .join("");
+
+
+
+        // =====================================================
+        // PRE ASSEMBLY ANSWER KEY
+        // =====================================================
+
+        if (isPreAssembly) {
+
+            answerKeySection.style.display =
+                "block";
+
+
+            answerKeyList.innerHTML =
+                questions
+                    .map(
+                        function (
+                            question,
+                            index
+                        ) {
+
+                            return `
+
+                                <div class="answer-key-card">
+
+                                    <div class="answer-key-number">
+                                        ${index + 1}
+                                    </div>
+
+                                    <div>
+
+                                        <span>
+                                            Question ${index + 1}
+                                        </span>
+
+                                        <strong>
+                                            ${escapeHTML(
+                                                cleanAnswer(
+                                                    question.answer
+                                                )
+                                            )}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        } else {
+
+            answerKeySection.style.display =
+                "none";
+
+        }
+
+
+
+        // =====================================================
+        // DOWNLOAD PDF
+        // =====================================================
+
+        downloadButton.addEventListener(
+            "click",
+            async function () {
+
+                const originalHTML =
+                    downloadButton.innerHTML;
+
+
+                downloadButton.disabled =
+                    true;
+
+
+                downloadButton.textContent =
+                    "Preparing PDF...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/download-assessment",
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        {
+
+                                            assessment:
+                                                assessment,
+
+                                            title:
+                                                getAssessmentTitle()
+
+                                        }
+                                    )
+
+                            }
+                        );
+
+
+                    if (
+                        !response.ok
+                    ) {
+
+                        let message =
+                            "Unable to create assessment PDF.";
+
+
+                        try {
+
+                            const errorData =
+                                await response.json();
+
+
+                            message =
+                                errorData.message
+                                ||
+                                errorData.error
+                                ||
+                                message;
+
+                        } catch (error) {
+
+                            console.warn(
+                                "Unable to read PDF error response."
+                            );
+
+                        }
+
+
+                        throw new Error(
+                            message
+                        );
+
+                    }
+
+
+                    const blob =
+                        await response.blob();
+
+
+                    const url =
+                        window.URL.createObjectURL(
+                            blob
+                        );
+
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    link.href =
+                        url;
+
+
+                    const safeTitle =
+                        getAssessmentTitle()
+                            .replace(
+                                /[^a-z0-9]+/gi,
+                                "_"
+                            )
+                            .replace(
+                                /^_+|_+$/g,
+                                ""
+                            )
+                        ||
+                        "EDINNO_Assessment";
+
+
+                    link.download =
+                        `${safeTitle}_Assessment.pdf`;
+
+
+                    document.body.appendChild(
+                        link
+                    );
+
+
+                    link.click();
+
+
+                    link.remove();
+
+
+                    window.URL.revokeObjectURL(
+                        url
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "PDF download error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Error: "
+                        +
+                        (
+                            error.message
+                            ||
+                            "Unable to download PDF."
+                        )
+                    );
+
+                } finally {
+
+                    downloadButton.disabled =
+                        false;
+
+
+                    downloadButton.innerHTML =
+                        originalHTML;
+
+                }
+
+            }
+        );
+
+
+
+        // =====================================================
+        // REGENERATE
+        // =====================================================
+
+        regenerateButton.addEventListener(
+            "click",
+            function () {
+
+                sessionStorage.removeItem(
+                    "edinnoGeneratedAssessment"
+                );
+
+
+                sessionStorage.removeItem(
+                    "edinnoAssessmentType"
+                );
+
+
+                if (isPreAssembly) {
+
+                    window.location.replace(
+                        "/"
+                    );
+
+                } else {
+
+                    window.location.replace(
+                        "/assessment-type"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        // =====================================================
+        // HOME
+        // =====================================================
+
+        homeButton.addEventListener(
+            "click",
+            function () {
+
+                window.location.replace(
+                    "/"
+                );
+
+            }
+        );
+
+
+
+        // =====================================================
+        // ERROR
+        // =====================================================
+
+        function showError(message) {
+
+            resultsContainer.innerHTML =
+                "";
+
+
+            answerKeySection.style.display =
+                "none";
+
+
+            downloadButton.disabled =
+                true;
+
+
+            errorPanel.style.display =
+                "flex";
+
+
+            errorMessage.textContent =
+                message;
+
+
+            resultTitle.textContent =
+                "Assessment unavailable";
+
+
+            resultMeta.textContent =
+                "Generate a new assessment to continue.";
+
+
+            workflowBadge.textContent =
+                "ERROR";
+
+        }
+
+
+    }
+);
+
+</script>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC CSS
+     ========================================================= -->
+
+<style>
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.result-summary-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+}
+
+
+.result-summary-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.result-summary-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    min-width: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 25px
+        rgba(46,203,149,0.22),
+
+        inset 0 2px 0
+        rgba(255,255,255,0.26);
+
+}
+
+
+.result-summary-left span {
+
+    display: block;
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.result-summary-left strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--text-main);
+
+    font-size: 17px;
+
+}
+
+
+.result-summary-left small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.result-workflow-badge {
+
+    flex: none;
+
+    padding:
+        7px 11px;
+
+    border-radius: 999px;
+
+    color:
+        var(--green);
+
+    border:
+        1px solid
+        rgba(46,203,149,0.24);
+
+    background:
+        rgba(46,203,149,0.08);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.6px;
+
+}
+
+
+/* =========================================================
+   RESULT STATS
+   ========================================================= */
+
+.results-stat-grid {
+
+    margin-bottom: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap: 13px;
+
+}
+
+
+.results-stat-card {
+
+    min-height: 95px;
+
+    padding:
+        16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-main);
+
+    box-shadow:
+        0 10px 25px
+        var(--shadow-soft);
+
+}
+
+
+.results-stat-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+}
+
+
+.purple-result-stat {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.blue-result-stat {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.green-result-stat {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.results-stat-card strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 18px;
+
+}
+
+
+.results-stat-card span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   QUESTION CARDS
+   ========================================================= */
+
+.results-question-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+}
+
+
+.modern-result-question {
+
+    margin: 0;
+
+    padding: 19px;
+
+}
+
+
+.result-question-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+}
+
+
+.result-question-number {
+
+    width: 39px;
+
+    height: 39px;
+
+    min-width: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 19px
+        rgba(118,85,232,0.18);
+
+}
+
+
+.result-question-heading {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.result-question-heading h3 {
+
+    margin:
+        6px 0
+        0;
+
+    color:
+        var(--text-main);
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+}
+
+
+.result-question-type {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 24px;
+
+    padding:
+        4px 7px;
+
+    border-radius: 999px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.6px;
+
+}
+
+
+.mcq-type {
+
+    color:
+        var(--purple-light);
+
+    background:
+        rgba(118,85,232,0.09);
+
+}
+
+
+.tf-type {
+
+    color:
+        var(--blue-light);
+
+    background:
+        rgba(68,143,232,0.09);
+
+}
+
+
+.general-type {
+
+    color:
+        var(--green);
+
+    background:
+        rgba(46,203,149,0.09);
+
+}
+
+
+.matching-type {
+
+    color:
+        var(--orange);
+
+    background:
+        rgba(243,145,71,0.09);
+
+}
+
+
+.situation-type {
+
+    color:
+        var(--yellow-dark);
+
+    background:
+        rgba(255,216,77,0.09);
+
+}
+
+
+/* =========================================================
+   MCQ OPTIONS
+   ========================================================= */
+
+.result-options-list {
+
+    margin:
+        15px 0
+        0
+        52px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+    gap: 9px;
+
+}
+
+
+.result-option-row {
+
+    min-height: 44px;
+
+    padding:
+        9px 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+}
+
+
+.result-option-letter {
+
+    width: 27px;
+
+    height: 27px;
+
+    min-width: 27px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    color:
+        var(--purple-light);
+
+    background:
+        var(--surface-main);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.result-option-text {
+
+    color:
+        var(--text-soft);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =========================================================
+   TRUE FALSE
+   ========================================================= */
+
+.tf-choice-row {
+
+    margin:
+        15px 0
+        0
+        52px;
+
+    display: flex;
+
+    gap: 9px;
+
+}
+
+
+.tf-choice-row span {
+
+    min-width: 110px;
+
+    padding:
+        9px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    color:
+        var(--text-soft);
+
+    background:
+        var(--surface-soft);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   INLINE ANSWER
+   ========================================================= */
+
+.result-inline-answer,
+.matching-answer-row {
+
+    margin:
+        14px 0
+        0
+        52px;
+
+    padding:
+        10px 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    border-radius: 11px;
+
+    border:
+        1px solid
+        rgba(46,203,149,0.18);
+
+    background:
+        rgba(46,203,149,0.055);
+
+}
+
+
+.result-inline-answer span,
+.matching-answer-row span {
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.result-inline-answer strong,
+.matching-answer-row strong {
+
+    color:
+        var(--green);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   GENERAL ANSWER
+   ========================================================= */
+
+.result-general-answer {
+
+    margin:
+        14px 0
+        0
+        52px;
+
+    padding:
+        12px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(46,203,149,0.18);
+
+    background:
+        rgba(46,203,149,0.05);
+
+}
+
+
+.result-general-answer span {
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.result-general-answer p {
+
+    margin-top: 5px;
+
+    color:
+        var(--text-main);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =========================================================
+   SITUATION
+   ========================================================= */
+
+.situation-context {
+
+    margin-top: 8px;
+
+    padding:
+        10px 11px;
+
+    border-radius: 11px;
+
+    color:
+        var(--text-soft);
+
+    border:
+        1px solid
+        rgba(255,216,77,0.14);
+
+    background:
+        rgba(255,216,77,0.045);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =========================================================
+   ANSWER KEY
+   ========================================================= */
+
+.answer-key-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.answer-key-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            5,
+            minmax(0,1fr)
+        );
+
+    gap: 10px;
+
+}
+
+
+.answer-key-card {
+
+    min-height: 74px;
+
+    padding:
+        12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-soft);
+
+}
+
+
+.answer-key-number {
+
+    width: 32px;
+
+    height: 32px;
+
+    min-width: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.answer-key-card span {
+
+    display: block;
+
+    color:
+        var(--text-muted);
+
+    font-size: 9px;
+
+}
+
+
+.answer-key-card strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--green);
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================================
+   ACTION BAR
+   ========================================================= */
+
+.results-action-bar {
+
+    margin-top: 22px;
+
+    padding:
+        18px 0
+        20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    border-top:
+        1px solid
+        var(--border-soft);
+
+}
+
+
+.results-action-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+}
+
+
+.result-secondary-btn {
+
+    min-height: 44px;
+
+    padding:
+        9px 15px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color:
+        var(--text-soft);
+
+    border:
+        1px solid
+        var(--border-medium);
+
+    background:
+        var(--surface-main);
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 20px
+        var(--shadow-soft);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.result-secondary-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    color:
+        var(--text-main);
+
+    border-color:
+        rgba(118,85,232,0.34);
+
+}
+
+
+.download-result-btn {
+
+    min-width: 220px;
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.result-error-panel {
+
+    margin-top: 18px;
+
+    padding:
+        17px;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid
+        rgba(244,86,112,0.24);
+
+    background:
+        rgba(244,86,112,0.07);
+
+}
+
+
+.result-error-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red-light),
+            var(--red-dark)
+        );
+
+    font-weight: 700;
+
+}
+
+
+.result-error-panel strong {
+
+    display: block;
+
+    color:
+        var(--red);
+
+    font-size: 13px;
+
+}
+
+
+.result-error-panel span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-soft);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   MAIN QUESTION ICON
+   ========================================================= */
+
+.questions-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .answer-key-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .results-stat-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .result-options-list {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .answer-key-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+    }
+
+
+    .results-action-bar {
+
+        align-items:
+            stretch;
+
+        flex-direction:
+            column-reverse;
+
+    }
+
+
+    .results-action-left {
+
+        width: 100%;
+
+    }
+
+
+    .result-secondary-btn {
+
+        flex: 1;
+
+    }
+
+
+    .download-result-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .result-summary-card {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .result-options-list,
+    .tf-choice-row,
+    .result-inline-answer,
+    .matching-answer-row,
+    .result-general-answer {
+
+        margin-left:
+            0;
+
+    }
+
+
+    .tf-choice-row {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+    }
+
+
+    .tf-choice-row span {
+
+        min-width: 0;
+
+    }
+
+
+    .answer-key-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .results-action-left {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .result-secondary-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+
+</body>
+
+</html>

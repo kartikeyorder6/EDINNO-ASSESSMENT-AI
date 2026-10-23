@@ -1,0 +1,3711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light dark"
+    >
+
+    <title>
+        Assessment Type | EDINNO AI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body data-theme="dark">
+
+
+<script>
+
+(function () {
+
+    try {
+
+        const savedTheme =
+            localStorage.getItem(
+                "edinnoTheme"
+            );
+
+        if (
+            savedTheme === "light"
+            ||
+            savedTheme === "dark"
+        ) {
+
+            document.body.setAttribute(
+                "data-theme",
+                savedTheme
+            );
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to restore theme.",
+            error
+        );
+
+    }
+
+})();
+
+</script>
+
+
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div>
+
+
+            <div class="brand">
+
+
+                <div
+                    class="brand-logo"
+                    aria-hidden="true"
+                >
+                    ⚡
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h2>
+                        EDINNO
+                    </h2>
+
+                    <span>
+                        ASSESSMENT AI
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="sidebar-menu">
+
+
+                <p class="menu-label">
+                    WORKSPACE
+                </p>
+
+
+                <div class="menu-item active">
+                    ✦ &nbsp; Assessment Studio
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="sidebar-footer">
+
+            <span class="online-dot"></span>
+
+            Local AI Assessment Engine
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+             ================================================= -->
+
+        <div class="top-header-layout">
+
+
+            <div class="page-header">
+
+
+                <div class="eyebrow">
+                    ✦ STEP 03 — ASSESSMENT TYPE
+                </div>
+
+
+                <h1>
+
+                    Choose your
+
+                    <span>
+                        assessment.
+                    </span>
+
+                </h1>
+
+
+                <p
+                    class="page-description"
+                    id="assessment-page-description"
+                >
+
+                    Select the assessment format you want
+                    to generate from your merged content.
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =============================================
+                 THEME SWITCHER
+                 ============================================= -->
+
+            <div
+                class="theme-switcher"
+                role="group"
+                aria-label="Theme selection"
+            >
+
+
+                <button
+                    type="button"
+                    id="theme-light-btn"
+                    class="theme-option"
+                    aria-label="Switch to Light Mode"
+                    aria-pressed="false"
+                >
+
+                    <span class="theme-option-icon">
+                        ☀
+                    </span>
+
+                    <span>
+                        Light
+                    </span>
+
+                </button>
+
+
+
+                <button
+                    type="button"
+                    id="theme-dark-btn"
+                    class="theme-option"
+                    aria-label="Switch to Night Mode"
+                    aria-pressed="true"
+                >
+
+                    <span class="theme-option-icon">
+                        ☾
+                    </span>
+
+                    <span>
+                        Night
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+             ================================================= -->
+
+        <div class="progress-steps">
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    01
+                </span>
+
+                <span>
+                    Setup
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    02
+                </span>
+
+                <span>
+                    Content Merge
+                </span>
+
+            </div>
+
+
+            <div class="progress-step active">
+
+                <span class="step-number">
+                    03
+                </span>
+
+                <span>
+                    Assessment Type
+                </span>
+
+            </div>
+
+
+            <div class="progress-step">
+
+                <span class="step-number">
+                    04
+                </span>
+
+                <span>
+                    Results
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SOURCE SUMMARY
+             ================================================= -->
+
+        <section class="chapter-card assessment-source-card">
+
+
+            <div class="assessment-source-left">
+
+
+                <div
+                    class="assessment-source-icon"
+                    aria-hidden="true"
+                >
+                    ▤
+                </div>
+
+
+                <div>
+
+
+                    <span>
+                        Generating from
+                    </span>
+
+
+                    <strong id="assessment-source-title">
+                        Loading content...
+                    </strong>
+
+
+                    <small id="assessment-source-meta">
+                        —
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="assessment-source-badge"
+                id="assessment-workflow-badge"
+            >
+                CHAPTER
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CHAPTER ASSESSMENT TYPES
+             ================================================= -->
+
+        <section
+            class="chapter-card"
+            id="chapter-assessment-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon assessment-main-icon"
+                    aria-hidden="true"
+                >
+                    03
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Select Assessment Format
+                    </h2>
+
+
+                    <p>
+                        Choose one Chapter Completion assessment.
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="assessment-type-grid">
+
+
+                <!-- =========================================
+                     MCQ
+                     ========================================= -->
+
+                <label class="modern-assessment-card purple-assessment">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="mcq"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon purple-card-icon"
+                        aria-hidden="true"
+                    >
+                        A
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                Multiple Choice
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                10 Questions
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Generate ten MCQs with four
+                            answer options each.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     TRUE / FALSE
+                     ========================================= -->
+
+                <label class="modern-assessment-card blue-assessment">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="true_false"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon blue-card-icon"
+                        aria-hidden="true"
+                    >
+                        ✓
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                True / False
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                10 Questions
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Generate ten clear statements
+                            to evaluate as True or False.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     GENERAL
+                     ========================================= -->
+
+                <label class="modern-assessment-card green-assessment">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="general"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon green-card-icon"
+                        aria-hidden="true"
+                    >
+                        ?
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                General Questions
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                10 Questions
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Generate short-answer conceptual
+                            questions from the learning content.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MATCHING
+                     ========================================= -->
+
+                <label class="modern-assessment-card orange-assessment">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="matching"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon orange-card-icon"
+                        aria-hidden="true"
+                    >
+                        ⇄
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                Match the Following
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                10 Pairs
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Match concepts, components or terms
+                            with their correct descriptions.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MIXED
+                     ========================================= -->
+
+                <label class="modern-assessment-card mixed-assessment">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="mixed"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon mixed-card-icon"
+                        aria-hidden="true"
+                    >
+                        ✦
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                Mixed Assessment
+                            </h3>
+
+
+                            <span class="assessment-count-pill mixed-count-pill">
+                                5 + 5
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Exactly 5 Multiple Choice questions
+                            followed by 5 True / False questions.
+
+                        </p>
+
+
+                        <div class="mixed-format-row">
+
+
+                            <span>
+                                5 MCQ
+                            </span>
+
+
+                            <span class="mixed-plus">
+                                +
+                            </span>
+
+
+                            <span>
+                                5 True / False
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             MASTER ASSESSMENT TYPES
+             ================================================= -->
+
+        <section
+            class="chapter-card"
+            id="master-assessment-section"
+            style="display: none;"
+        >
+
+
+            <div class="card-heading">
+
+
+                <div
+                    class="card-icon master-main-icon"
+                    aria-hidden="true"
+                >
+                    ★
+                </div>
+
+
+                <div>
+
+
+                    <h2>
+                        Select Master Assessment Format
+                    </h2>
+
+
+                    <p>
+
+                        Choose how the final grade-level
+                        assessment should be structured.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="assessment-type-grid master-type-grid">
+
+
+                <!-- =========================================
+                     MASTER MCQ + TF
+                     ========================================= -->
+
+                <label class="modern-assessment-card master-purple-card">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="master_mcq_tf"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon purple-card-icon"
+                        aria-hidden="true"
+                    >
+                        10
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                MCQ + True / False
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                5 + 5
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Five Multiple Choice questions and
+                            five True / False questions.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MASTER MCQ + SITUATION
+                     ========================================= -->
+
+                <label class="modern-assessment-card master-blue-card">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="master_mcq_situation"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon blue-card-icon"
+                        aria-hidden="true"
+                    >
+                        S
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                MCQ + Situation-Based
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                5 + 5
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Five MCQs and five newly-created
+                            application scenarios.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MASTER TF + SITUATION
+                     ========================================= -->
+
+                <label class="modern-assessment-card master-green-card">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="master_tf_situation"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon green-card-icon"
+                        aria-hidden="true"
+                    >
+                        S
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                True / False + Situation
+                            </h3>
+
+
+                            <span class="assessment-count-pill">
+                                5 + 5
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Five True / False questions and
+                            five situation-based questions.
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+
+                <!-- =========================================
+                     MASTER ALL
+                     ========================================= -->
+
+                <label class="modern-assessment-card master-all-card">
+
+
+                    <input
+                        type="radio"
+                        name="assessmentType"
+                        value="master_all"
+                    >
+
+
+                    <div
+                        class="assessment-card-icon master-all-icon"
+                        aria-hidden="true"
+                    >
+                        15
+                    </div>
+
+
+                    <div class="assessment-card-copy">
+
+
+                        <div class="assessment-card-top">
+
+
+                            <h3>
+                                Complete Mixed Assessment
+                            </h3>
+
+
+                            <span class="assessment-count-pill all-count-pill">
+                                15 Questions
+                            </span>
+
+
+                        </div>
+
+
+                        <p>
+
+                            Five MCQs, five True / False questions
+                            and five Situation-Based questions.
+
+                        </p>
+
+
+                        <div class="mixed-format-row">
+
+
+                            <span>
+                                5 MCQ
+                            </span>
+
+
+                            <span class="mixed-plus">
+                                +
+                            </span>
+
+
+                            <span>
+                                5 T/F
+                            </span>
+
+
+                            <span class="mixed-plus">
+                                +
+                            </span>
+
+
+                            <span>
+                                5 Situation
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="assessment-selected-check">
+                        ✓
+                    </div>
+
+
+                </label>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SELECTED FORMAT SUMMARY
+             ================================================= -->
+
+        <section
+            class="selected-format-panel"
+            id="selected-format-panel"
+        >
+
+
+            <div class="selected-format-left">
+
+
+                <div
+                    class="selected-format-icon"
+                    aria-hidden="true"
+                >
+                    ✦
+                </div>
+
+
+                <div>
+
+
+                    <span>
+                        Selected format
+                    </span>
+
+
+                    <strong id="selected-format-name">
+                        Choose an assessment format
+                    </strong>
+
+
+                    <small id="selected-format-description">
+
+                        Select one option above to enable generation.
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+                class="selected-format-status"
+                id="selected-format-status"
+            >
+                SELECT FORMAT
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             GENERATION STATUS
+             ================================================= -->
+
+        <div
+            class="generation-status-panel"
+            id="generation-status-panel"
+            style="display: none;"
+        >
+
+
+            <div class="generation-spinner"></div>
+
+
+            <div>
+
+
+                <strong id="generation-status-title">
+                    Generating assessment...
+                </strong>
+
+
+                <span id="generation-status-text">
+
+                    Local AI is reading your merged educational
+                    content and creating original questions.
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR PANEL
+             ================================================= -->
+
+        <div
+            class="assessment-error-panel"
+            id="assessment-error-panel"
+            style="display: none;"
+        >
+
+
+            <strong>
+                Unable to generate assessment
+            </strong>
+
+
+            <span id="assessment-error-message">
+                Please try again.
+            </span>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+             ================================================= -->
+
+        <div class="merge-navigation assessment-navigation">
+
+
+            <a
+                href="/merge"
+                class="merge-back-btn"
+            >
+                ← Back to Content Merge
+            </a>
+
+
+
+            <button
+                type="button"
+                id="generate-assessment-btn"
+                class="continue-btn assessment-generate-btn"
+                disabled
+            >
+
+                Generate Assessment
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // =====================================================
+        // THEME
+        // =====================================================
+
+        const lightButton =
+            document.getElementById(
+                "theme-light-btn"
+            );
+
+
+        const darkButton =
+            document.getElementById(
+                "theme-dark-btn"
+            );
+
+
+        function getTheme() {
+
+            return (
+                document.body.getAttribute(
+                    "data-theme"
+                ) === "light"
+            )
+                ? "light"
+                : "dark";
+
+        }
+
+
+        function updateThemeButtons() {
+
+            const lightActive =
+                getTheme() === "light";
+
+
+            lightButton.classList.toggle(
+                "active",
+                lightActive
+            );
+
+
+            darkButton.classList.toggle(
+                "active",
+                !lightActive
+            );
+
+
+            lightButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "true"
+                    : "false"
+            );
+
+
+            darkButton.setAttribute(
+                "aria-pressed",
+                lightActive
+                    ? "false"
+                    : "true"
+            );
+
+        }
+
+
+        function setTheme(theme) {
+
+            document.body.setAttribute(
+                "data-theme",
+                theme
+            );
+
+
+            try {
+
+                localStorage.setItem(
+                    "edinnoTheme",
+                    theme
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    "Unable to save theme.",
+                    error
+                );
+
+            }
+
+
+            updateThemeButtons();
+
+        }
+
+
+        lightButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "light"
+                );
+
+            }
+        );
+
+
+        darkButton.addEventListener(
+            "click",
+            function () {
+
+                setTheme(
+                    "dark"
+                );
+
+            }
+        );
+
+
+        updateThemeButtons();
+
+
+
+        // =====================================================
+        // ELEMENTS
+        // =====================================================
+
+        const chapterSection =
+            document.getElementById(
+                "chapter-assessment-section"
+            );
+
+
+        const masterSection =
+            document.getElementById(
+                "master-assessment-section"
+            );
+
+
+        const pageDescription =
+            document.getElementById(
+                "assessment-page-description"
+            );
+
+
+        const sourceTitle =
+            document.getElementById(
+                "assessment-source-title"
+            );
+
+
+        const sourceMeta =
+            document.getElementById(
+                "assessment-source-meta"
+            );
+
+
+        const workflowBadge =
+            document.getElementById(
+                "assessment-workflow-badge"
+            );
+
+
+        const assessmentOptions =
+            document.querySelectorAll(
+                'input[name="assessmentType"]'
+            );
+
+
+        const selectedFormatPanel =
+            document.getElementById(
+                "selected-format-panel"
+            );
+
+
+        const selectedFormatName =
+            document.getElementById(
+                "selected-format-name"
+            );
+
+
+        const selectedFormatDescription =
+            document.getElementById(
+                "selected-format-description"
+            );
+
+
+        const selectedFormatStatus =
+            document.getElementById(
+                "selected-format-status"
+            );
+
+
+        const generateButton =
+            document.getElementById(
+                "generate-assessment-btn"
+            );
+
+
+        const generationPanel =
+            document.getElementById(
+                "generation-status-panel"
+            );
+
+
+        const generationStatusTitle =
+            document.getElementById(
+                "generation-status-title"
+            );
+
+
+        const generationStatusText =
+            document.getElementById(
+                "generation-status-text"
+            );
+
+
+        const errorPanel =
+            document.getElementById(
+                "assessment-error-panel"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "assessment-error-message"
+            );
+
+
+
+        // =====================================================
+        // LOAD MERGED DATA
+        // =====================================================
+
+        const storedData =
+            sessionStorage.getItem(
+                "edinnoMergedData"
+            );
+
+
+        if (!storedData) {
+
+            alert(
+                "Merged content was not found. Please upload your resources again."
+            );
+
+
+            window.location.replace(
+                "/"
+            );
+
+
+            return;
+
+        }
+
+
+
+        let mergedData;
+
+
+        try {
+
+            mergedData =
+                JSON.parse(
+                    storedData
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Invalid merged data.",
+                error
+            );
+
+
+            alert(
+                "Stored content is invalid. Please upload your resources again."
+            );
+
+
+            window.location.replace(
+                "/"
+            );
+
+
+            return;
+
+        }
+
+
+
+        const workflow =
+            mergedData.workflow
+            ||
+            sessionStorage.getItem(
+                "edinnoAssessmentWorkflow"
+            )
+            ||
+            "chapter_completion";
+
+
+        const chapterContent =
+            String(
+                mergedData.combined_content
+                ||
+                ""
+            );
+
+
+        if (
+            !chapterContent.trim()
+        ) {
+
+            alert(
+                "Merged chapter content is empty. Please upload readable PDF files again."
+            );
+
+
+            window.location.replace(
+                "/"
+            );
+
+
+            return;
+
+        }
+
+
+
+        // =====================================================
+        // WORKFLOW UI
+        // =====================================================
+
+        const isMaster =
+            workflow ===
+            "master_assessment";
+
+
+        if (isMaster) {
+
+            chapterSection.style.display =
+                "none";
+
+
+            masterSection.style.display =
+                "block";
+
+
+            workflowBadge.textContent =
+                "MASTER";
+
+
+            sourceTitle.textContent =
+                (
+                    mergedData.chapterName
+                    ||
+                    (
+                        mergedData.grade
+                            ? `Grade ${mergedData.grade} Master Assessment`
+                            : "Master Assessment"
+                    )
+                );
+
+
+            sourceMeta.textContent =
+                (
+                    `${mergedData.total_files || mergedData.totalResources || 0} PDFs`
+                    +
+                    (
+                        mergedData.grade
+                            ? ` • Grade ${mergedData.grade}`
+                            : ""
+                    )
+                );
+
+
+            pageDescription.textContent =
+                (
+                    "Choose a Master Assessment combination "
+                    +
+                    "for your merged grade-level learning resources."
+                );
+
+        } else {
+
+            masterSection.style.display =
+                "none";
+
+
+            chapterSection.style.display =
+                "block";
+
+
+            workflowBadge.textContent =
+                "CHAPTER";
+
+
+            sourceTitle.textContent =
+                mergedData.chapterName
+                ||
+                "Chapter Completion Quiz";
+
+
+            sourceMeta.textContent =
+                (
+                    `${mergedData.total_files || mergedData.totalResources || 0} PDFs`
+                    +
+                    ` • ${mergedData.topics || 0} Topics`
+                    +
+                    ` • ${mergedData.activities || 0} Activities`
+                    +
+                    ` • ${mergedData.projects || 0} Projects`
+                );
+
+
+            pageDescription.textContent =
+                (
+                    "Select the Chapter Completion format "
+                    +
+                    "you want to generate from your merged resources."
+                );
+
+        }
+
+
+
+        // =====================================================
+        // FORMAT DEFINITIONS
+        // =====================================================
+
+        const formatDefinitions = {
+
+            mcq: {
+                name:
+                    "10 Multiple Choice Questions",
+
+                description:
+                    "Ten MCQs with four options each.",
+
+                button:
+                    "Generate 10 MCQs"
+            },
+
+            true_false: {
+                name:
+                    "10 True / False Questions",
+
+                description:
+                    "Ten statements with True or False answers.",
+
+                button:
+                    "Generate 10 True / False"
+            },
+
+            general: {
+                name:
+                    "10 General Questions",
+
+                description:
+                    "Ten short-answer conceptual questions.",
+
+                button:
+                    "Generate 10 General Questions"
+            },
+
+            matching: {
+                name:
+                    "10 Matching Pairs",
+
+                description:
+                    "Ten concept-to-description matching pairs.",
+
+                button:
+                    "Generate Matching Assessment"
+            },
+
+            mixed: {
+                name:
+                    "5 MCQ + 5 True / False",
+
+                description:
+                    "Exactly 10 questions: Q1–Q5 MCQ and Q6–Q10 True / False.",
+
+                button:
+                    "Generate 5 MCQ + 5 True / False"
+            },
+
+            master_mcq_tf: {
+                name:
+                    "5 MCQ + 5 True / False",
+
+                description:
+                    "Ten-question Master Assessment.",
+
+                button:
+                    "Generate Master Assessment"
+            },
+
+            master_mcq_situation: {
+                name:
+                    "5 MCQ + 5 Situation-Based",
+
+                description:
+                    "Ten-question Master Assessment with new application scenarios.",
+
+                button:
+                    "Generate Master Assessment"
+            },
+
+            master_tf_situation: {
+                name:
+                    "5 True / False + 5 Situation-Based",
+
+                description:
+                    "Ten-question Master Assessment.",
+
+                button:
+                    "Generate Master Assessment"
+            },
+
+            master_all: {
+                name:
+                    "5 MCQ + 5 True / False + 5 Situation",
+
+                description:
+                    "Complete 15-question Master Assessment.",
+
+                button:
+                    "Generate 15-Question Master Assessment"
+            }
+
+        };
+
+
+
+        // =====================================================
+        // SELECT FORMAT
+        // =====================================================
+
+        let selectedAssessmentType =
+            null;
+
+
+        assessmentOptions.forEach(
+            function (option) {
+
+                option.addEventListener(
+                    "change",
+                    function () {
+
+                        if (!this.checked) {
+                            return;
+                        }
+
+
+                        selectedAssessmentType =
+                            this.value;
+
+
+                        sessionStorage.setItem(
+                            "edinnoAssessmentType",
+                            selectedAssessmentType
+                        );
+
+
+                        const definition =
+                            formatDefinitions[
+                                selectedAssessmentType
+                            ];
+
+
+                        selectedFormatName.textContent =
+                            definition
+                                ? definition.name
+                                : "Assessment selected";
+
+
+                        selectedFormatDescription.textContent =
+                            definition
+                                ? definition.description
+                                : "Ready to generate.";
+
+
+                        selectedFormatStatus.textContent =
+                            "READY";
+
+
+                        selectedFormatStatus.classList.add(
+                            "ready"
+                        );
+
+
+                        selectedFormatStatus.classList.remove(
+                            "error"
+                        );
+
+
+                        selectedFormatPanel.classList.add(
+                            "ready"
+                        );
+
+
+                        generateButton.disabled =
+                            false;
+
+
+                        generateButton.innerHTML =
+                            `
+
+                                ${
+                                    definition
+                                        ? definition.button
+                                        : "Generate Assessment"
+                                }
+
+                                <span>→</span>
+
+                            `;
+
+
+                        errorPanel.style.display =
+                            "none";
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        // =====================================================
+        // SAFE JSON RESPONSE
+        // =====================================================
+
+        async function readJSONResponse(
+            response
+        ) {
+
+            const rawText =
+                await response.text();
+
+
+            if (!rawText.trim()) {
+
+                throw new Error(
+                    "The server returned an empty response."
+                );
+
+            }
+
+
+            try {
+
+                return JSON.parse(
+                    rawText
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Invalid server response:",
+                    rawText
+                );
+
+
+                throw new Error(
+                    "The server returned an invalid response."
+                );
+
+            }
+
+        }
+
+
+
+        // =====================================================
+        // MIXED VALIDATION
+        // =====================================================
+
+        function validateMixedAssessment(
+            assessment
+        ) {
+
+            if (
+                !assessment
+                ||
+                !Array.isArray(
+                    assessment.questions
+                )
+            ) {
+
+                throw new Error(
+                    "Generated Mixed Assessment has no valid questions list."
+                );
+
+            }
+
+
+            const questions =
+                assessment.questions;
+
+
+            if (
+                questions.length !== 10
+            ) {
+
+                throw new Error(
+                    "Mixed Assessment must contain exactly 10 questions."
+                );
+
+            }
+
+
+            // -------------------------------------------------
+            // Q1–Q5 MUST BE MCQ
+            // -------------------------------------------------
+
+            for (
+                let index = 0;
+                index < 5;
+                index += 1
+            ) {
+
+                const question =
+                    questions[index];
+
+
+                if (
+                    !question
+                    ||
+                    typeof question !== "object"
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} is invalid.`
+                    );
+
+                }
+
+
+                const questionType =
+                    String(
+                        question.question_type
+                        ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    questionType !== "mcq"
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} must be an MCQ.`
+                    );
+
+                }
+
+
+                if (
+                    !Array.isArray(
+                        question.options
+                    )
+                    ||
+                    question.options.length !== 4
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} must contain exactly four options.`
+                    );
+
+                }
+
+
+                const answer =
+                    String(
+                        question.answer
+                        ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    ![
+                        "a",
+                        "b",
+                        "c",
+                        "d"
+                    ].includes(
+                        answer
+                    )
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} has an invalid MCQ answer.`
+                    );
+
+                }
+
+            }
+
+
+
+            // -------------------------------------------------
+            // Q6–Q10 MUST BE TRUE / FALSE
+            // -------------------------------------------------
+
+            for (
+                let index = 5;
+                index < 10;
+                index += 1
+            ) {
+
+                const question =
+                    questions[index];
+
+
+                if (
+                    !question
+                    ||
+                    typeof question !== "object"
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} is invalid.`
+                    );
+
+                }
+
+
+                const questionType =
+                    String(
+                        question.question_type
+                        ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    questionType !==
+                    "true_false"
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} must be True / False.`
+                    );
+
+                }
+
+
+                const answer =
+                    String(
+                        question.answer
+                        ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    ![
+                        "true",
+                        "false"
+                    ].includes(
+                        answer
+                    )
+                ) {
+
+                    throw new Error(
+                        `Question ${index + 1} has an invalid True / False answer.`
+                    );
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // =====================================================
+        // GENERAL ASSESSMENT VALIDATION
+        // =====================================================
+
+        function validateGeneratedAssessment(
+            assessment
+        ) {
+
+            if (
+                !assessment
+                ||
+                typeof assessment !==
+                "object"
+            ) {
+
+                throw new Error(
+                    "Generated assessment is invalid."
+                );
+
+            }
+
+
+            if (
+                !Array.isArray(
+                    assessment.questions
+                )
+                ||
+                assessment.questions.length === 0
+            ) {
+
+                throw new Error(
+                    "The AI did not return a valid questions list."
+                );
+
+            }
+
+
+            if (
+                selectedAssessmentType ===
+                "mixed"
+            ) {
+
+                validateMixedAssessment(
+                    assessment
+                );
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // =====================================================
+        // GENERATE ASSESSMENT
+        // =====================================================
+
+        generateButton.addEventListener(
+            "click",
+            async function () {
+
+                if (
+                    !selectedAssessmentType
+                ) {
+
+                    alert(
+                        "Please select an assessment format."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !chapterContent.trim()
+                ) {
+
+                    alert(
+                        "Merged content is unavailable."
+                    );
+
+                    return;
+
+                }
+
+
+                const originalButtonHTML =
+                    generateButton.innerHTML;
+
+
+                generateButton.disabled =
+                    true;
+
+
+                assessmentOptions.forEach(
+                    function (option) {
+
+                        option.disabled =
+                            true;
+
+                    }
+                );
+
+
+                generationPanel.style.display =
+                    "flex";
+
+
+                errorPanel.style.display =
+                    "none";
+
+
+                generationStatusTitle.textContent =
+                    isMaster
+                        ? "Generating Master Assessment..."
+                        : "Generating Chapter Assessment...";
+
+
+                if (
+                    selectedAssessmentType ===
+                    "mixed"
+                ) {
+
+                    generationStatusText.textContent =
+                        (
+                            "Creating exactly 5 MCQs and 5 True / False "
+                            +
+                            "questions from your merged chapter resources."
+                        );
+
+                } else {
+
+                    generationStatusText.textContent =
+                        (
+                            "Local AI is reading your merged educational "
+                            +
+                            "content and creating original questions."
+                        );
+
+                }
+
+
+                generateButton.innerHTML =
+                    `
+
+                        <span class="button-mini-spinner"></span>
+
+                        Generating...
+
+                    `;
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/generate-assessment",
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json",
+
+                                    "Cache-Control":
+                                        "no-cache"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        {
+
+                                            chapter_content:
+                                                chapterContent,
+
+                                            assessment_type:
+                                                selectedAssessmentType
+
+                                        }
+                                    ),
+
+                                cache:
+                                    "no-store"
+
+                            }
+                        );
+
+
+                    const result =
+                        await readJSONResponse(
+                            response
+                        );
+
+
+                    if (
+                        !response.ok
+                    ) {
+
+                        throw new Error(
+                            result.message
+                            ||
+                            result.error
+                            ||
+                            "Assessment generation failed."
+                        );
+
+                    }
+
+
+                    if (
+                        result.success === false
+                    ) {
+
+                        throw new Error(
+                            result.message
+                            ||
+                            result.error
+                            ||
+                            "Assessment generation failed."
+                        );
+
+                    }
+
+
+
+                    // =================================================
+                    // SUPPORT BOTH RESPONSE STRUCTURES
+                    // =================================================
+
+                    const assessment =
+                        result.assessment
+                        ||
+                        (
+                            Array.isArray(
+                                result.questions
+                            )
+                                ? result
+                                : null
+                        );
+
+
+                    validateGeneratedAssessment(
+                        assessment
+                    );
+
+
+
+                    // =================================================
+                    // SAVE RESULTS
+                    // =================================================
+
+                    sessionStorage.setItem(
+                        "edinnoGeneratedAssessment",
+                        JSON.stringify(
+                            assessment
+                        )
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentType",
+                        selectedAssessmentType
+                    );
+
+
+                    sessionStorage.setItem(
+                        "edinnoAssessmentWorkflow",
+                        workflow
+                    );
+
+
+
+                    // =================================================
+                    // SUCCESS STATUS
+                    // =================================================
+
+                    generationStatusTitle.textContent =
+                        "Assessment ready";
+
+
+                    generationStatusText.textContent =
+                        (
+                            "Generation completed successfully. "
+                            +
+                            "Opening your results..."
+                        );
+
+
+
+                    // =================================================
+                    // RESULTS
+                    // =================================================
+
+                    window.location.replace(
+                        "/results"
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Assessment generation error:",
+                        error
+                    );
+
+
+                    generationPanel.style.display =
+                        "none";
+
+
+                    errorPanel.style.display =
+                        "flex";
+
+
+                    errorMessage.textContent =
+                        error.message
+                        ||
+                        "Unable to generate assessment.";
+
+
+                    generateButton.disabled =
+                        false;
+
+
+                    generateButton.innerHTML =
+                        originalButtonHTML;
+
+
+                    assessmentOptions.forEach(
+                        function (option) {
+
+                            option.disabled =
+                                false;
+
+                        }
+                    );
+
+
+                    selectedFormatStatus.textContent =
+                        "TRY AGAIN";
+
+
+                    selectedFormatStatus.classList.remove(
+                        "ready"
+                    );
+
+
+                    selectedFormatStatus.classList.add(
+                        "error"
+                    );
+
+                }
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
+
+<!-- =========================================================
+     PAGE-SPECIFIC CSS
+     ========================================================= -->
+
+<style>
+
+
+/* =========================================================
+   SOURCE CARD
+   ========================================================= */
+
+.assessment-source-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+}
+
+
+.assessment-source-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.assessment-source-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    min-width: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+    box-shadow:
+        0 11px 24px
+        rgba(68,143,232,0.20),
+
+        inset 0 2px 0
+        rgba(255,255,255,0.25);
+
+}
+
+
+.assessment-source-left span {
+
+    display: block;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.assessment-source-left strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    max-width: 720px;
+
+    overflow: hidden;
+
+    color:
+        var(--text-main);
+
+    font-size: 16px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.assessment-source-left small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.assessment-source-badge {
+
+    flex: none;
+
+    padding:
+        7px 11px;
+
+    border-radius: 999px;
+
+    color:
+        var(--purple-light);
+
+    border:
+        1px solid
+        rgba(118,85,232,0.22);
+
+    background:
+        rgba(118,85,232,0.08);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.6px;
+
+}
+
+
+/* =========================================================
+   MAIN ICONS
+   ========================================================= */
+
+.assessment-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.master-main-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+/* =========================================================
+   ASSESSMENT GRID
+   ========================================================= */
+
+.assessment-type-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+    gap: 14px;
+
+}
+
+
+.modern-assessment-card {
+
+    position: relative;
+
+    min-height: 132px;
+
+    padding: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        54px
+        minmax(0,1fr)
+        30px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    overflow: hidden;
+
+    border-radius: 19px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--glass-highlight),
+            transparent
+        ),
+
+        var(--surface-soft);
+
+    box-shadow:
+        0 10px 26px
+        var(--shadow-soft);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+
+}
+
+
+.modern-assessment-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 15px 32px
+        var(--shadow-medium);
+
+}
+
+
+.modern-assessment-card input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+.modern-assessment-card:has(
+    input:checked
+) {
+
+    transform:
+        translateY(-2px);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(118,85,232,0.08),
+            transparent
+        ),
+
+        var(--surface-main);
+
+}
+
+
+.purple-assessment:has(
+    input:checked
+),
+.master-purple-card:has(
+    input:checked
+) {
+
+    border-color:
+        rgba(118,85,232,0.55);
+
+}
+
+
+.blue-assessment:has(
+    input:checked
+),
+.master-blue-card:has(
+    input:checked
+) {
+
+    border-color:
+        rgba(68,143,232,0.55);
+
+}
+
+
+.green-assessment:has(
+    input:checked
+),
+.master-green-card:has(
+    input:checked
+) {
+
+    border-color:
+        rgba(46,203,149,0.55);
+
+}
+
+
+.orange-assessment:has(
+    input:checked
+) {
+
+    border-color:
+        rgba(243,145,71,0.55);
+
+}
+
+
+.mixed-assessment:has(
+    input:checked
+),
+.master-all-card:has(
+    input:checked
+) {
+
+    border-color:
+        rgba(169,140,255,0.68);
+
+}
+
+
+/* =========================================================
+   CARD ICON
+   ========================================================= */
+
+.assessment-card-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    min-width: 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 2px 0
+        rgba(255,255,255,0.25),
+
+        0 10px 22px
+        var(--shadow-soft);
+
+    animation:
+        assessmentIconFloat
+        4s ease-in-out infinite;
+
+}
+
+
+.purple-card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+.blue-card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+}
+
+
+.green-card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--green-dark)
+        );
+
+}
+
+
+.orange-card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--orange-light),
+            var(--orange-dark)
+        );
+
+}
+
+
+.mixed-card-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            #b08dff,
+            #684bdc
+        );
+
+}
+
+
+.master-all-icon {
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--green-light),
+            var(--purple-dark)
+        );
+
+}
+
+
+/* =========================================================
+   CARD COPY
+   ========================================================= */
+
+.assessment-card-copy {
+
+    min-width: 0;
+
+}
+
+
+.assessment-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+}
+
+
+.assessment-card-top h3 {
+
+    margin: 0;
+
+    color:
+        var(--text-main);
+
+    font-size: 16px;
+
+    line-height: 1.3;
+
+}
+
+
+.assessment-card-copy p {
+
+    margin-top: 7px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+}
+
+
+.assessment-count-pill {
+
+    flex: none;
+
+    padding:
+        5px 8px;
+
+    border-radius: 999px;
+
+    color:
+        var(--text-soft);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-main);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+}
+
+
+.mixed-count-pill,
+.all-count-pill {
+
+    color:
+        var(--purple-light);
+
+}
+
+
+/* =========================================================
+   SELECT CHECK
+   ========================================================= */
+
+.assessment-selected-check {
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    color:
+        var(--text-muted);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-main);
+
+    font-size: 11px;
+
+    opacity: 0.38;
+
+    transition:
+        opacity 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.modern-assessment-card:has(
+    input:checked
+)
+.assessment-selected-check {
+
+    opacity: 1;
+
+    color:
+        var(--green);
+
+    background:
+        rgba(46,203,149,0.09);
+
+    border-color:
+        rgba(46,203,149,0.20);
+
+}
+
+
+/* =========================================================
+   MIXED FORMAT
+   ========================================================= */
+
+.mixed-format-row {
+
+    margin-top: 10px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.mixed-format-row span {
+
+    padding:
+        4px 7px;
+
+    border-radius: 8px;
+
+    color:
+        var(--text-soft);
+
+    background:
+        var(--surface-main);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+}
+
+
+.mixed-format-row
+.mixed-plus {
+
+    padding: 0;
+
+    color:
+        var(--text-muted);
+
+    background:
+        transparent;
+
+}
+
+
+/* =========================================================
+   SELECTED FORMAT PANEL
+   ========================================================= */
+
+.selected-format-panel {
+
+    margin-top: 20px;
+
+    padding:
+        16px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    background:
+        var(--surface-main);
+
+    box-shadow:
+        0 10px 27px
+        var(--shadow-soft);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+}
+
+
+.selected-format-panel.ready {
+
+    border-color:
+        rgba(46,203,149,0.22);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(46,203,149,0.045),
+            transparent
+        ),
+
+        var(--surface-main);
+
+}
+
+
+.selected-format-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.selected-format-icon {
+
+    width: 47px;
+
+    height: 47px;
+
+    min-width: 47px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--purple-light),
+            var(--purple-dark)
+        );
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+.selected-format-left span {
+
+    display: block;
+
+    color:
+        var(--text-muted);
+
+    font-size: 10px;
+
+}
+
+
+.selected-format-left strong {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--text-main);
+
+    font-size: 14px;
+
+}
+
+
+.selected-format-left small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+}
+
+
+.selected-format-status {
+
+    flex: none;
+
+    padding:
+        7px 10px;
+
+    border-radius: 999px;
+
+    color:
+        var(--text-muted);
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+}
+
+
+.selected-format-status.ready {
+
+    color:
+        var(--green);
+
+    border-color:
+        rgba(46,203,149,0.24);
+
+    background:
+        rgba(46,203,149,0.08);
+
+}
+
+
+.selected-format-status.error {
+
+    color:
+        var(--red);
+
+    border-color:
+        rgba(244,86,112,0.24);
+
+    background:
+        rgba(244,86,112,0.08);
+
+}
+
+
+/* =========================================================
+   GENERATION STATUS
+   ========================================================= */
+
+.generation-status-panel {
+
+    margin-top: 14px;
+
+    padding:
+        16px 18px;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        rgba(118,85,232,0.22);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(118,85,232,0.07),
+            transparent
+        ),
+
+        var(--surface-main);
+
+}
+
+
+.generation-spinner {
+
+    width: 38px;
+
+    height: 38px;
+
+    min-width: 38px;
+
+    border-radius: 50%;
+
+    border:
+        3px solid
+        var(--border-soft);
+
+    border-top-color:
+        var(--purple-light);
+
+    animation:
+        assessmentSpin
+        0.8s linear infinite;
+
+}
+
+
+.generation-status-panel strong {
+
+    display: block;
+
+    color:
+        var(--text-main);
+
+    font-size: 13px;
+
+}
+
+
+.generation-status-panel span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.assessment-error-panel {
+
+    margin-top: 14px;
+
+    padding:
+        14px 16px;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        rgba(244,86,112,0.24);
+
+    background:
+        rgba(244,86,112,0.07);
+
+}
+
+
+.assessment-error-panel strong {
+
+    color:
+        var(--red);
+
+    font-size: 13px;
+
+}
+
+
+.assessment-error-panel span {
+
+    color:
+        var(--text-soft);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   GENERATE BUTTON
+   ========================================================= */
+
+.assessment-generate-btn {
+
+    min-width: 230px;
+
+}
+
+
+.button-mini-spinner {
+
+    width: 15px;
+
+    height: 15px;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.35);
+
+    border-top-color:
+        #ffffff;
+
+    animation:
+        assessmentSpin
+        0.7s linear infinite;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes assessmentSpin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+@keyframes assessmentIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .assessment-type-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .assessment-source-card {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .assessment-source-left strong {
+
+        white-space:
+            normal;
+
+    }
+
+
+    .modern-assessment-card {
+
+        grid-template-columns:
+            48px
+            minmax(0,1fr);
+
+        padding:
+            15px;
+
+    }
+
+
+    .assessment-card-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+        min-width: 48px;
+
+    }
+
+
+    .assessment-selected-check {
+
+        position:
+            absolute;
+
+        top: 12px;
+
+        right: 12px;
+
+    }
+
+
+    .assessment-card-top {
+
+        padding-right:
+            35px;
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap: 6px;
+
+    }
+
+
+    .selected-format-panel {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .selected-format-status {
+
+        margin-left:
+            59px;
+
+    }
+
+
+    .assessment-generate-btn {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .assessment-card-icon {
+
+        animation:
+            none !important;
+
+    }
+
+}
+
+</style>
+
+
+</body>
+
+</html>
