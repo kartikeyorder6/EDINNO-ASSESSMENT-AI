@@ -370,25 +370,30 @@ def call_gemini(
     model: Optional[str] = None,
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
-    if api_key:
-        keys_to_try = [api_key]
-    else:
-        keys_to_try = gemini_pool.select_best_keys(max_candidates=2)
-        if not keys_to_try:
-            logger.warning("All Gemini keys are currently at capacity (12 RPM) or in cooldown. Cascading to next provider...")
-            raise requests.HTTPError("All Gemini keys are currently in cooldown or quota-exhausted.")
-
-    # Models to attempt: If 503 high-demand spike occurs on primary flash model, try sibling flash models
     primary_model = model or settings.GEMINI_MODEL or "gemini-3.6-flash"
     models_to_try = [primary_model]
     if "gemini-3.6-flash" in primary_model:
         models_to_try.append("gemini-3.8-flash")
 
     last_err: Optional[Exception] = None
+    failed_keys: Set[str] = set()
+    all_keys = gemini_pool.discover_keys()
+    max_key_attempts = 1 if api_key else min(max(len(all_keys), 1), 4)
 
-    for m_name in models_to_try:
-        for idx, key in enumerate(keys_to_try, start=1):
-            masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "***"
+    for attempt in range(1, max_key_attempts + 1):
+        if api_key:
+            key = api_key
+        else:
+            candidates = gemini_pool.select_best_keys(max_candidates=1, exclude_keys=failed_keys)
+            if not candidates:
+                logger.warning("No eligible Gemini keys available in pool (all at capacity, on cooldown, or exhausted). Cascading...")
+                break
+            key = candidates[0]
+            failed_keys.add(key)
+
+        masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "***"
+
+        for m_name in models_to_try:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{m_name}:generateContent?key={key}"
             payload = {
                 "contents": [{"parts": [{"text": prompt}]}],
@@ -400,50 +405,50 @@ def call_gemini(
             try:
                 gemini_pool.record_start(key)
                 t_start = time.time()
-                logger.info(f"Calling Google Gemini ({m_name}) using fresh key #{idx}/{len(keys_to_try)} [{masked_key}]...")
-                resp = HTTP_SESSION.post(url, json=payload, timeout=25)
+                logger.info(f"Calling Google Gemini ({m_name}) using key attempt #{attempt}/{max_key_attempts} [{masked_key}]...")
+                resp = HTTP_SESSION.post(url, json=payload, timeout=40)
                 latency = time.time() - t_start
 
                 if resp.status_code == 429:
                     gemini_pool.record_rate_limit(key, reason=f"HTTP 429: {resp.text[:120]}")
                     last_err = requests.HTTPError(f"HTTP 429 Quota Exceeded: {resp.text[:200]}", response=resp)
-                    continue
+                    # Quota is per-key/account; retrying another model with the same key is futile, break to next key
+                    break
 
                 if resp.status_code == 503:
                     gemini_pool.record_high_demand(key, reason=f"HTTP 503: {resp.text[:120]}")
                     last_err = requests.HTTPError(f"HTTP 503 High Demand: {resp.text[:200]}", response=resp)
+                    # Try sibling flash model if available for this key
                     continue
 
                 if resp.status_code >= 400:
+                    gemini_pool.record_failure(key, reason=f"HTTP {resp.status_code}: {resp.text[:120]}", backoff_sec=20.0)
                     logger.warning(f"Gemini key [{masked_key}] returned HTTP {resp.status_code}: {resp.text[:200]}")
                     last_err = requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:200]}", response=resp)
-                    continue
+                    break
 
                 data = resp.json()
                 candidates = data.get("candidates", [])
-                if not candidates:
-                    logger.warning(f"Gemini key [{masked_key}] returned empty candidates: {data}")
-                    last_err = ValueError("Gemini returned empty candidates.")
-                    continue
-
-                parts = candidates[0].get("content", {}).get("parts", [])
-                if not parts or not parts[0].get("text"):
-                    logger.warning(f"Gemini key [{masked_key}] returned candidate with no text parts.")
+                if not candidates or not candidates[0].get("content", {}).get("parts", []):
+                    logger.warning(f"Gemini key [{masked_key}] returned empty content.")
                     last_err = ValueError("Gemini candidate missing text.")
                     continue
 
-                raw_text = parts[0]["text"]
+                raw_text = candidates[0]["content"]["parts"][0].get("text", "")
                 parsed = clean_and_parse_json(raw_text)
 
                 # SUCCESS: Record latency and set key as last used
                 gemini_pool.record_success(key, latency_sec=latency)
+                parsed["_gemini_model"] = m_name
                 return parsed
 
             except Exception as e:
                 last_err = e
+                gemini_pool.record_failure(key, reason=str(e)[:120], backoff_sec=25.0)
                 logger.warning(f"Gemini key [{masked_key}] ({m_name}) attempt failed: {e}. Rotating to next key in pool...")
+                break
 
-    raise last_err or ValueError("All configured Gemini API keys failed.")
+    raise last_err or requests.HTTPError("All configured Gemini API keys failed or are on cooldown.")
 
 
 
@@ -460,10 +465,18 @@ def call_groq(
     if not key:
         raise ValueError("GROQ_API_KEY is not configured.")
 
-    models_to_try = [model] if model else [settings.GROQ_MODEL] + settings.GROQ_FALLBACK_MODELS
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    primary = model or settings.GROQ_MODEL
+    models_to_try = [primary]
+    for fb in settings.GROQ_FALLBACK_MODELS:
+        if fb not in models_to_try:
+            models_to_try.append(fb)
+    for reliable in ["qwen/qwen3.8-27b", "openai/gpt-oss-20b"]:
+        if reliable not in models_to_try:
+            models_to_try.append(reliable)
 
+    url = "https://api.groq.com/openai/v1/chat/completions"
     last_err = None
+
     for m in models_to_try:
         try:
             logger.info(f"Calling Groq API with model: {m}")
@@ -485,12 +498,15 @@ def call_groq(
             resp.raise_for_status()
             res_json = resp.json()
             raw_text = res_json["choices"][0]["message"]["content"]
-            return clean_and_parse_json(raw_text)
+            parsed = clean_and_parse_json(raw_text)
+            parsed["_groq_model"] = m
+            return parsed
         except Exception as e:
             last_err = e
             logger.warning(f"Groq model {m} failed: {e}. Trying fallback if available...")
 
-    raise last_err or ValueError("Groq generation failed.")
+    raise last_err or ValueError("Groq generation failed across all candidate models.")
+
 
 
 # =========================================================
@@ -506,27 +522,47 @@ def call_openrouter(
     if not key:
         raise ValueError("OPENROUTER_API_KEY is not configured.")
 
-    model_name = model or settings.OPENROUTER_MODEL or "recursive/flint-v1.0:free"
+    primary = model or settings.OPENROUTER_MODEL or "recursive/flint-v1.0:free"
+    models_to_try = [primary]
+    for fb in [
+        "meta-llama/llama-3.3-70b-instruct:free",
+        "google/gemini-2.0-flash-exp:free",
+        "qwen/qwen-2.5-coder-32b-instruct:free"
+    ]:
+        if fb not in models_to_try:
+            models_to_try.append(fb)
+
     url = "https://openrouter.ai/api/v1/chat/completions"
+    last_err = None
 
-    payload = {
-        "model": model_name,
-        "messages": [
-            {"role": "system", "content": "You are an expert STEM exam author. Return strictly valid JSON."},
-            {"role": "user", "content": prompt}
-        ],
-        "temperature": 0.2,
-    }
+    for m in models_to_try:
+        try:
+            logger.info(f"Calling OpenRouter API with model: {m}")
+            payload = {
+                "model": m,
+                "messages": [
+                    {"role": "system", "content": "You are an expert STEM exam author. Return strictly valid JSON."},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.2,
+            }
 
-    resp = HTTP_SESSION.post(
-        url,
-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        json=payload,
-        timeout=60
-    )
-    resp.raise_for_status()
-    raw_text = resp.json()["choices"][0]["message"]["content"]
-    return clean_and_parse_json(raw_text)
+            resp = HTTP_SESSION.post(
+                url,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                json=payload,
+                timeout=45
+            )
+            resp.raise_for_status()
+            raw_text = resp.json()["choices"][0]["message"]["content"]
+            parsed = clean_and_parse_json(raw_text)
+            parsed["_openrouter_model"] = m
+            return parsed
+        except Exception as e:
+            last_err = e
+            logger.warning(f"OpenRouter model {m} failed: {e}. Trying fallback if available...")
+
+    raise last_err or ValueError("OpenRouter generation failed across all candidate models.")
 
 
 # =========================================================
@@ -538,6 +574,13 @@ def call_ollama(
     model: Optional[str] = None,
     timeout: int = 5
 ) -> Dict[str, Any]:
+    # Cloud resilience: detect if running in cloud container (Render, containerized cloud)
+    is_cloud = bool(os.environ.get("RENDER")) or (
+        bool(os.environ.get("PORT")) and ("localhost" in settings.OLLAMA_URL or "127.0.0.1" in settings.OLLAMA_URL)
+    )
+    if is_cloud:
+        raise ConnectionRefusedError("Local Ollama daemon is not present in cloud container environment.")
+
     model_name = model or settings.STANDARD_MODEL
     payload = {
         "model": model_name,
@@ -935,7 +978,8 @@ def generate_assessment(
         try:
             res = call_gemini(prompt, model=model, api_key=api_key)
             questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-            return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", model or settings.GEMINI_MODEL)
+            used_model = res.get("_gemini_model", model or settings.GEMINI_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", used_model)
         except Exception as e:
             logger.warning(f"Explicit Gemini provider failed ({e}). Engaging automatic resilient cascade...")
 
@@ -945,7 +989,8 @@ def generate_assessment(
         try:
             res = call_groq(prompt, model=model, api_key=api_key)
             questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-            return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", model or settings.GROQ_MODEL)
+            used_model = res.get("_groq_model", model or settings.GROQ_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", used_model)
         except Exception as e:
             logger.warning(f"Explicit Groq provider failed ({e}). Engaging automatic resilient cascade...")
 
@@ -955,7 +1000,8 @@ def generate_assessment(
         try:
             res = call_openrouter(prompt, model=model, api_key=api_key)
             questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-            return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", model or settings.OPENROUTER_MODEL)
+            used_model = res.get("_openrouter_model", model or settings.OPENROUTER_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", used_model)
         except Exception as e:
             logger.warning(f"Explicit OpenRouter provider failed ({e}). Engaging automatic resilient cascade...")
 
@@ -976,23 +1022,26 @@ def generate_assessment(
         res = call_gemini(prompt, model=settings.GEMINI_MODEL, api_key=api_key)
         questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
         if len(questions) >= 3:
-            return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", settings.GEMINI_MODEL)
+            used_model = res.get("_gemini_model", settings.GEMINI_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", used_model)
     except Exception as e:
         logger.warning(f"Auto-cascade Gemini step failed: {e}. Cascading to Groq...")
 
     try:
-        res = call_groq(prompt, model=settings.GROQ_MODEL, api_key=api_key)
+        res = call_groq(prompt, api_key=api_key)
         questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
         if len(questions) >= 3:
-            return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", settings.GROQ_MODEL)
+            used_model = res.get("_groq_model", settings.GROQ_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", used_model)
     except Exception as e:
         logger.warning(f"Auto-cascade Groq step failed: {e}. Cascading to OpenRouter...")
 
     try:
-        res = call_openrouter(prompt, model=settings.OPENROUTER_MODEL, api_key=api_key)
+        res = call_openrouter(prompt, api_key=api_key)
         questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
         if len(questions) >= 3:
-            return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", settings.OPENROUTER_MODEL)
+            used_model = res.get("_openrouter_model", settings.OPENROUTER_MODEL)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", used_model)
     except Exception as e:
         logger.warning(f"Auto-cascade OpenRouter step failed: {e}. Cascading to Ollama...")
 

@@ -15,7 +15,7 @@ import re
 import time
 import threading
 from collections import deque
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Set
 
 from app.core.config import settings
 from app.core.logging import logger
@@ -98,6 +98,13 @@ class GeminiKeyMetadata:
         self.cooldown_until = now + backoff
         return backoff
 
+    def record_failure(self, now: float, reason: str = "Request Failed", backoff_sec: float = 25.0) -> float:
+        """Applies cooldown for timeouts, connection drops, or other non-retryable failures."""
+        self.total_failures += 1
+        self.last_error_reason = reason
+        self.cooldown_until = max(self.cooldown_until, now + backoff_sec)
+        return backoff_sec
+
     def to_dict(self, now: float) -> Dict[str, Any]:
         """Telemetry snapshot for dashboards and observability."""
         rpm = self.current_rpm(now)
@@ -175,11 +182,15 @@ class GeminiKeyPool:
 
         return keys
 
-    def select_best_keys(self, max_candidates: int = 2) -> List[str]:
+    def select_best_keys(
+        self,
+        max_candidates: int = 2,
+        exclude_keys: Optional[Set[str]] = None
+    ) -> List[str]:
         """
         Selects the optimal Gemini API keys for an upcoming request:
         1. Preemptively checks RPM (must be < 12 to avoid hitting Google's 15 RPM wall).
-        2. Filters out any key in cooldown.
+        2. Filters out any key in cooldown or in exclude_keys.
         3. Strictly excludes the key that was used in the immediately preceding response.
         4. Sorts candidates by:
            - Lowest current RPM (least loaded)
@@ -193,16 +204,23 @@ class GeminiKeyPool:
             return []
 
         now = time.time()
+        excluded = exclude_keys or set()
         with self._lock:
             # Step 1: Find keys strictly eligible under the 12 RPM safety buffer
-            eligible = [k for k in all_keys if self._keys_meta[k].is_eligible(now, max_rpm=12)]
+            eligible = [
+                k for k in all_keys
+                if k not in excluded and self._keys_meta[k].is_eligible(now, max_rpm=12)
+            ]
 
             # Step 2: Soft fallback: if all keys are at 12 RPM, allow up to 14 RPM if not in cooldown
             if not eligible:
-                eligible = [k for k in all_keys if self._keys_meta[k].is_eligible(now, max_rpm=14)]
+                eligible = [
+                    k for k in all_keys
+                    if k not in excluded and self._keys_meta[k].is_eligible(now, max_rpm=14)
+                ]
 
             if not eligible:
-                logger.warning("All Gemini keys are currently at maximum RPM capacity or on cooldown.")
+                logger.warning("All Gemini keys are currently at maximum RPM capacity, on cooldown, or excluded.")
                 return []
 
             # Step 3: Non-repeating invariant: exclude previously used key if alternatives exist
@@ -261,6 +279,19 @@ class GeminiKeyPool:
                 )
                 return backoff
             return 20.0
+
+    def record_failure(self, key: str, reason: str = "Request Failed", backoff_sec: float = 25.0) -> float:
+        """Notifies the pool of a request failure (e.g. timeout) to isolate key temporarily."""
+        now = time.time()
+        with self._lock:
+            if key in self._keys_meta:
+                backoff = self._keys_meta[key].record_failure(now, reason, backoff_sec)
+                logger.warning(
+                    f"Gemini key [{self._keys_meta[key].masked}] failed ({reason}). "
+                    f"Placed on temporary cooldown for {backoff:.0f}s."
+                )
+                return backoff
+            return backoff_sec
 
     def get_telemetry(self) -> Dict[str, Any]:
         """Provides full real-time telemetry snapshot of the key pool."""

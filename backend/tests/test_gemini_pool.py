@@ -132,3 +132,39 @@ def test_key_pool_telemetry_endpoint():
         assert "rpm_usage" in first_key
         assert "avg_latency_sec" in first_key
         assert "success_rate" in first_key
+
+
+def test_key_failure_cooldown_and_exclusion():
+    """Verify that network/read timeouts place key on temporary cooldown and exclude_keys works."""
+    pool = GeminiKeyPool()
+    key1 = "KEY_FIRST_FAIL_111111"
+    key2 = "KEY_SECOND_HEALTHY_222222"
+
+    pool.discover_keys = lambda: [key1, key2]
+    pool._keys_meta[key1] = GeminiKeyMetadata(key1)
+    pool._keys_meta[key2] = GeminiKeyMetadata(key2)
+
+    # Key 1 fails with read timeout
+    t0 = time.time()
+    pool.record_failure(key1, reason="HTTPSConnectionPool: Read timed out", backoff_sec=25.0)
+
+    # Key 1 is now in cooldown for 25s
+    assert pool._keys_meta[key1].is_eligible(t0) is False
+    assert pool._keys_meta[key2].is_eligible(t0) is True
+
+    # select_best_keys should only return Key 2
+    candidates = pool.select_best_keys(max_candidates=1)
+    assert candidates == [key2]
+
+    # Test explicit exclusion
+    candidates_with_excl = pool.select_best_keys(max_candidates=2, exclude_keys={key2})
+    assert key2 not in candidates_with_excl
+
+
+def test_cloud_ollama_fail_fast(monkeypatch):
+    """Verify call_ollama raises ConnectionRefusedError immediately in cloud container (Render)."""
+    from app.services.ai_generator import call_ollama
+    monkeypatch.setenv("RENDER", "true")
+
+    with pytest.raises(ConnectionRefusedError, match="cloud container"):
+        call_ollama("Test prompt", model="qwen3.5:4b")
