@@ -243,11 +243,11 @@ def build_prompt(
             "STRICTLY EXCLUDE code snippets, circuit diagram drawings, and project-specific pin numbers."
         ),
         "mixed": (
-            "Type: COMPREHENSIVE MIXED CHAPTER EXAM (EXACTLY 20 QUESTIONS). "
-            "You MUST generate exactly 20 questions with this exact composition across three mandatory sections:\n"
-            "1. Exactly 10 Standard Multiple Choice Questions (type: 'mcq') focusing on component identification, functions, and pin counts. Each must have 4 distinct options (A, B, C, D) and exactly 1 correct answer.\n"
-            "2. Exactly 5 Conceptual True/False Questions (type: 'true_false') testing digital logic, pull-up resistors, active-low/high signals, and common hardware misconceptions, with answer 'True' or 'False'.\n"
-            "3. Exactly 5 Situation/Scenario-Based Multiple Choice Questions (type: 'mcq') testing practical real-world hardware troubleshooting and applications. Each MUST include a realistic 'scenario' field (e.g. sensor readings, edge conditions, power delivery), a practical diagnostic question, 4 distinct options (A, B, C, D), and exactly 1 correct answer.\n"
+            "Type: COMPREHENSIVE MIXED CHAPTER EXAM (EXACTLY 10 QUESTIONS). "
+            "You MUST generate exactly 10 questions with this exact composition across three mandatory sections:\n"
+            "1. Exactly 5 Standard Multiple Choice Questions (type: 'mcq') focusing on component identification, functions, and pin counts. Each must have 4 distinct options (A, B, C, D) and exactly 1 correct answer.\n"
+            "2. Exactly 3 Conceptual True/False Questions (type: 'true_false') testing digital logic, pull-up resistors, active-low/high signals, and common hardware misconceptions, with answer 'True' or 'False'.\n"
+            "3. Exactly 2 Situation/Scenario-Based Multiple Choice Questions (type: 'mcq') testing practical real-world hardware troubleshooting and applications. Each MUST include a realistic 'scenario' field (e.g. sensor readings, edge conditions, power delivery), a practical diagnostic question, 4 distinct options (A, B, C, D), and exactly 1 correct answer.\n"
             "STRICTLY EXCLUDE code snippets, programming syntax, circuit diagram drawings, and project-specific pin numbers."
         ),
         "mcq": (
@@ -506,12 +506,12 @@ def fallback_synthesizer(
 
     generated_questions: List[Dict[str, Any]] = []
 
-    # Dedicated structure for Comprehensive Mixed Exam: 10 MCQs, 5 True/False, 5 Scenario-based MCQs
+    # Dedicated structure for Comprehensive Mixed Exam: 5 MCQs, 3 True/False, 2 Scenario-based MCQs
     if assessment_type == "mixed":
         mixed_questions: List[Dict[str, Any]] = []
 
-        # 1. 10 Standard MCQs
-        for i in range(10):
+        # 1. 5 Standard MCQs
+        for i in range(5):
             s = sentences[i % len(sentences)]
             other_terms = [t for t in terms if t.lower() not in s.lower()][:3]
             while len(other_terms) < 3:
@@ -529,9 +529,9 @@ def fallback_synthesizer(
                 "explanation": f"Source reference from curriculum: {s}"
             })
 
-        # 2. 5 Conceptual True/False Questions
-        for i in range(5):
-            s = sentences[(10 + i) % len(sentences)]
+        # 2. 3 Conceptual True/False Questions
+        for i in range(3):
+            s = sentences[(5 + i) % len(sentences)]
             mixed_questions.append({
                 "type": "true_false",
                 "question": f"Statement from curriculum: {s}",
@@ -539,9 +539,9 @@ def fallback_synthesizer(
                 "explanation": f"Verified directly against uploaded source material: '{s[:120]}...'"
             })
 
-        # 3. 5 Situation/Scenario-Based MCQs
-        for i in range(5):
-            s = sentences[(15 + i) % len(sentences)]
+        # 3. 2 Situation/Scenario-Based MCQs
+        for i in range(2):
+            s = sentences[(8 + i) % len(sentences)]
             other_terms = [t for t in terms if t.lower() not in s.lower()][:3]
             while len(other_terms) < 3:
                 other_terms.append(f"Alternate observation {len(other_terms) + 1}")
@@ -563,7 +563,7 @@ def fallback_synthesizer(
             "chapter_name": title,
             "questions": mixed_questions,
             "provider_used": "Dynamic Synthesizer",
-            "model_used": "Text-Derived (10 MCQ + 5 T/F + 5 Scenario)"
+            "model_used": "Text-Derived (5 MCQ + 3 T/F + 2 Scenario)"
         }
 
     for idx, s in enumerate(sentences):
@@ -987,8 +987,7 @@ def generate_assessment(
     project_title = detect_project_title(content)
 
     if a_type == "mixed":
-        target_count = int(question_count) if question_count and int(question_count) > 0 else 20
-        target_count = max(10, min(target_count, 25))
+        target_count = 10
     else:
         target_count = max(3, min(int(question_count or 5), 25))
     prompt = build_prompt(project_title, a_type, target_count, difficulty, content)

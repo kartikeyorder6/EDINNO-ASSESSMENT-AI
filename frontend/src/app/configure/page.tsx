@@ -63,9 +63,9 @@ export default function ConfigurePage() {
     {
       id: "mixed",
       title: "Comprehensive Mixed Exam",
-      subtitle: "20 Questions: 10 MCQs + 5 T/F + 5 Scenarios",
-      desc: "Structured exam featuring 10 component & pinout MCQs, 5 conceptual True/False checks, and 5 scenario-based practical MCQs.",
-      tag: "10 MCQ • 5 T/F • 5 Scenarios",
+      subtitle: "10 Questions: 5 MCQs + 3 T/F + 2 Scenarios",
+      desc: "Structured exam featuring 5 component & pinout MCQs, 3 conceptual True/False checks, and 2 scenario-based practical MCQs.",
+      tag: "5 MCQ • 3 T/F • 2 Scenarios",
       icon: Layers,
       iconColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
     },
@@ -277,7 +277,7 @@ export default function ConfigurePage() {
                 onClick={() => {
                   setAssessmentType(b.id);
                   if (b.id === "mixed") {
-                    setQuestionCount(20);
+                    setQuestionCount(10);
                   } else if (b.id === "pre_assembly") {
                     setQuestionCount(5);
                   } else if (b.id === "merged_conceptual") {
@@ -387,7 +387,7 @@ export default function ConfigurePage() {
             </div>
             <p className="text-[11px] text-slate-400">
               {assessmentType === "mixed"
-                ? "Mixed exam: 10 MCQs + 5 T/F + 5 Scenarios"
+                ? "Mixed exam: 5 MCQs + 3 T/F + 2 Scenarios"
                 : "Target length for question paper"}
             </p>
           </div>
