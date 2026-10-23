@@ -33,28 +33,42 @@ COMPLETED_PRE_ASSEMBLY: Dict[str, Dict[str, Any]] = {}
 def is_answer_correct(user_ans: Optional[str], correct_ans: str, options: Any = None) -> bool:
     if not user_ans:
         return False
-    u = str(user_ans).strip().upper()
-    c = str(correct_ans).strip().upper()
+    u = str(user_ans).strip()
+    c = str(correct_ans).strip()
 
-    if u == c:
+    if u.upper() == c.upper():
         return True
+
+    # Normalize options dictionary to { "A": "...", "B": "..." }
+    opt_map: Dict[str, str] = {}
+    if isinstance(options, dict):
+        opt_map = {str(k).strip().upper(): str(v).strip() for k, v in options.items()}
+    elif isinstance(options, list):
+        for idx, val in enumerate(options):
+            opt_map[chr(65 + idx)] = str(val).strip()
+
+    u_upper = u.upper()
+    c_upper = c.upper()
 
     # Check key prefix: user "B" vs correct "B) ..."
-    if c.startswith(u) and len(u) == 1 and (len(c) == 1 or c[1] in [")", ".", ":", " "]):
+    if c_upper.startswith(u_upper) and len(u_upper) == 1 and (len(c_upper) == 1 or c_upper[1] in [")", ".", ":", " "]):
         return True
-    if u.startswith(c) and len(c) == 1 and (len(u) == 1 or u[1] in [")", ".", ":", " "]):
+    if u_upper.startswith(c_upper) and len(c_upper) == 1 and (len(u_upper) == 1 or u_upper[1] in [")", ".", ":", " "]):
         return True
 
-    # Option dictionary comparison
-    if isinstance(options, dict):
-        user_opt = str(options.get(u, "")).strip().lower()
-        if user_opt and user_opt in c.lower():
+    # Check via option map: user key vs correct text, or user text vs correct key
+    if opt_map:
+        if u_upper in opt_map and opt_map[u_upper].lower() == c.lower():
             return True
-        for key, val in options.items():
-            if str(key).upper() == c:
-                if str(val).strip().lower() == u.lower():
-                    return True
+        if c_upper in opt_map and opt_map[c_upper].lower() == u.lower():
+            return True
+        # Exact match between user choice and option text for correct key
+        for key, val in opt_map.items():
+            if key == c_upper and val.lower() == u.lower():
+                return True
+
     return False
+
 
 
 @router.post("/generate-assessment", response_model=GenerateAssessmentResponse)
@@ -112,6 +126,12 @@ async def generate_merged_paper_endpoint(payload: MergedAssessmentPaperRequest):
         Balanced topic coverage, zero duplicate questions, appropriate difficulty,
         prioritizing conceptual understanding and practical scenarios.
     """
+    if not payload.chapter_content or not payload.chapter_content.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Curriculum content cannot be empty. Please upload curriculum PDFs to generate assessment."
+        )
+
     try:
         res = generate_merged_assessment(
             chapter_content=payload.chapter_content,
@@ -134,6 +154,8 @@ async def generate_merged_paper_endpoint(payload: MergedAssessmentPaperRequest):
                 "model": res.get("model_used", "Standard"),
             }
         )
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Merged assessment generation error: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate merged assessment: {str(e)}")
@@ -149,8 +171,16 @@ async def generate_pre_assembly_endpoint(
     Direct endpoint for Pre-Assembly assessments: uploads single project PDF,
     extracts safety & component requirements, and returns 5 targeted MCQs.
     """
+    from app.core.config import settings
+
     try:
         content = await file.read()
+        if len(content) > settings.MAX_UPLOAD_SIZE_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Uploaded file exceeds maximum allowed limit of {settings.MAX_UPLOAD_SIZE_BYTES // (1024 * 1024)}MB."
+            )
+
         text, _ = extract_pdf_text_with_meta(content)
         title = project_title or detect_project_title(text, filename=file.filename or "")
 

@@ -19,7 +19,9 @@ async def download_assessment_endpoint(payload: AssessmentPayload):
         raise HTTPException(status_code=400, detail="Cannot export PDF without assessment questions.")
 
     try:
-        chapter_name = payload.chapter_name or payload.project_name or "STEM Curriculum Assessment"
+        raw_chapter = payload.chapter_name or payload.project_name or "STEM Curriculum Assessment"
+        chapter_name = re.sub(r"\s+", " ", str(raw_chapter)).strip() or "STEM Curriculum Assessment"
+
         assessment_dict = {
             "assessment_type": payload.assessment_type,
             "chapter_name": chapter_name,
@@ -28,8 +30,9 @@ async def download_assessment_endpoint(payload: AssessmentPayload):
 
         pdf_stream = create_assessment_pdf(chapter_name, assessment_dict)
 
-        clean_filename = re.sub(r"[^A-Za-z0-9_\-\s]", "", chapter_name).strip().replace(" ", "_")
-        filename = f"{clean_filename}_Assessment.pdf"
+        safe_filename = re.sub(r"[^A-Za-z0-9_\-]", "_", chapter_name)
+        safe_filename = re.sub(r"_+", "_", safe_filename).strip("_")
+        filename = f"{safe_filename or 'Curriculum'}_Assessment.pdf"
 
         return StreamingResponse(
             pdf_stream,

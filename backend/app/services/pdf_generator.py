@@ -381,6 +381,10 @@ def create_assessment_pdf(chapter_name: str, assessment: Dict[str, Any]) -> io.B
         elif options and isinstance(options, dict) and ans.upper() in options:
             opt_val_clean = clean_option_text(ans.upper(), options[ans.upper()])
             ans_display = f"({ans.upper()}) {opt_val_clean}"
+        elif options and isinstance(options, list) and len(ans) == 1 and "A" <= ans.upper() <= chr(64 + len(options)):
+            opt_idx = ord(ans.upper()) - 65
+            opt_val_clean = clean_option_text(ans.upper(), options[opt_idx])
+            ans_display = f"({ans.upper()}) {opt_val_clean}"
         else:
             ans_display = ans or "Verified"
 

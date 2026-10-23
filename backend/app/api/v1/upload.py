@@ -10,16 +10,21 @@ from app.services.ai_generator import detect_project_title
 router = APIRouter()
 
 
+from app.core.config import settings
+
 def detect_file_category(filename: str, text: str = "") -> str:
     """
     Categorize curriculum documents into: topic, activity, project, resource.
+    Inspects both filename and initial content text.
     """
     fn = filename.lower()
-    if "activit" in fn or "lab" in fn or "experiment" in fn:
+    t = (text[:2000] if text else "").lower()
+
+    if "activit" in fn or "lab" in fn or "experiment" in fn or "activity" in t or "experiment" in t:
         return "activity"
-    if "project" in fn or re.search(r"p-\d+", fn) or "capstone" in fn:
+    if "project" in fn or re.search(r"\bp-\d+\b", fn) or "capstone" in fn or "project:" in t or "project -" in t:
         return "project"
-    if "topic" in fn or "module" in fn or "lesson" in fn or "unit" in fn:
+    if "topic" in fn or "module" in fn or "lesson" in fn or "unit" in fn or "module " in t or "lesson " in t:
         return "topic"
     return "resource"
 
@@ -50,10 +55,22 @@ async def upload_pdfs(
         filename = file.filename or "Unnamed.pdf"
         try:
             content = await file.read()
+            if len(content) > settings.MAX_UPLOAD_SIZE_BYTES:
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"File {filename} exceeds maximum allowed size of {settings.MAX_UPLOAD_SIZE_BYTES // (1024 * 1024)}MB."
+                )
+
             text, page_count = extract_pdf_text_with_meta(content)
             
-            # Key name based on filename without .pdf
-            key = filename.replace(".pdf", "").replace(".PDF", "").strip()
+            # Key name based on filename without .pdf, handling duplicate collisions
+            base_key = filename.replace(".pdf", "").replace(".PDF", "").strip() or "document"
+            key = base_key
+            dup_idx = 2
+            while key in extracted_resources:
+                key = f"{base_key}_{dup_idx}"
+                dup_idx += 1
+
             category = custom_categories.get(filename) or custom_categories.get(key) or detect_file_category(filename, text)
 
             extracted_resources[key] = text
@@ -64,6 +81,8 @@ async def upload_pdfs(
                 preview=text[:200].replace("\n", " ").strip() + "...",
                 category=category
             )
+        except HTTPException:
+            raise
         except Exception as e:
             logger.error(f"Error reading {filename}: {e}")
             raise HTTPException(status_code=422, detail=f"Failed to parse {filename}: {str(e)}")

@@ -219,3 +219,66 @@ def test_chapter_quizzes_overview():
     assert "progress" in data
 
 
+def test_download_assessment_with_newlines_in_title():
+    """Ensure titles with newlines or special chars do not crash uvicorn with Invalid HTTP header value."""
+    payload = {
+        "assessment_type": "mcq",
+        "chapter_name": "Activity 1:\nUltrasonic Sensor\r\n(HC-SR04) Setup & Testing",
+        "questions": [
+            {
+                "id": 1,
+                "type": "mcq",
+                "question": "How many pins does HC-SR04 have?",
+                "options": {"A": "4 pins", "B": "3 pins", "C": "2 pins", "D": "5 pins"},
+                "answer": "A",
+                "explanation": "VCC, Trig, Echo, GND"
+            }
+        ]
+    }
+    r = client.post("/api/v1/download-assessment", json=payload)
+    assert r.status_code == 200
+    assert r.headers["content-type"] == "application/pdf"
+    cd = r.headers.get("content-disposition", "")
+    assert "\n" not in cd and "\r" not in cd
+    assert len(r.content) > 1000
+
+
+def test_is_answer_correct_grading_accuracy():
+    from app.api.v1.assessment import is_answer_correct
+    # List options
+    assert is_answer_correct("5V", "A", options=["5V", "3.3V", "12V", "GND"]) is True
+    assert is_answer_correct("A", "5V", options=["5V", "3.3V", "12V", "GND"]) is True
+    # Dict options
+    opt_dict = {"A": "to", "B": "Automatic System", "C": "Relay", "D": "Sensor"}
+    # User selected wrong option 'A' ("to"), should NOT match 'Automatic System'
+    assert is_answer_correct("A", "Automatic System", options=opt_dict) is False
+    # Correct key match
+    assert is_answer_correct("B", "Automatic System", options=opt_dict) is True
+
+
+def test_fallback_synthesizer_short_text():
+    from app.services.ai_generator import fallback_synthesizer
+    # Short lines that previously caused ZeroDivisionError
+    res = fallback_synthesizer("Hi.\nShort.\nTiny.", "mixed", question_count=10)
+    assert res is not None
+    assert len(res["questions"]) == 10
+
+
+def test_clean_and_parse_json_trailing_comma():
+    from app.services.ai_generator import clean_and_parse_json
+    raw_with_trailing = '```json\n{"chapter_name": "Test", "questions": [{"id": 1,},],}\n```'
+    parsed = clean_and_parse_json(raw_with_trailing)
+    assert parsed["chapter_name"] == "Test"
+
+
+def test_merged_paper_empty_content_returns_400():
+    r = client.post("/api/v1/assessment/merged-paper", json={
+        "question_count": 10,
+        "difficulty": "medium",
+        "chapter_content": None
+    })
+    assert r.status_code == 400
+    assert "cannot be empty" in r.json()["detail"].lower()
+
+
+

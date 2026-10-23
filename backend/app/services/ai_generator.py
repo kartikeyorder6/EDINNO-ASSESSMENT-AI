@@ -119,7 +119,10 @@ def clean_and_parse_json(raw: str) -> Dict[str, Any]:
     end = text.rfind("}")
     if start != -1 and end != -1:
         text = text[start : end + 1]
+    # Remove illegal trailing commas before closing braces/brackets from LLMs
+    text = re.sub(r",\s*([\]}])", r"\1", text)
     return json.loads(text)
+
 
 
 def looks_like_question_line(line: str) -> bool:
@@ -371,7 +374,7 @@ def call_groq(
         raise ValueError("GROQ_API_KEY is not configured.")
 
     models_to_try = [model] if model else [settings.GROQ_MODEL] + settings.GROQ_FALLBACK_MODELS
-    url = "https://api.groq.com/openai/v1/chat/complements" if False else "https://api.groq.com/openai/v1/chat/completions"
+    url = "https://api.groq.com/openai/v1/chat/completions"
 
     last_err = None
     for m in models_to_try:
@@ -495,7 +498,15 @@ def fallback_synthesizer(
                 sentences.append(p_strip)
 
     if not sentences:
-        sentences = [l.strip() for l in raw_lines if len(l.strip()) >= 20]
+        sentences = [l.strip() for l in raw_lines if len(l.strip()) >= 10]
+
+    if not sentences:
+        sentences = [
+            "Electronic components such as microcontrollers and sensors require proper pin connections and voltage regulation.",
+            "Sensors convert physical measurements into electrical signals processed by the control unit.",
+            "Safety precautions mandate checking common ground and verifying component ratings before applying power.",
+            "Circuit troubleshooting involves verifying supply voltage levels and signal integrity across all connections."
+        ]
 
     terms = []
     for s in sentences:
