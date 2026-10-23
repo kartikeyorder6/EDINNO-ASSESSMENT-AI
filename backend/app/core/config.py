@@ -1,4 +1,5 @@
-from typing import List, Optional
+import re
+from typing import List, Optional, Union
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -23,9 +24,30 @@ class Settings(BaseSettings):
     OLLAMA_KEEP_ALIVE: str = "30m"
     OLLAMA_TIMEOUT_SECONDS: int = 120
 
-    # Google Gemini config
+    # Google Gemini config (supports 1 to N keys, comma-separated or list)
     GEMINI_API_KEY: Optional[str] = None
+    GEMINI_API_KEYS: List[str] = []
     GEMINI_MODEL: str = "gemini-3.6-flash"
+
+    def get_gemini_api_keys(self) -> List[str]:
+        """
+        Returns a deduplicated list of all configured Gemini API keys
+        from GEMINI_API_KEY (comma, semicolon, or newline delimited) and GEMINI_API_KEYS list.
+        """
+        keys: List[str] = []
+        if self.GEMINI_API_KEY:
+            for part in re.split(r"[\s,;]+", str(self.GEMINI_API_KEY).strip()):
+                k = part.strip()
+                if k and k not in keys:
+                    keys.append(k)
+        if self.GEMINI_API_KEYS:
+            for item in self.GEMINI_API_KEYS:
+                if isinstance(item, str):
+                    for part in re.split(r"[\s,;]+", item.strip()):
+                        k = part.strip()
+                        if k and k not in keys:
+                            keys.append(k)
+        return keys
 
     # Groq config
     GROQ_API_KEY: Optional[str] = None

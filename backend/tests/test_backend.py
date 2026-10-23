@@ -281,4 +281,16 @@ def test_merged_paper_empty_content_returns_400():
     assert "cannot be empty" in r.json()["detail"].lower()
 
 
+def test_gemini_api_key_pool():
+    from app.core.config import Settings
+    custom_s = Settings(
+        GEMINI_API_KEY="key1, key2; key3\nkey4",
+        GEMINI_API_KEYS=["key5", "key1"]
+    )
+    keys = custom_s.get_gemini_api_keys()
+    assert len(keys) == 5
+    assert keys == ["key1", "key2", "key3", "key4", "key5"]
+
+
+
 

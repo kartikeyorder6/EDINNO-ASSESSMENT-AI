@@ -2,6 +2,7 @@ import json
 import os
 import re
 import time
+import threading
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import requests
@@ -327,37 +328,85 @@ SOURCE CURRICULUM CONTENT:
 
 
 # =========================================================
-# PROVIDER 1: GOOGLE GEMINI 3.6 FLASH (FREE TIER)
+# PROVIDER 1: GOOGLE GEMINI (N-KEY POOL WITH AUTO-ROTATION)
 # =========================================================
+
+_GEMINI_KEY_COUNTER: int = 0
+_GEMINI_LOCK = threading.Lock()
+
+
+def get_available_gemini_keys() -> List[str]:
+    keys = settings.get_gemini_api_keys()
+    env_val = os.environ.get("GEMINI_API_KEY")
+    if env_val:
+        for part in re.split(r"[\s,;]+", env_val.strip()):
+            k = part.strip()
+            if k and k not in keys:
+                keys.append(k)
+    return keys
+
 
 def call_gemini(
     prompt: str,
     model: Optional[str] = None,
     api_key: Optional[str] = None
 ) -> Dict[str, Any]:
-    key = api_key or settings.GEMINI_API_KEY or os.environ.get("GEMINI_API_KEY")
-    if not key:
-        raise ValueError("GEMINI_API_KEY is not configured.")
+    global _GEMINI_KEY_COUNTER
+
+    if api_key:
+        keys_to_try = [api_key]
+    else:
+        all_keys = get_available_gemini_keys()
+        if not all_keys:
+            raise ValueError("GEMINI_API_KEY is not configured.")
+        with _GEMINI_LOCK:
+            start_idx = _GEMINI_KEY_COUNTER % len(all_keys)
+            _GEMINI_KEY_COUNTER += 1
+        # Round-robin order starting at current counter
+        keys_to_try = all_keys[start_idx:] + all_keys[:start_idx]
 
     model_name = model or settings.GEMINI_MODEL or "gemini-3.6-flash"
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={key}"
+    last_err: Optional[Exception] = None
 
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "response_mime_type": "application/json",
-            "temperature": 0.2,
+    for idx, key in enumerate(keys_to_try, start=1):
+        masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "***"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={key}"
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {
+                "response_mime_type": "application/json",
+                "temperature": 0.2,
+            }
         }
-    }
+        try:
+            logger.info(f"Calling Google Gemini ({model_name}) using key #{idx}/{len(keys_to_try)} [{masked_key}]...")
+            resp = HTTP_SESSION.post(url, json=payload, timeout=60)
+            if resp.status_code in (429, 500, 503):
+                logger.warning(f"Gemini key [{masked_key}] returned HTTP {resp.status_code}. Rotating to next key in pool...")
+                last_err = requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:200]}", response=resp)
+                continue
 
-    resp = HTTP_SESSION.post(url, json=payload, timeout=60)
-    resp.raise_for_status()
-    data = resp.json()
-    candidates = data.get("candidates", [])
-    if not candidates:
-        raise ValueError("Gemini returned empty candidates.")
-    raw_text = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-    return clean_and_parse_json(raw_text)
+            resp.raise_for_status()
+            data = resp.json()
+            candidates = data.get("candidates", [])
+            if not candidates:
+                logger.warning(f"Gemini key [{masked_key}] returned empty candidates: {data}")
+                last_err = ValueError("Gemini returned empty candidates.")
+                continue
+
+            parts = candidates[0].get("content", {}).get("parts", [])
+            if not parts or not parts[0].get("text"):
+                logger.warning(f"Gemini key [{masked_key}] returned candidate with no text parts.")
+                last_err = ValueError("Gemini candidate missing text.")
+                continue
+
+            raw_text = parts[0]["text"]
+            return clean_and_parse_json(raw_text)
+        except Exception as e:
+            last_err = e
+            logger.warning(f"Gemini key [{masked_key}] failed: {e}. Rotating to next key in pool...")
+
+    raise last_err or ValueError("All configured Gemini API keys failed.")
 
 
 # =========================================================
