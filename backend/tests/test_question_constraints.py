@@ -78,3 +78,39 @@ def test_curriculum_knowledge_all_constraints():
     assert pin_count_found, "Must include at least one component pin-count question"
     assert functionality_found, "Must include at least one component functionality question"
     assert scenario_found, "Must include at least one hypothetical scenario question"
+
+
+def test_comprehensive_mixed_exam_structure():
+    """Verify that Comprehensive Mixed Exam generates exactly 5 MCQs (incl. 2 scenarios) + 5 True/False questions."""
+    from app.services.ai_generator import generate_assessment
+
+    res = generate_assessment(
+        SAMPLE_CURRICULUM,
+        assessment_type="mixed",
+        question_count=10,
+        provider="auto"
+    )
+
+    questions = res["questions"]
+    assert len(questions) == 10, f"Expected 10 questions, got {len(questions)}"
+
+    mcqs = [q for q in questions if q.get("type") == "mcq"]
+    scenarios = [q for q in questions if q.get("type") == "mcq" and q.get("scenario")]
+    tfs = [q for q in questions if q.get("type") == "true_false"]
+
+    assert len(mcqs) == 5, f"Expected 5 MCQs, got {len(mcqs)}"
+    assert len(scenarios) == 2, f"Expected exactly 2 scenario-based MCQs, got {len(scenarios)}"
+    assert len(tfs) == 5, f"Expected 5 True/False questions, got {len(tfs)}"
+
+    # Check True/False options and answers
+    for idx, tf in enumerate(tfs, start=6):
+        opts = tf.get("options", {})
+        assert opts == {"A": "True", "B": "False"}, f"T/F Q{idx} options must be {{'A': 'True', 'B': 'False'}}, got {opts}"
+        assert tf.get("answer") in {"A", "B"}, f"T/F Q{idx} answer must be 'A' or 'B', got {tf.get('answer')}"
+
+    # Verify no project names or circuit diagrams
+    for q in questions:
+        assert not is_project_specific_question(q)
+        assert not is_wiring_or_connection_question(q)
+        assert not is_circuit_diagram_question(q)
+        assert not is_coding_question(q)

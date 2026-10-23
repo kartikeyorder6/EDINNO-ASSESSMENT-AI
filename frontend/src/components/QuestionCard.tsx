@@ -160,12 +160,15 @@ export default function QuestionCard({
           </label>
           <div className="flex gap-2.5">
             {["True", "False"].map((choice) => {
-              const isSelected = question.answer.toLowerCase() === choice.toLowerCase();
+              const isSelected =
+                (question.answer || "").toLowerCase() === choice.toLowerCase() ||
+                (choice === "True" && (question.answer || "").toUpperCase() === "A") ||
+                (choice === "False" && (question.answer || "").toUpperCase() === "B");
               return (
                 <button
                   key={choice}
                   type="button"
-                  onClick={() => handleTextChange("answer", choice)}
+                  onClick={() => handleTextChange("answer", choice === "True" ? "A" : "B")}
                   className={`px-4 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                     isSelected
                       ? "bg-purple-600 text-white border-purple-600 shadow-xs"

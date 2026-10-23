@@ -7,6 +7,7 @@ testing:
 2. Number of Pins & Pin Identification (exact physical pin counts & designated functions)
 3. Hypothetical Scenario-Based Practical Reasoning
 4. Logical & Conceptual Reasoning
+5. True / False Conceptual Diagnostics
 
 STRICTLY COMPLIES WITH ALL 6 CONSTRAINTS:
 1. No project names or project-specific details.
@@ -24,7 +25,14 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
     {
         "id": "arduino_uno",
         "name": "Arduino Uno (ATmega328P)",
-        "keywords": ["arduino", "uno", "atmega328p", "microcontroller", "board", "development board"],
+        "keywords": [
+            "arduino",
+            "uno",
+            "atmega328p",
+            "microcontroller",
+            "board",
+            "development board"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which microcontroller development board featuring an ATmega328P processor is widely used to read sensor inputs and control electronic actuators in STEM robotics?",
@@ -70,13 +78,30 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The ATmega328P is the central processor that executes embedded firmware, processes digital/analog sensor signals, and drives output peripherals."
+            },
+            "True / False Conceptual": {
+                "question": "The Arduino Uno provides 6 Pulse Width Modulation (PWM) outputs among its 14 digital I/O pins.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "A",
+                "explanation": "Digital pins 3, 5, 6, 9, 10, and 11 on the Arduino Uno support 8-bit hardware PWM output."
             }
         }
     },
     {
         "id": "hc_sr04",
         "name": "HC-SR04 Ultrasonic Sensor",
-        "keywords": ["ultrasonic", "hc-sr04", "distance", "acoustic", "sonar", "echo", "trigger"],
+        "keywords": [
+            "ultrasonic",
+            "hc-sr04",
+            "distance",
+            "acoustic",
+            "sonar",
+            "echo",
+            "trigger"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which electronic sensor module is specifically designed to measure physical distance by transmitting high-frequency acoustic pulses and timing the reflected echo duration?",
@@ -122,13 +147,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The measured travel time represents the round-trip acoustic journey from the transmitter to the target and back to the receiver, so dividing by 2 calculates the one-way distance."
+            },
+            "True / False Conceptual": {
+                "question": "An HC-SR04 ultrasonic distance sensor measures obstacle distance using reflected optical infrared light beams.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "B",
+                "explanation": "The HC-SR04 operates using 40 kHz high-frequency ultrasonic acoustic sound waves (echo pulses), not optical light."
             }
         }
     },
     {
         "id": "dht11",
         "name": "DHT11 Temperature & Humidity Sensor",
-        "keywords": ["dht11", "dht22", "humidity", "temperature sensor", "temperature and humidity", "hygrometer"],
+        "keywords": [
+            "dht11",
+            "dht22",
+            "humidity",
+            "temperature sensor",
+            "temperature and humidity",
+            "hygrometer"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which electronic sensor module integrates a capacitive humidity sensor and a thermistor to measure atmospheric temperature and relative humidity simultaneously?",
@@ -156,13 +197,13 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 "scenario": "A environmental monitoring system connects a DHT11 sensor using a 10-meter long unshielded cable and experiences continuous communication timeouts and checksum failure errors.",
                 "question": "Which hardware modification is most effective to restore reliable digital communication over this distance?",
                 "options": {
-                    "A": "Add a 4.7kΩ to 10kΩ pull-up resistor between the Data line and VCC near the sensor to sharpen digital edge transition rise times.",
+                    "A": "Add a 4.7k\u03a9 to 10k\u03a9 pull-up resistor between the Data line and VCC near the sensor to sharpen digital edge transition rise times.",
                     "B": "Replace the power supply with an unregulated 24V AC transformer.",
                     "C": "Short the Data pin directly to GND to reduce line impedance.",
                     "D": "Disconnect the ground wire to eliminate ground loops."
                 },
                 "answer": "A",
-                "explanation": "Long wires introduce parasitic capacitance that slows digital signal rise times. A dedicated pull-up resistor (4.7kΩ-10kΩ) pulls the open-drain Data line high rapidly, preserving signal integrity."
+                "explanation": "Long wires introduce parasitic capacitance that slows digital signal rise times. A dedicated pull-up resistor (4.7k\u03a9-10k\u03a9) pulls the open-drain Data line high rapidly, preserving signal integrity."
             },
             "Logical & Conceptual Reasoning": {
                 "question": "How does a DHT11 digital sensor transmit its 40-bit temperature and humidity readings to a microcontroller?",
@@ -174,13 +215,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The DHT11 uses a single-wire digital serial protocol where pulse duration widths distinguish logic '0' from logic '1' across a 40-bit data packet."
+            },
+            "True / False Conceptual": {
+                "question": "A standard raw through-hole DHT11 temperature and humidity sensor package features 4 physical pins, where pin 3 is typically Not Connected (NC).",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "A",
+                "explanation": "The 4 pins of a raw DHT11 are 1: VCC, 2: DATA, 3: NC (Not Connected), and 4: GND."
             }
         }
     },
     {
         "id": "ldr",
         "name": "Light Dependent Resistor (LDR)",
-        "keywords": ["ldr", "photoresistor", "light sensor", "light dependent", "photocell", "ambient light"],
+        "keywords": [
+            "ldr",
+            "photoresistor",
+            "light sensor",
+            "light dependent",
+            "photocell",
+            "ambient light"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which passive electronic component exhibits a dramatic decrease in electrical resistance as ambient visible light illumination increases?",
@@ -226,13 +283,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "LDRs are made of semiconductor materials like cadmium sulfide (CdS). Incident light photons liberate charge carriers through the photoelectric effect / photoconductivity, lowering electrical resistance."
+            },
+            "True / False Conceptual": {
+                "question": "As ambient light intensity falling on a Light Dependent Resistor (LDR) increases, its internal electrical resistance increases proportionally.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "B",
+                "explanation": "An LDR exhibits a negative photo-conductive characteristic: its resistance decreases significantly as ambient light intensity increases."
             }
         }
     },
     {
         "id": "pir",
         "name": "PIR Motion Sensor",
-        "keywords": ["pir", "motion sensor", "passive infrared", "human detection", "motion", "infrared motion"],
+        "keywords": [
+            "pir",
+            "motion sensor",
+            "passive infrared",
+            "human detection",
+            "motion",
+            "infrared motion"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which sensor module detects the movement of people and warm objects by sensing differential changes in ambient infrared radiation?",
@@ -278,13 +351,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The Fresnel lens divides the wide viewing angle into distinct optical detection cones, allowing a moving thermal body to pass in and out of active zones to generate detectable differential voltage spikes."
+            },
+            "True / False Conceptual": {
+                "question": "A Passive Infrared (PIR) motion sensor emits active infrared radiation beams into a room to detect moving objects.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "B",
+                "explanation": "PIR sensors are passive detectors; they do not emit radiation, but measure infrared energy radiated from warm moving bodies."
             }
         }
     },
     {
         "id": "ssd1306_oled",
         "name": "SSD1306 OLED Display (0.96 inch I2C)",
-        "keywords": ["oled", "ssd1306", "display", "screen", "i2c display", "graphic display"],
+        "keywords": [
+            "oled",
+            "ssd1306",
+            "display",
+            "screen",
+            "i2c display",
+            "graphic display"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which display technology uses self-emissive organic light-emitting pixels operating over an I2C serial interface without requiring an external backlight?",
@@ -330,13 +419,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "OLED pixels are individually self-emissive. To display black, the corresponding OLED pixels are turned completely off, producing true zero-luminance blacks and infinite contrast."
+            },
+            "True / False Conceptual": {
+                "question": "An I2C SSD1306 OLED display requires only two signal lines (SDA and SCL) in addition to power and ground for complete digital communication.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "A",
+                "explanation": "The I2C synchronous bus protocol uses only two bidirectional open-drain lines: Serial Data (SDA) and Serial Clock (SCL)."
             }
         }
     },
     {
         "id": "sg90_servo",
         "name": "SG90 Micro Servo Motor",
-        "keywords": ["servo", "sg90", "motor", "actuator", "angular control", "pwm motor"],
+        "keywords": [
+            "servo",
+            "sg90",
+            "motor",
+            "actuator",
+            "angular control",
+            "pwm motor"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which electromechanical actuator integrates a DC motor, reduction gearbox, and internal feedback potentiometer to provide precise angular output shaft positioning between 0 and 180 degrees?",
@@ -375,20 +480,36 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
             "Logical & Conceptual Reasoning": {
                 "question": "How is the target angular shaft position encoded in the control signal of a standard hobby servo motor?",
                 "options": {
-                    "A": "By the pulse width (duration) of a periodic PWM signal, typically between 1.0 ms (0°) and 2.0 ms (180°) repeated every 20 ms.",
+                    "A": "By the pulse width (duration) of a periodic PWM signal, typically between 1.0 ms (0\u00b0) and 2.0 ms (180\u00b0) repeated every 20 ms.",
                     "B": "By varying the continuous analog voltage linearly from 0V to 12V.",
                     "C": "By the frequency modulation of an ultrasonic sound wave.",
                     "D": "By counting the total continuous number of logic HIGH transitions."
                 },
                 "answer": "A",
                 "explanation": "Servo position is determined by the duration of the high pulse (typically 1.0 ms to 2.0 ms) within a 50 Hz (20 ms period) PWM signal."
+            },
+            "True / False Conceptual": {
+                "question": "A standard positional SG90 micro servo motor rotates continuously in 360 degrees when fed standard 50Hz PWM control pulses.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "B",
+                "explanation": "Standard SG90 servos are closed-loop positional actuators restricted to a 0 to 180 degree rotation range corresponding to 1ms to 2ms pulse widths."
             }
         }
     },
     {
         "id": "relay_module",
         "name": "5V Single-Channel Relay Module",
-        "keywords": ["relay", "relay module", "switch high voltage", "electromechanical", "normally open", "com no nc"],
+        "keywords": [
+            "relay",
+            "relay module",
+            "switch high voltage",
+            "electromechanical",
+            "normally open",
+            "com no nc"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which electromechanical module allows a low-voltage 5V microcontroller logic signal to safely switch high-voltage or high-current electrical loads with complete galvanic isolation?",
@@ -434,13 +555,29 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The Normally Open (NO) terminal is open (disconnected) when the relay is off and closes when activated; the Normally Closed (NC) terminal is closed (connected) by default and opens when activated."
+            },
+            "True / False Conceptual": {
+                "question": "An electromechanical relay module provides galvanic electrical isolation between low-voltage microcontroller logic and high-voltage AC loads.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "A",
+                "explanation": "Relays use magnetic coils to actuate mechanical switch contacts, providing physical electrical isolation between control and load circuits."
             }
         }
     },
     {
         "id": "piezo_buzzer",
         "name": "Piezo Buzzer (Active / Passive)",
-        "keywords": ["buzzer", "piezo", "acoustic alert", "tone", "audio", "sound alert"],
+        "keywords": [
+            "buzzer",
+            "piezo",
+            "acoustic alert",
+            "tone",
+            "audio",
+            "sound alert"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which acoustic component utilizes the inverse piezoelectric effect of a ceramic element to produce audible sound alerts, beeps, or musical tones?",
@@ -486,13 +623,30 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "Active buzzers have an internal oscillator circuit that sounds automatically when supplied with DC power; passive buzzers have no internal oscillator and need an external frequency."
+            },
+            "True / False Conceptual": {
+                "question": "A passive piezo buzzer will generate a continuous audible beep when connected directly to a steady DC voltage without an oscillating signal.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "B",
+                "explanation": "Passive buzzers lack an internal oscillator circuit and require an alternating AC square wave or PWM frequency to produce audible sound."
             }
         }
     },
     {
         "id": "led_resistor",
         "name": "Light Emitting Diode (LED) & Resistor",
-        "keywords": ["led", "light emitting diode", "resistor", "current limiting", "diode", "traffic light", "leds"],
+        "keywords": [
+            "led",
+            "light emitting diode",
+            "resistor",
+            "current limiting",
+            "diode",
+            "traffic light",
+            "leds"
+        ],
         "questions": {
             "Component Identification & Functions": {
                 "question": "Which semiconductor component emits visible light when forward-biased and requires a current-limiting resistor to protect it from thermal burnout?",
@@ -538,6 +692,15 @@ CURRICULUM_COMPONENTS: List[Dict[str, Any]] = [
                 },
                 "answer": "A",
                 "explanation": "The series resistor drops the voltage difference between the 5V supply and the LED forward voltage (e.g. 5V - 2V = 3V), limiting current according to Ohm's Law (I = V/R) to protect both the LED and microcontroller pin."
+            },
+            "True / False Conceptual": {
+                "question": "Connecting an LED directly across a 5V power supply without a current-limiting series resistor can cause excessive current draw and destroy the LED.",
+                "options": {
+                    "A": "True",
+                    "B": "False"
+                },
+                "answer": "A",
+                "explanation": "LEDs are diodes with exponential current-voltage curves; without a series resistor to drop excess voltage, forward current exceeds safe limits."
             }
         }
     }
@@ -553,7 +716,6 @@ def detect_components_in_text(text: str) -> List[Dict[str, Any]]:
             if re.search(r"\b" + re.escape(kw) + r"\b", text_lower):
                 matched.append(comp)
                 break
-    # If no components matched, provide foundational defaults
     if not matched:
         matched = CURRICULUM_COMPONENTS[:4]
     return matched
@@ -561,7 +723,8 @@ def detect_components_in_text(text: str) -> List[Dict[str, Any]]:
 
 def get_curriculum_component_questions(
     content: str,
-    target_count: int = 12,
+    target_count: int = 10,
+    assessment_type: str = "merged_conceptual",
     needed_categories: Optional[List[str]] = None
 ) -> List[Dict[str, Any]]:
     """
@@ -572,10 +735,128 @@ def get_curriculum_component_questions(
     - Valid pin-count and functional questions
     - 100% accurate options with correct answer explicitly present
     - No duplicate questions
+
+    Special Modes:
+    - "mixed": Returns exactly 10 questions: 5 MCQs (including 2 scenario-based) + 5 True/False questions.
+    - "true_false": Returns conceptual True/False questions up to target_count.
     """
     matched = detect_components_in_text(content)
     # Ensure all 10 curriculum components are available as backfill if text had few components
     all_components = matched + [c for c in CURRICULUM_COMPONENTS if c["id"] not in {m["id"] for m in matched}]
+
+    if assessment_type == "mixed":
+        seen_questions = set()
+
+        # Section 1: Exactly 3 Standard MCQs
+        standard_cats = [
+            "Component Identification & Functions",
+            "Number of Pins & Pin Identification",
+            "Logical & Conceptual Reasoning"
+        ]
+        standard_mcqs = []
+        for cat in standard_cats:
+            for comp in all_components:
+                q_data = comp["questions"].get(cat)
+                if q_data and q_data["question"] not in seen_questions:
+                    item = {
+                        "type": "mcq",
+                        "question": q_data["question"],
+                        "options": dict(q_data["options"]),
+                        "answer": q_data["answer"],
+                        "explanation": q_data["explanation"],
+                        "category": cat,
+                        "section": cat,
+                        "marks": 1
+                    }
+                    if q_data.get("scenario"):
+                        item["scenario"] = q_data["scenario"]
+                    standard_mcqs.append(item)
+                    seen_questions.add(q_data["question"])
+                    break
+            if len(standard_mcqs) >= 3:
+                break
+
+        # Section 2: Exactly 2 Scenario-based MCQs
+        scenario_mcqs = []
+        for comp in all_components:
+            q_data = comp["questions"].get("Hypothetical Scenario-Based Practical Reasoning")
+            if q_data and q_data["question"] not in seen_questions:
+                item = {
+                    "type": "mcq",
+                    "question": q_data["question"],
+                    "scenario": q_data.get("scenario"),
+                    "options": dict(q_data["options"]),
+                    "answer": q_data["answer"],
+                    "explanation": q_data["explanation"],
+                    "category": "Hypothetical Scenario-Based Practical Reasoning",
+                    "section": "Hypothetical Scenario-Based Practical Reasoning",
+                    "marks": 1
+                }
+                scenario_mcqs.append(item)
+                seen_questions.add(q_data["question"])
+                if len(scenario_mcqs) >= 2:
+                    break
+
+        # Section 3: Exactly 5 True/False Questions
+        tf_questions = []
+        for comp in all_components:
+            q_data = comp["questions"].get("True / False Conceptual")
+            if q_data and q_data["question"] not in seen_questions:
+                item = {
+                    "type": "true_false",
+                    "question": q_data["question"],
+                    "options": dict(q_data["options"]),
+                    "answer": q_data["answer"],
+                    "explanation": q_data["explanation"],
+                    "category": "True / False Conceptual",
+                    "section": "True / False Conceptual",
+                    "marks": 1
+                }
+                tf_questions.append(item)
+                seen_questions.add(q_data["question"])
+                if len(tf_questions) >= 5:
+                    break
+
+        # Interleave / Assemble: 5 MCQs (3 standard + 2 scenario) followed by 5 T/F
+        selected_mcqs = []
+        if len(standard_mcqs) >= 1:
+            selected_mcqs.append(standard_mcqs[0])
+        if len(standard_mcqs) >= 2:
+            selected_mcqs.append(standard_mcqs[1])
+        if len(scenario_mcqs) >= 1:
+            selected_mcqs.append(scenario_mcqs[0])
+        if len(standard_mcqs) >= 3:
+            selected_mcqs.append(standard_mcqs[2])
+        if len(scenario_mcqs) >= 2:
+            selected_mcqs.append(scenario_mcqs[1])
+
+        # Backfill if any were short
+        for m in standard_mcqs + scenario_mcqs:
+            if m not in selected_mcqs and len(selected_mcqs) < 5:
+                selected_mcqs.append(m)
+
+        selected = selected_mcqs[:5] + tf_questions[:5]
+        return selected[:10]
+
+    elif assessment_type == "true_false":
+        selected = []
+        for comp in all_components:
+            q_data = comp["questions"].get("True / False Conceptual")
+            if q_data:
+                item = {
+                    "type": "true_false",
+                    "question": q_data["question"],
+                    "options": dict(q_data["options"]),
+                    "answer": q_data["answer"],
+                    "explanation": q_data["explanation"],
+                    "category": "True / False Conceptual",
+                    "section": "True / False Conceptual",
+                    "marks": 1
+                }
+                selected.append(item)
+                if len(selected) >= target_count:
+                    break
+        return selected[:target_count]
 
     categories = [
         "Component Identification & Functions",
@@ -617,4 +898,3 @@ def get_curriculum_component_questions(
                     break
 
     return selected[:target_count]
-

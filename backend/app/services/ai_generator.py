@@ -285,11 +285,12 @@ def build_prompt(
             "STRICTLY EXCLUDE code snippets, circuit diagram drawings, and project-specific pin numbers."
         ),
         "mixed": (
-            "Type: COMPREHENSIVE MIXED CHAPTER EXAM (EXACTLY 10 QUESTIONS). "
-            "You MUST generate exactly 10 questions with this exact composition across three mandatory sections:\n"
-            "1. Exactly 5 Standard Multiple Choice Questions (type: 'mcq') focusing on component identification, functions, and pin counts. Each must have 4 distinct options (A, B, C, D) and exactly 1 correct answer.\n"
-            "2. Exactly 3 Conceptual True/False Questions (type: 'true_false') testing digital logic, pull-up resistors, active-low/high signals, and common hardware misconceptions, with answer 'True' or 'False'.\n"
-            "3. Exactly 2 Situation/Scenario-Based Multiple Choice Questions (type: 'mcq') testing practical real-world hardware troubleshooting and applications. Each MUST include a realistic 'scenario' field (e.g. sensor readings, edge conditions, power delivery), a practical diagnostic question, 4 distinct options (A, B, C, D), and exactly 1 correct answer.\n"
+            "Type: COMPREHENSIVE MIXED CHAPTER EXAM (EXACTLY 10 QUESTIONS: 5 MCQs INCLUDING 2 SCENARIO-BASED + 5 TRUE/FALSE).\n"
+            "You MUST generate exactly 10 questions with this exact composition across two mandatory sections:\n"
+            "1. Exactly 5 Multiple Choice Questions (type: 'mcq') including:\n"
+            "   - Exactly 3 Standard MCQs focusing on component identification, functions, and pin counts. Each must have 4 distinct options (A, B, C, D) and exactly 1 correct answer.\n"
+            "   - Exactly 2 Situation/Scenario-Based MCQs testing practical real-world hardware troubleshooting and edge cases. Each MUST include a realistic 'scenario' field, a practical diagnostic question, 4 distinct options (A, B, C, D), and exactly 1 correct answer.\n"
+            "2. Exactly 5 Conceptual True/False Questions (type: 'true_false') testing digital logic, pull-up/down resistors, electrical ratings, active-low/high signals, and common hardware misconceptions. For True/False questions, 'options' MUST be EXACTLY {'A': 'True', 'B': 'False'} and 'answer' must be 'A' or 'B'.\n"
             "STRICTLY EXCLUDE code snippets, programming syntax, circuit diagram drawings, and project-specific pin numbers."
         ),
         "mcq": (
@@ -320,7 +321,8 @@ REQUIREMENTS:
 - Questions must test the components, physical principles, and hardware concepts in the source curriculum.
 - STRICTLY NO project names, NO activity titles, NO problem stories, NO wiring steps, NO code snippets.
 - STRICTLY NO generic placeholders, NO duplicate questions, and NO rote copying of full sentences.
-- Ensure every question has 4 distinct options (A, B, C, D) with exactly one factually correct answer explicitly present.
+- For MCQs (type: "mcq"), ensure 4 distinct options (A, B, C, D) with exactly one factually correct answer explicitly present.
+- For True/False questions (type: "true_false"), options MUST be {{"A": "True", "B": "False"}} and answer MUST be "A" or "B".
 - Return ONLY a valid JSON object matching the schema below.
 
 JSON SCHEMA:
@@ -339,6 +341,16 @@ JSON SCHEMA:
       }},
       "answer": "B",
       "explanation": "Clear explanation citing technical principle, pin count, or component function."
+    }},
+    {{
+      "type": "true_false",
+      "question": "Technical statement testing a hardware principle, sensor physics, or digital logic threshold",
+      "options": {{
+        "A": "True",
+        "B": "False"
+      }},
+      "answer": "A",
+      "explanation": "Clear explanation citing why the statement is factually True or False."
     }}
   ]
 }}
@@ -620,7 +632,11 @@ def fallback_synthesizer(
     """
     logger.info("Synthesizing validated assessment questions from curriculum component knowledge bank.")
     title = detect_project_title(chapter_content)
-    questions = get_curriculum_component_questions(chapter_content, target_count=question_count)
+    questions = get_curriculum_component_questions(
+        chapter_content,
+        target_count=question_count,
+        assessment_type=assessment_type
+    )
 
     return {
         "chapter_name": title,
@@ -700,15 +716,19 @@ def is_wiring_or_connection_question(q: Dict[str, Any]) -> bool:
 
 
 def classify_question_category(q: Dict[str, Any]) -> str:
-    """Classify question into one of 4 curriculum assessment parameters."""
+    """Classify question into curriculum assessment parameters."""
     cat = str(q.get("category", "")).strip()
     if cat in {
         "Component Identification & Functions",
         "Number of Pins & Pin Identification",
         "Hypothetical Scenario-Based Practical Reasoning",
         "Logical & Conceptual Reasoning",
+        "True / False Conceptual",
     }:
         return cat
+
+    if str(q.get("type", "")).lower() in ("true_false", "true/false", "tf"):
+        return "True / False Conceptual"
 
     q_text = f"{q.get('question', '')} {q.get('scenario', '')}".lower()
 
@@ -896,7 +916,17 @@ def normalize_questions(raw_questions: List[Dict[str, Any]], assessment_type: st
             "scenario": str(q.get("scenario", "")).strip() if q.get("scenario") else None,
             "marks": marks_val,
         }
-        if q_type == "mcq" or "options" in q:
+        if q_type in ("true_false", "true/false", "tf"):
+            item["type"] = "true_false"
+            item["options"] = {"A": "True", "B": "False"}
+            ans_clean = ans_str.strip().lower()
+            if ans_clean in ("true", "t", "a", "opt_a", "1"):
+                item["answer"] = "A"
+            elif ans_clean in ("false", "f", "b", "opt_b", "0"):
+                item["answer"] = "B"
+            else:
+                item["answer"] = "A" if "true" in ans_clean else "B"
+        elif q_type == "mcq" or "options" in q:
             opts = q.get("options")
             if isinstance(opts, list) and len(opts) == 4:
                 item["options"] = {"A": str(opts[0]), "B": str(opts[1]), "C": str(opts[2]), "D": str(opts[3])}
@@ -905,8 +935,6 @@ def normalize_questions(raw_questions: List[Dict[str, Any]], assessment_type: st
             else:
                 item["options"] = {"A": ans_str, "B": "Incorrect specification", "C": "Inverted logic", "D": "Exceeds component rating"}
                 item["answer"] = "A"
-        elif q_type == "true_false":
-            item["options"] = {"A": "True", "B": "False"}
         elif assessment_type in ("pre_assembly", "mcq", "merged_conceptual"):
             # Enforce MCQ structure for pre-assembly, MCQ, and merged conceptual blueprints
             item["type"] = "mcq"

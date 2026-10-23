@@ -44,9 +44,9 @@ export default function ConfigurePage() {
     {
       id: "mixed",
       title: "Comprehensive Mixed Exam",
-      subtitle: "10 Questions: 5 MCQs + 3 T/F + 2 Scenarios",
-      desc: "Structured exam featuring 5 component & pinout MCQs, 3 conceptual True/False checks, and 2 scenario-based practical MCQs.",
-      tag: "5 MCQ • 3 T/F • 2 Scenarios",
+      subtitle: "10 Questions: 5 MCQs (incl. 2 Scenarios) + 5 T/F",
+      desc: "Structured exam featuring 5 MCQs (including 2 scenario-based practical problems) and 5 conceptual True/False checks.",
+      tag: "5 MCQs (incl. 2 Scenarios) • 5 T/F",
       recommended: true,
       icon: Layers,
       iconColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
