@@ -143,6 +143,23 @@ def looks_like_question_line(line: str) -> bool:
     return any(lower.startswith(p) for p in prefixes)
 
 
+def is_header_or_metadata_line(line: str) -> bool:
+    """Filter out structural document banners, headers, and section markers."""
+    line_clean = line.strip()
+    if not line_clean:
+        return True
+    lower = line_clean.lower()
+    if re.search(r"^(?:={2,}|-{2,}|#{2,}|\*{2,}|_{2,})", line_clean):
+        return True
+    if line_clean.startswith(("===", "---", "###", "***", "___")):
+        return True
+    if re.match(r"^(?:===|---|###|\*|\d+[\.\)])?\s*(?:module|topic|chapter|lesson|unit|section|activity|project|page)\s*[:\d\-_\s]", lower):
+        return True
+    if line_clean.isupper() and len(line_clean.split()) <= 6:
+        return True
+    return False
+
+
 def remove_question_lines(content: str) -> str:
     kept = []
     for line in content.splitlines():
@@ -538,55 +555,67 @@ def fallback_synthesizer(
     sentences: List[str] = []
     for line in raw_lines:
         line_clean = line.strip()
-        if len(line_clean) < 25 or looks_like_question_line(line_clean):
+        if len(line_clean) < 25 or looks_like_question_line(line_clean) or is_header_or_metadata_line(line_clean):
             continue
         parts = re.split(r"(?<=[.!?])\s+", line_clean)
         for p in parts:
             p_strip = p.strip()
-            if len(p_strip) >= 30 and not p_strip.lower().startswith("page "):
+            if len(p_strip) >= 30 and not is_header_or_metadata_line(p_strip):
                 sentences.append(p_strip)
 
     if not sentences:
-        sentences = [l.strip() for l in raw_lines if len(l.strip()) >= 10]
+        for l in raw_lines:
+            cl = l.strip()
+            if len(cl) >= 15 and not is_header_or_metadata_line(cl):
+                sentences.append(cl)
 
     if not sentences:
         sentences = [
-            "Electronic components such as microcontrollers and sensors require proper pin connections and voltage regulation.",
+            "Electronic components such as microcontrollers, timers, and sensors require proper pin connections and regulated supply voltage.",
             "Sensors convert physical measurements into electrical signals processed by the control unit.",
             "Safety precautions mandate checking common ground and verifying component ratings before applying power.",
-            "Circuit troubleshooting involves verifying supply voltage levels and signal integrity across all connections."
+            "Circuit troubleshooting involves verifying supply voltage levels, pull-up resistors, and signal integrity across all connections."
         ]
 
-    terms = []
-    for s in sentences:
-        words = [w.strip(".,;:()\"'") for w in s.split() if len(w) > 3]
-        for w in words:
-            if w.lower() not in QUESTION_STOPWORDS and w not in terms:
-                terms.append(w)
+    STEM_MCQ_DISTRACTORS = [
+        "Incompatible supply voltage rating causing digital logic state corruption.",
+        "Operating pin left floating without a mandatory pull-up or pull-down reference.",
+        "Missing common ground reference between the microcontroller and peripheral module.",
+        "Signal transmission frequency exceeds the maximum clock speed specification.",
+        "Polarity inversion on power input pins resulting in component shutdown.",
+        "Exceeding maximum rated operating current causing power supply brownout.",
+        "Capacitive bus loading that degrades signal edge transition timing.",
+        "Uncalibrated analog reference input leading to erratic measurement thresholds."
+    ]
 
     generated_questions: List[Dict[str, Any]] = []
 
     # Dedicated structure for Comprehensive Mixed Exam: 5 MCQs, 3 True/False, 2 Scenario-based MCQs
     if assessment_type == "mixed":
         mixed_questions: List[Dict[str, Any]] = []
+        letters = ["A", "B", "C", "D"]
 
         # 1. 5 Standard MCQs
         for i in range(5):
             s = sentences[i % len(sentences)]
-            other_terms = [t for t in terms if t.lower() not in s.lower()][:3]
-            while len(other_terms) < 3:
-                other_terms.append(f"Alternate parameter {len(other_terms) + 1}")
+            correct_key = letters[i % 4]
+            distractors = [STEM_MCQ_DISTRACTORS[(i * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
+            
+            opts: Dict[str, str] = {}
+            dist_idx = 0
+            for l in letters:
+                if l == correct_key:
+                    opts[l] = s
+                else:
+                    opts[l] = distractors[dist_idx]
+                    dist_idx += 1
+
             mixed_questions.append({
                 "type": "mcq",
-                "question": f"According to the curriculum text, which statement correctly describes the operation or concept:\n\"{s[:100]}...\"?",
-                "options": {
-                    "A": s,
-                    "B": f"Incorrectly implies operation relates exclusively to {other_terms[0]}.",
-                    "C": f"Contradicts curriculum by asserting dependency on {other_terms[1]}.",
-                    "D": f"Improperly substitutes required component with {other_terms[2]}."
-                },
-                "answer": "A",
-                "explanation": f"Source reference from curriculum: {s}"
+                "question": f"Based on the curriculum documentation, which statement accurately reflects the operational principle described below:\n\"{s[:110]}...\"?",
+                "options": opts,
+                "answer": correct_key,
+                "explanation": f"Source curriculum reference: {s}"
             })
 
         # 2. 3 Conceptual True/False Questions
@@ -596,27 +625,35 @@ def fallback_synthesizer(
                 "type": "true_false",
                 "question": f"Statement from curriculum: {s}",
                 "answer": "True",
-                "explanation": f"Verified directly against uploaded source material: '{s[:120]}...'"
+                "explanation": f"Verified directly against source material: '{s[:120]}...'"
             })
 
         # 3. 2 Situation/Scenario-Based MCQs
         for i in range(2):
             s = sentences[(8 + i) % len(sentences)]
-            other_terms = [t for t in terms if t.lower() not in s.lower()][:3]
-            while len(other_terms) < 3:
-                other_terms.append(f"Alternate observation {len(other_terms) + 1}")
+            correct_key = letters[(i + 1) % 4]
+            scenario_distractors = [
+                "Verify common ground reference and add a 100nF decoupling capacitor near the IC power pins.",
+                "Invert output logic levels without validating downstream peripheral voltage thresholds.",
+                "Disconnect the primary power rail and substitute an unregulated battery supply.",
+            ]
+            
+            opts = {}
+            dist_idx = 0
+            for l in letters:
+                if l == correct_key:
+                    opts[l] = f"Confirm the operational behavior described in the specification: '{s[:85]}...'"
+                else:
+                    opts[l] = scenario_distractors[dist_idx]
+                    dist_idx += 1
+
             mixed_questions.append({
                 "type": "mcq",
                 "scenario": f"Practical hardware condition: An engineer is testing the module setup and observes the state documented as '{s[:110]}...'.",
                 "question": "In this operational scenario, what is the valid engineering action or conclusion?",
-                "options": {
-                    "A": f"Confirm the operational behavior described in the specification: '{s[:85]}...'",
-                    "B": f"Assume a circuit failure occurred due to unexpected {other_terms[0]} interaction.",
-                    "C": f"Invert digital output pins without verifying {other_terms[1]} thresholds.",
-                    "D": f"Disconnect the primary power rail and substitute with {other_terms[2]}."
-                },
-                "answer": "A",
-                "explanation": f"Derived directly from real-world practical curriculum documentation: {s}"
+                "options": opts,
+                "answer": correct_key,
+                "explanation": f"Derived directly from practical curriculum documentation: {s}"
             })
 
         return {
@@ -657,35 +694,47 @@ def fallback_synthesizer(
                 "explanation": "Derived directly from curriculum procedural documentation."
             })
         else:
-            other_terms = [t for t in terms if t.lower() not in s.lower()][:3]
-            while len(other_terms) < 3:
-                other_terms.append(f"Alternative specification {len(other_terms) + 1}")
+            letters = ["A", "B", "C", "D"]
+            correct_key = letters[idx % 4]
+            distractors = [STEM_MCQ_DISTRACTORS[(idx * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
+            
+            opts: Dict[str, str] = {}
+            dist_idx = 0
+            for l in letters:
+                if l == correct_key:
+                    opts[l] = s
+                else:
+                    opts[l] = distractors[dist_idx]
+                    dist_idx += 1
 
             generated_questions.append({
                 "type": "mcq",
-                "question": f"According to the curriculum text, which statement correctly describes the operation or concept:\n\"{s[:100]}...\"?",
-                "options": {
-                    "A": s,
-                    "B": f"Incorrectly implies operation relates exclusively to {other_terms[0]}.",
-                    "C": f"Contradicts curriculum by asserting dependency on {other_terms[1]}.",
-                    "D": f"Improperly substitutes required component with {other_terms[2]}."
-                },
-                "answer": "A",
-                "explanation": f"Source reference from curriculum: {s}"
+                "question": f"Based on the curriculum documentation, which statement accurately reflects the operational principle described below:\n\"{s[:110]}...\"?",
+                "options": opts,
+                "answer": correct_key,
+                "explanation": f"Source curriculum reference: {s}"
             })
 
     while len(generated_questions) < question_count and sentences:
         s_fallback = sentences[len(generated_questions) % len(sentences)]
+        letters = ["A", "B", "C", "D"]
+        correct_key = letters[len(generated_questions) % 4]
+        distractors = [STEM_MCQ_DISTRACTORS[(len(generated_questions) * 2 + d) % len(STEM_MCQ_DISTRACTORS)] for d in range(3)]
+        
+        opts = {}
+        dist_idx = 0
+        for l in letters:
+            if l == correct_key:
+                opts[l] = s_fallback
+            else:
+                opts[l] = distractors[dist_idx]
+                dist_idx += 1
+
         generated_questions.append({
             "type": "mcq",
             "question": f"Review question based on uploaded text: '{s_fallback[:85]}...'?",
-            "options": {
-                "A": s_fallback,
-                "B": "Does not apply to this curriculum module.",
-                "C": "Inverted polarity or incorrect specification.",
-                "D": "Unrelated peripheral hardware."
-            },
-            "answer": "A",
+            "options": opts,
+            "answer": correct_key,
             "explanation": f"Source citation: {s_fallback}"
         })
 
@@ -767,15 +816,18 @@ def extract_curriculum_sentences(content: str) -> List[str]:
     sentences: List[str] = []
     for line in raw_lines:
         line_clean = line.strip()
-        if len(line_clean) < 25 or looks_like_question_line(line_clean):
+        if len(line_clean) < 25 or looks_like_question_line(line_clean) or is_header_or_metadata_line(line_clean):
             continue
         parts = re.split(r"(?<=[.!?])\s+", line_clean)
         for p in parts:
             p_strip = p.strip()
-            if len(p_strip) >= 30 and not p_strip.lower().startswith("page "):
+            if len(p_strip) >= 30 and not is_header_or_metadata_line(p_strip):
                 sentences.append(p_strip)
     if not sentences:
-        sentences = [l.strip() for l in raw_lines if len(l.strip()) >= 20]
+        for l in raw_lines:
+            cl = l.strip()
+            if len(cl) >= 15 and not is_header_or_metadata_line(cl):
+                sentences.append(cl)
     return sentences
 
 
