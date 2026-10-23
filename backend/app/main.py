@@ -47,10 +47,10 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
-# Health check for Render & UptimeRobot pings
-@app.get("/", tags=["System"])
-@app.get("/health", tags=["System"])
-@app.get("/api/health", tags=["System"])
+# Health check for Render & UptimeRobot pings (supports both GET and HEAD)
+@app.api_route("/", methods=["GET", "HEAD"], tags=["System"])
+@app.api_route("/health", methods=["GET", "HEAD"], tags=["System"])
+@app.api_route("/api/health", methods=["GET", "HEAD"], tags=["System"])
 async def health_check():
     return {
         "status": "healthy",
