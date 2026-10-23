@@ -73,17 +73,24 @@ def compare_question_similarity(q1: str, q2: str) -> Dict[str, float]:
     toks1 = set(tokenize_text(q1))
     toks2 = set(tokenize_text(q2))
     if not toks1 or not toks2:
-        return {"overlap": 0.0, "seq": 0.0}
+        return {"overlap": 0.0, "seq": 0.0, "jaccard": 0.0}
     intersection = toks1.intersection(toks2)
+    union = toks1.union(toks2)
+    jaccard = len(intersection) / len(union) if union else 0.0
     smaller_len = min(len(toks1), len(toks2))
     overlap = len(intersection) / smaller_len if smaller_len > 0 else 0.0
     seq = SequenceMatcher(None, normalize_text(q1), normalize_text(q2)).ratio()
-    return {"overlap": overlap, "seq": seq}
+    return {"overlap": overlap, "seq": seq, "jaccard": jaccard}
 
 
 def questions_are_too_similar(q1: str, q2: str) -> bool:
     metrics = compare_question_similarity(q1, q2)
-    if metrics["overlap"] >= 0.75 or metrics["seq"] >= 0.82:
+    # Require true structural or high semantic duplicate (not just subset of a 2-word question)
+    if metrics["seq"] >= 0.82:
+        return True
+    if metrics.get("jaccard", 0.0) >= 0.65:
+        return True
+    if metrics["overlap"] >= 0.75 and metrics["seq"] >= 0.60:
         return True
     if metrics["overlap"] >= 0.60 and metrics["seq"] >= 0.70:
         return True
@@ -108,7 +115,8 @@ def valid_mcq(item: Dict[str, Any]) -> bool:
     if any(len(v) == 0 for v in opt_vals) or len(set(opt_vals)) < 4:
         return False
     ans = str(item.get("answer", "")).strip().upper()
-    return ans in {"A", "B", "C", "D"} or ans in set(opt_vals)
+    upper_vals = {v.upper() for v in opt_vals}
+    return ans in {"A", "B", "C", "D"} or ans in upper_vals
 
 
 def clean_and_parse_json(raw: str) -> Dict[str, Any]:
@@ -116,14 +124,27 @@ def clean_and_parse_json(raw: str) -> Dict[str, Any]:
     match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
     if match:
         text = match.group(1).strip()
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end != -1:
-        text = text[start : end + 1]
+
+    first_brace = text.find("{")
+    first_bracket = text.find("[")
+
+    if first_brace != -1 and (first_bracket == -1 or first_brace < first_bracket):
+        start = first_brace
+        end = text.rfind("}")
+        if end != -1:
+            text = text[start : end + 1]
+    elif first_bracket != -1:
+        start = first_bracket
+        end = text.rfind("]")
+        if end != -1:
+            text = text[start : end + 1]
+
     # Remove illegal trailing commas before closing braces/brackets from LLMs
     text = re.sub(r",\s*([\]}])", r"\1", text)
-    return json.loads(text)
-
+    parsed = json.loads(text, strict=False)
+    if isinstance(parsed, list):
+        return {"questions": parsed}
+    return parsed
 
 
 def looks_like_question_line(line: str) -> bool:
@@ -133,7 +154,7 @@ def looks_like_question_line(line: str) -> bool:
     lower = line_clean.lower()
     if "?" in line_clean:
         return True
-    if re.match(r"^(?:q(?:uestion)?\s*)?\d+\s*[\.\)\:\-]", lower):
+    if re.match(r"^(?:q(?:uestion)?\s*\d+|q\d+)\s*[\.\)\:\-]", lower):
         return True
     prefixes = (
         "which of the following", "what is the function", "explain the role",
@@ -210,8 +231,9 @@ def detect_project_title(pdf_text: str, filename: str = "") -> str:
                 return candidate
 
     if filename:
-        clean_name = re.sub(r"^\d+_?", "", filename)
+        clean_name = re.sub(r"^(?:topic|activity|chapter|module|project|p)?[\d._\-]*\s*", "", filename, flags=re.IGNORECASE)
         clean_name = re.sub(r"\.pdf$", "", clean_name, flags=re.IGNORECASE).strip()
+        clean_name = clean_name.replace("_", " ").strip()
         clean_cand = clean_title_brackets(clean_name)
         clean_cand = re.sub(r"[\(\)]", "", clean_cand).strip()
         if valid_project_title(clean_cand):
@@ -350,10 +372,35 @@ SOURCE CURRICULUM CONTENT:
 
 _GEMINI_KEY_COUNTER: int = 0
 _GEMINI_LOCK = threading.Lock()
+_KEY_COOLDOWNS: Dict[str, float] = {}
 
 
 def get_available_gemini_keys() -> List[str]:
-    keys = settings.get_gemini_api_keys()
+    keys: List[str] = []
+    # 1. Dynamically read .env so that keys added to .env take effect immediately without server reboot
+    env_paths = [
+        os.path.join(os.getcwd(), ".env"),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), ".env"),
+    ]
+    for p in env_paths:
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line.startswith("GEMINI_API_KEY=") or line.startswith("GEMINI_API_KEYS="):
+                            val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                            for part in re.split(r"[\s,;]+", val):
+                                k = part.strip()
+                                if k and k not in keys:
+                                    keys.append(k)
+            except Exception:
+                pass
+
+    # 2. Also check settings and environment variable
+    for k in settings.get_gemini_api_keys():
+        if k and k not in keys:
+            keys.append(k)
     env_val = os.environ.get("GEMINI_API_KEY")
     if env_val:
         for part in re.split(r"[\s,;]+", env_val.strip()):
@@ -380,48 +427,76 @@ def call_gemini(
             start_idx = _GEMINI_KEY_COUNTER % len(all_keys)
             _GEMINI_KEY_COUNTER += 1
         # Round-robin order starting at current counter
-        keys_to_try = all_keys[start_idx:] + all_keys[:start_idx]
+        ordered_keys = all_keys[start_idx:] + all_keys[:start_idx]
 
-    model_name = model or settings.GEMINI_MODEL or "gemini-3.6-flash"
+        # Health-aware sorting: Prioritize keys not currently in cooldown (429/503)
+        now = time.time()
+        healthy_keys = [k for k in ordered_keys if now >= _KEY_COOLDOWNS.get(k, 0.0)]
+        cooling_keys = [k for k in ordered_keys if now < _KEY_COOLDOWNS.get(k, 0.0)]
+        keys_to_try = healthy_keys + cooling_keys if healthy_keys else ordered_keys
+
+    # Models to attempt: If 503 high-demand spike occurs on primary flash model, try sibling flash models
+    primary_model = model or settings.GEMINI_MODEL or "gemini-3.6-flash"
+    models_to_try = [primary_model]
+    if "gemini-3.6-flash" in primary_model:
+        models_to_try.extend(["gemini-2.5-flash", "gemini-1.5-flash"])
+
     last_err: Optional[Exception] = None
 
-    for idx, key in enumerate(keys_to_try, start=1):
-        masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "***"
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={key}"
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "response_mime_type": "application/json",
-                "temperature": 0.2,
+    for m_name in models_to_try:
+        for idx, key in enumerate(keys_to_try, start=1):
+            masked_key = f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "***"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{m_name}:generateContent?key={key}"
+            payload = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "response_mime_type": "application/json",
+                    "temperature": 0.2,
+                }
             }
-        }
-        try:
-            logger.info(f"Calling Google Gemini ({model_name}) using key #{idx}/{len(keys_to_try)} [{masked_key}]...")
-            resp = HTTP_SESSION.post(url, json=payload, timeout=60)
-            if resp.status_code in (429, 500, 503):
-                logger.warning(f"Gemini key [{masked_key}] returned HTTP {resp.status_code}. Rotating to next key in pool...")
-                last_err = requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:200]}", response=resp)
-                continue
+            try:
+                logger.info(f"Calling Google Gemini ({m_name}) using key #{idx}/{len(keys_to_try)} [{masked_key}]...")
+                resp = HTTP_SESSION.post(url, json=payload, timeout=20)
 
-            resp.raise_for_status()
-            data = resp.json()
-            candidates = data.get("candidates", [])
-            if not candidates:
-                logger.warning(f"Gemini key [{masked_key}] returned empty candidates: {data}")
-                last_err = ValueError("Gemini returned empty candidates.")
-                continue
+                if resp.status_code == 429:
+                    logger.warning(f"Gemini key [{masked_key}] quota exceeded (HTTP 429). Placing on 60s cooldown...")
+                    _KEY_COOLDOWNS[key] = time.time() + 60.0
+                    last_err = requests.HTTPError(f"HTTP 429 Quota Exceeded: {resp.text[:200]}", response=resp)
+                    continue
 
-            parts = candidates[0].get("content", {}).get("parts", [])
-            if not parts or not parts[0].get("text"):
-                logger.warning(f"Gemini key [{masked_key}] returned candidate with no text parts.")
-                last_err = ValueError("Gemini candidate missing text.")
-                continue
+                if resp.status_code == 503:
+                    logger.warning(f"Gemini model {m_name} on key [{masked_key}] high demand (HTTP 503). Placing on 15s cooldown...")
+                    _KEY_COOLDOWNS[key] = time.time() + 15.0
+                    last_err = requests.HTTPError(f"HTTP 503 High Demand: {resp.text[:200]}", response=resp)
+                    continue
 
-            raw_text = parts[0]["text"]
-            return clean_and_parse_json(raw_text)
-        except Exception as e:
-            last_err = e
-            logger.warning(f"Gemini key [{masked_key}] failed: {e}. Rotating to next key in pool...")
+                if resp.status_code >= 400:
+                    logger.warning(f"Gemini key [{masked_key}] returned HTTP {resp.status_code}: {resp.text[:200]}")
+                    last_err = requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:200]}", response=resp)
+                    continue
+
+                data = resp.json()
+                candidates = data.get("candidates", [])
+                if not candidates:
+                    logger.warning(f"Gemini key [{masked_key}] returned empty candidates: {data}")
+                    last_err = ValueError("Gemini returned empty candidates.")
+                    continue
+
+                parts = candidates[0].get("content", {}).get("parts", [])
+                if not parts or not parts[0].get("text"):
+                    logger.warning(f"Gemini key [{masked_key}] returned candidate with no text parts.")
+                    last_err = ValueError("Gemini candidate missing text.")
+                    continue
+
+                raw_text = parts[0]["text"]
+                parsed = clean_and_parse_json(raw_text)
+                # Success: clear any active cooldown for this key
+                _KEY_COOLDOWNS.pop(key, None)
+                return parsed
+
+            except Exception as e:
+                last_err = e
+                logger.warning(f"Gemini key [{masked_key}] ({m_name}) attempt failed: {e}. Rotating to next key in pool...")
 
     raise last_err or ValueError("All configured Gemini API keys failed.")
 
@@ -633,9 +708,9 @@ def fallback_synthesizer(
             s = sentences[(8 + i) % len(sentences)]
             correct_key = letters[(i + 1) % 4]
             scenario_distractors = [
-                "Verify common ground reference and add a 100nF decoupling capacitor near the IC power pins.",
+                "Bypass current-limiting resistors to drive the circuit with unconstrained current.",
                 "Invert output logic levels without validating downstream peripheral voltage thresholds.",
-                "Disconnect the primary power rail and substitute an unregulated battery supply.",
+                "Disconnect the common ground return and substitute a floating unregulated rail.",
             ]
             
             opts = {}
@@ -752,9 +827,13 @@ def fallback_synthesizer(
 
 def is_coding_question(q: Dict[str, Any]) -> bool:
     """Return True if question or options contain programming code/syntax."""
-    full_text = f"{q.get('question', '')} {q.get('scenario', '')} {q.get('explanation', '')} " + " ".join(
-        str(v) for v in (q.get("options") or {}).values() if isinstance(q.get("options"), dict)
-    )
+    opts = q.get("options")
+    opts_vals: List[str] = []
+    if isinstance(opts, dict):
+        opts_vals = [str(v) for v in opts.values()]
+    elif isinstance(opts, list):
+        opts_vals = [str(v) for v in opts]
+    full_text = f"{q.get('question', '')} {q.get('scenario', '')} {q.get('explanation', '')} " + " ".join(opts_vals)
     code_pattern = (
         r"(```|\bvoid\s+setup\b|\bvoid\s+loop\b|\bpinMode\b|\bdigitalWrite\b|"
         r"\bdigitalRead\b|\banalogRead\b|\banalogWrite\b|\bSerial\.(print|begin|write)\b|"
@@ -861,71 +940,84 @@ def synthesize_parameter_questions_from_content(
     ])
 
     generated: List[Dict[str, Any]] = []
+    letters = ["A", "B", "C", "D"]
+
+    def build_mcq_options(correct_text: str, distractors: List[str], correct_letter: str) -> Dict[str, str]:
+        opts: Dict[str, str] = {}
+        d_idx = 0
+        for l in letters:
+            if l == correct_letter:
+                opts[l] = correct_text
+            else:
+                opts[l] = distractors[d_idx]
+                d_idx += 1
+        return opts
 
     for i in range(count):
         cat = target_cats[i % len(target_cats)]
-        s = sentences[(i * 3) % len(sentences)]
+        s = sentences[i % len(sentences)]
         s_clean = s.replace('"', "'")
+        correct_key = letters[i % 4]
 
         if cat == "Component Identification & Functions":
+            distractors = [
+                "Incompatible secondary peripheral with mismatched electrical rating",
+                "Passive bus termination pull-down resistor network",
+                "Auxiliary unregulated power filtering stage"
+            ]
             q_item = {
                 "type": "mcq",
                 "question": f"Based on the curriculum component documentation, which component or subsystem is associated with the following functional requirement:\n\"{s_clean[:130]}...\"?",
-                "options": {
-                    "A": f"The primary hardware module performing: {s_clean[:80]}",
-                    "B": "Incompatible secondary peripheral with mismatched electrical rating",
-                    "C": "Passive bus termination pull-down resistor network",
-                    "D": "Auxiliary unregulated power filtering stage"
-                },
-                "answer": "A",
+                "options": build_mcq_options(f"The primary hardware module performing: {s_clean[:80]}", distractors, correct_key),
+                "answer": correct_key,
                 "explanation": f"Source curriculum reference: {s_clean}",
                 "category": cat,
                 "section": cat,
                 "marks": 1
             }
         elif cat == "Number of Pins & Pin Identification":
+            distractors = [
+                "VCC connected to analog reference, signal line shorted directly to GND",
+                "Both signal and ground connected to floating high-impedance pins",
+                "Reverse polarity applied across power input with signal left open"
+            ]
             q_item = {
                 "type": "mcq",
                 "question": f"Regarding physical hardware connections and pin functions described in the text: \"{s_clean[:130]}...\", which pinout configuration is correct?",
-                "options": {
-                    "A": "VCC to operating voltage (5V/3.3V), GND to ground reference (0V), and dedicated signal line(s)",
-                    "B": "VCC connected to analog reference, signal line shorted directly to GND",
-                    "C": "Both signal and ground connected to floating high-impedance pins",
-                    "D": "Reverse polarity applied across power input with signal left open"
-                },
-                "answer": "A",
+                "options": build_mcq_options("VCC to operating voltage (5V/3.3V), GND to ground reference (0V), and dedicated signal line(s)", distractors, correct_key),
+                "answer": correct_key,
                 "explanation": f"Standard electronic component pinout safety principles: {s_clean}",
                 "category": cat,
                 "section": cat,
                 "marks": 1
             }
         elif cat == "Hypothetical Scenario-Based Practical Reasoning":
+            distractors = [
+                "Double the operating supply voltage above rated absolute maximum limits",
+                "Remove all pull-up and current-limiting resistors to maximize current draw",
+                "Disconnect ground connection to isolate the circuit from power fluctuations"
+            ]
             q_item = {
                 "type": "mcq",
                 "question": f"Hypothetical Scenario: An engineer installs the hardware according to the curriculum principle: \"{s_clean[:120]}...\". If the system operates in high ambient noise or fluctuating supply voltage, what is the best practical precaution?",
-                "options": {
-                    "A": "Verify common ground reference and add decoupling/filtering capacitor near the component power pins",
-                    "B": "Double the operating supply voltage above rated absolute maximum limits",
-                    "C": "Remove all pull-up and current-limiting resistors to maximize current draw",
-                    "D": "Disconnect ground connection to isolate the circuit from power fluctuations"
-                },
-                "answer": "A",
+                "options": build_mcq_options("Verify common ground reference and add decoupling/filtering capacitor near the component power pins", distractors, correct_key),
+                "answer": correct_key,
                 "explanation": f"In practical engineering scenarios, stable supply filtering and common ground prevent erratic sensor triggers: {s_clean}",
                 "category": cat,
                 "section": cat,
                 "marks": 1
             }
         else:  # Logical & Conceptual Reasoning
+            distractors = [
+                "Because digital logic inputs draw infinite current when properly grounded",
+                "To force the microcontroller into an unrecoverable reset state during normal sampling",
+                "Because electronic sensors require reverse bias voltage to register positive changes"
+            ]
             q_item = {
                 "type": "mcq",
                 "question": f"Conceptual Reasoning: Why does the curriculum emphasize the following operational specification:\n\"{s_clean[:130]}...\"?",
-                "options": {
-                    "A": f"To ensure reliable signal integrity, predictable voltage thresholds, and safe hardware operation: {s_clean[:70]}",
-                    "B": "Because digital logic inputs draw infinite current when properly grounded",
-                    "C": "To force the microcontroller into an unrecoverable reset state during normal sampling",
-                    "D": "Because electronic sensors require reverse bias voltage to register positive changes"
-                },
-                "answer": "A",
+                "options": build_mcq_options(f"To ensure reliable signal integrity, predictable voltage thresholds, and safe hardware operation: {s_clean[:70]}", distractors, correct_key),
+                "answer": correct_key,
                 "explanation": f"Conceptual reasoning derived directly from curriculum requirements: {s_clean}",
                 "category": "Logical & Conceptual Reasoning",
                 "section": "Logical & Conceptual Reasoning",
@@ -1040,16 +1132,25 @@ def clean_and_filter_assessment_questions(
 
 def normalize_questions(raw_questions: List[Dict[str, Any]], assessment_type: str = "mcq") -> List[Dict[str, Any]]:
     normalized = []
-    for q in raw_questions:
+    for idx, q in enumerate(raw_questions, start=1):
         q_type = str(q.get("type", "mcq")).lower()
         ans_str = str(q.get("answer", "")).strip()
+
+        # Safe marks conversion
+        try:
+            m_digits = re.search(r"\d+", str(q.get("marks", 1)))
+            marks_val = int(m_digits.group(0)) if m_digits else 1
+        except Exception:
+            marks_val = 1
+
         item = {
+            "id": int(q.get("id")) if str(q.get("id", "")).isdigit() else idx,
             "type": q_type,
             "question": str(q.get("question", "")).strip(),
             "answer": ans_str,
             "explanation": str(q.get("explanation", "")).strip(),
             "scenario": str(q.get("scenario", "")).strip() if q.get("scenario") else None,
-            "marks": int(q.get("marks", 1)),
+            "marks": marks_val,
         }
         if q_type == "mcq" or "options" in q:
             opts = q.get("options")
@@ -1072,6 +1173,15 @@ def normalize_questions(raw_questions: List[Dict[str, Any]], assessment_type: st
                 "D": "Incompatible logic threshold specification"
             }
             item["answer"] = "A"
+
+        # If answer is textual instead of option key (e.g. "5V" instead of "B"), resolve key
+        if item.get("options") and isinstance(item["options"], dict):
+            opts_dict = item["options"]
+            if item["answer"] not in opts_dict:
+                for opt_k, opt_v in opts_dict.items():
+                    if str(opt_v).strip().lower() == ans_str.lower():
+                        item["answer"] = opt_k
+                        break
 
         cat = classify_question_category(item)
         item["category"] = cat
@@ -1121,30 +1231,42 @@ def generate_assessment(
     # 1. User explicitly selected Gemini
     if prov == "gemini":
         logger.info("Executing assessment generation via Google Gemini API...")
-        res = call_gemini(prompt, model=model, api_key=api_key)
-        questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-        return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", model or settings.GEMINI_MODEL)
+        try:
+            res = call_gemini(prompt, model=model, api_key=api_key)
+            questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Google Gemini", model or settings.GEMINI_MODEL)
+        except Exception as e:
+            logger.warning(f"Explicit Gemini provider failed ({e}). Engaging automatic resilient cascade...")
 
     # 2. User explicitly selected Groq
     if prov == "groq":
         logger.info("Executing assessment generation via Groq API...")
-        res = call_groq(prompt, model=model, api_key=api_key)
-        questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-        return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", model or settings.GROQ_MODEL)
+        try:
+            res = call_groq(prompt, model=model, api_key=api_key)
+            questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Groq", model or settings.GROQ_MODEL)
+        except Exception as e:
+            logger.warning(f"Explicit Groq provider failed ({e}). Engaging automatic resilient cascade...")
 
     # 3. User explicitly selected OpenRouter
     if prov == "openrouter":
         logger.info("Executing assessment generation via OpenRouter API...")
-        res = call_openrouter(prompt, model=model, api_key=api_key)
-        questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-        return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", model or settings.OPENROUTER_MODEL)
+        try:
+            res = call_openrouter(prompt, model=model, api_key=api_key)
+            questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "OpenRouter", model or settings.OPENROUTER_MODEL)
+        except Exception as e:
+            logger.warning(f"Explicit OpenRouter provider failed ({e}). Engaging automatic resilient cascade...")
 
     # 4. User explicitly selected Ollama
     if prov == "ollama":
         logger.info("Executing assessment generation via local Ollama...")
-        res = call_ollama(prompt, model=model)
-        questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
-        return finalize_questions(questions, res.get("chapter_name", project_title), "Local Ollama", model or settings.STANDARD_MODEL)
+        try:
+            res = call_ollama(prompt, model=model)
+            questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
+            return finalize_questions(questions, res.get("chapter_name", project_title), "Local Ollama", model or settings.STANDARD_MODEL)
+        except Exception as e:
+            logger.warning(f"Explicit Ollama provider failed ({e}). Engaging automatic resilient cascade...")
 
     # 5. AUTO Mode: Resilient Multi-Provider Fallback Cascade
     # Cascade Priority: Gemini 3.6 Flash -> Groq -> OpenRouter -> Ollama -> Dynamic Synthesizer
@@ -1239,12 +1361,15 @@ def generate_merged_assessment(
         logger.warning(f"AI call in generate_merged_assessment encountered: {e}. Synthesizing from content.")
         questions = []
 
-    final_questions = clean_and_filter_assessment_questions(
-        questions,
-        target_count=target_count,
-        difficulty=difficulty,
-        chapter_content=content
-    )
+    if questions:
+        final_questions = questions
+    else:
+        final_questions = clean_and_filter_assessment_questions(
+            [],
+            target_count=target_count,
+            difficulty=difficulty,
+            chapter_content=content
+        )
 
     cat_counts: Dict[str, int] = {}
     for q in final_questions:
