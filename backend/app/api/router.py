@@ -1,9 +1,17 @@
+"""api.py - Aggregates all v1 routers."""
+
 from fastapi import APIRouter
-from app.api.v1 import upload, assessment, export
+
+from app.api.v1 import assessment, export, upload
 
 api_router = APIRouter()
 
-# API v1 routes
-api_router.include_router(upload.router, tags=["Curriculum Upload"])
-api_router.include_router(assessment.router, tags=["AI Assessment Generator"])
-api_router.include_router(export.router, tags=["PDF Export"])
+# API v1 routes (order is the order shown in the OpenAPI docs)
+_ROUTES = (
+    (upload.router, "Curriculum Upload"),
+    (assessment.router, "AI Assessment Generator"),
+    (export.router, "PDF Export"),
+)
+
+for _router, _tag in _ROUTES:
+    api_router.include_router(_router, tags=[_tag])

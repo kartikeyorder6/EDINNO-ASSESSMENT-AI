@@ -19,6 +19,8 @@ def clean_and_parse_json(raw: str):
 
 def test_gemini_3_6_flash():
     gemini_key = settings.gemini_api_keys[0] if settings.gemini_api_keys else settings.GEMINI_API_KEY
+    if not gemini_key:
+        pytest.skip("No Gemini API key configured.")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.GEMINI_MODEL}:generateContent?key={gemini_key}"
     res = requests.post(url, json={
         "contents": [{"parts": [{"text": "Return JSON {\"status\": \"ok\", \"provider\": \"gemini\"}"}]}],
@@ -31,6 +33,8 @@ def test_gemini_3_6_flash():
 
 
 def test_groq():
+    if not settings.GROQ_API_KEY:
+        pytest.skip("No Groq API key configured.")
     url = "https://api.groq.com/openai/v1/chat/completions"
     res = requests.post(url, headers={"Authorization": f"Bearer {settings.GROQ_API_KEY}"}, json={
         "model": settings.GROQ_MODEL,
@@ -44,6 +48,8 @@ def test_groq():
 
 
 def test_openrouter():
+    if not settings.OPENROUTER_API_KEY:
+        pytest.skip("No OpenRouter API key configured.")
     url = "https://openrouter.ai/api/v1/chat/completions"
     res = requests.post(url, headers={"Authorization": f"Bearer {settings.OPENROUTER_API_KEY}"}, json={
         "model": settings.OPENROUTER_MODEL,
