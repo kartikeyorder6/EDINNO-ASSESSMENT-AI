@@ -26,17 +26,28 @@ def clean_text(value: Any, max_len: int) -> str:
 
 
 def safe_basename(filename: Optional[str], max_len: int = 200) -> str:
-    """Drop any directory part (either separator style) and control characters."""
-    name = str(filename or "").replace("\\", "/").split("/")[-1]
-    return clean_text(name, max_len)
-
+    """Drop directory parts (both separators), control chars, and path traversal tokens."""
+    raw = str(filename or "").replace("\\", "/").strip().split("/")[-1]
+    cleaned = _WS_RE.sub(" ", _CONTROL_RE.sub("", raw)).strip()
+    if cleaned in {".", "..", ""}:
+        return "unnamed_document.pdf"
+    return cleaned[:max_len]
 
 async def read_upload_limited(
     file: UploadFile,
-    max_bytes: int,
+    max_bytes: Optional[int] = None,
     name: Optional[str] = None,
 ) -> bytes:
     """Read an upload in chunks, aborting with 413 as soon as it exceeds the limit."""
+    if max_bytes is None:
+        try:
+            from app.core.config import settings
+            effective_limit = getattr(settings, "PDF_MAX_BYTES", 100 * 1024 * 1024)
+        except Exception:
+            effective_limit = 100 * 1024 * 1024
+    else:
+        effective_limit = max_bytes
+
     chunks: List[bytes] = []
     total = 0
     while True:
@@ -44,8 +55,8 @@ async def read_upload_limited(
         if not chunk:
             break
         total += len(chunk)
-        if total > max_bytes:
-            limit_mb = max_bytes // (1024 * 1024)
+        if total > effective_limit:
+            limit_mb = effective_limit // (1024 * 1024)
             detail = (
                 f"File {name} exceeds maximum allowed size of {limit_mb}MB."
                 if name else
@@ -59,7 +70,7 @@ async def read_upload_limited(
 def http_error(
     exc: Exception,
     context: str,
-    public_detail: str,
+    public_detail: Optional[str] = None,
     *,
     value_error_status: int = 400,
     value_error_prefix: str = "",
@@ -73,6 +84,7 @@ def http_error(
         return exc
     if isinstance(exc, ValueError):
         return HTTPException(status_code=value_error_status, detail=f"{value_error_prefix}{exc}")
+    resolved_detail = public_detail if public_detail is not None else context
     ref = uuid.uuid4().hex[:8]
     logger.exception("%s failed [ref=%s] (%s)", context, ref, type(exc).__name__)
-    return HTTPException(status_code=500, detail=f"{public_detail} (ref: {ref})")
+    return HTTPException(status_code=500, detail=f"{resolved_detail} (ref: {ref})")

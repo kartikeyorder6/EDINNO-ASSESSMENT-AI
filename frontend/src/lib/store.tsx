@@ -1,17 +1,19 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { AssessmentPayload, QuestionItem, ResourceMetadata } from "../types";
+import React, { createContext, useContext, useState } from "react";
+import { AssessmentPayload, ExtractedImageItem, QuestionItem, ResourceMetadata } from "../types";
 
 interface AssessmentContextType {
   extractedResources: Record<string, string>;
   resourceMetadata: Record<string, ResourceMetadata>;
+  extractedImages: ExtractedImageItem[];
   activeChapterName: string;
   assessmentPayload: AssessmentPayload | null;
   setExtractedData: (
     resources: Record<string, string>,
     metadata?: Record<string, ResourceMetadata>,
-    chapterName?: string
+    chapterName?: string,
+    images?: ExtractedImageItem[]
   ) => void;
   setAssessmentPayload: (payload: AssessmentPayload | null) => void;
   updateQuestion: (index: number, updated: QuestionItem) => void;
@@ -22,42 +24,25 @@ interface AssessmentContextType {
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
 
-const LEGACY_KEYS = [
-  "edinno_modern_resources",
-  "edinno_modern_payload",
-  "edinno_modern_chapter",
-  "edinno_resources",
-  "edinno_payload",
-  "edinno_chapter",
-];
 
-const STORAGE_KEY_RESOURCES = "edinno_curriculum_v4_resources";
-const STORAGE_KEY_METADATA = "edinno_curriculum_v4_metadata";
-const STORAGE_KEY_PAYLOAD = "edinno_curriculum_v4_payload";
-const STORAGE_KEY_CHAPTER = "edinno_curriculum_v4_chapter";
 
 export function AssessmentProvider({ children }: { children: React.ReactNode }) {
   const [extractedResources, setExtractedResources] = useState<Record<string, string>>({});
   const [resourceMetadata, setResourceMetadata] = useState<Record<string, ResourceMetadata>>({});
+  const [extractedImages, setExtractedImages] = useState<ExtractedImageItem[]>([]);
   const [activeChapterName, setActiveChapterName] = useState<string>("");
   const [assessmentPayload, setAssessmentPayloadState] = useState<AssessmentPayload | null>(null);
-
-  // Remove all cached data on page load/refresh so every refresh starts completely clean
-  useEffect(() => {
-    try {
-      localStorage.clear();
-      sessionStorage.clear();
-    } catch (_) {}
-  }, []);
 
   const setExtractedData = (
     resources: Record<string, string>,
     metadata: Record<string, ResourceMetadata> = {},
-    chapterName: string = ""
+    chapterName: string = "",
+    images: ExtractedImageItem[] = []
   ) => {
     setExtractedResources(resources);
     setResourceMetadata(metadata);
     setActiveChapterName(chapterName);
+    setExtractedImages(images);
   };
 
   const setAssessmentPayload = (payload: AssessmentPayload | null) => {
@@ -91,12 +76,14 @@ export function AssessmentProvider({ children }: { children: React.ReactNode }) 
   const resetAll = () => {
     setExtractedResources({});
     setResourceMetadata({});
+    setExtractedImages([]);
     setActiveChapterName("");
     setAssessmentPayloadState(null);
     try {
-      localStorage.clear();
       sessionStorage.clear();
-    } catch (_) {}
+    } catch {
+      // Ignored
+    }
   };
 
   return (
@@ -104,6 +91,7 @@ export function AssessmentProvider({ children }: { children: React.ReactNode }) 
       value={{
         extractedResources,
         resourceMetadata,
+        extractedImages,
         activeChapterName,
         assessmentPayload,
         setExtractedData,

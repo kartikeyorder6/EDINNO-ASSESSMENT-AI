@@ -4,9 +4,15 @@ from app.services.ai_generator import detect_project_title, generate_assessment
 from app.services.pdf_generator import create_assessment_pdf
 
 def test_real_arduino_pdf_flow():
-    # Use real PDF from Chapter 7
-    pdf_path = "/Users/abby/Downloads/EDINNO-AI-ASSESSMENT/Chapter 7 (Arduino)/1_Activity 1 (Traffic Light Controller).pdf"
-    assert os.path.exists(pdf_path), "Sample PDF should exist"
+    import pytest
+    from pathlib import Path
+    base_dir = Path(__file__).resolve().parents[2]
+    candidate = base_dir / "Chapter 7 (Arduino)" / "1_Activity 1 (Traffic Light Controller).pdf"
+    if not candidate.exists():
+        candidate = Path("/Users/abby/Downloads/EDINNO-AI-ASSESSMENT/Chapter 7 (Arduino)/1_Activity 1 (Traffic Light Controller).pdf")
+    if not candidate.exists():
+        pytest.skip("Sample Arduino PDF not present in environment")
+    pdf_path = str(candidate)
 
     with open(pdf_path, "rb") as f:
         pdf_bytes = f.read()

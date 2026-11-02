@@ -1,0 +1,5217 @@
+{
+  "G6-C1": {
+    "grade": 6,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Exploring the World of STEM",
+    "platform_kit": "DIY Construction Kit",
+    "domain": "No Domain relevant project. Students have to\nmake generic projects",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to STEM",
+        "video_id": "G6-C1-T01: Introduction to STEM"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Energy and Motion",
+        "video_id": "G6-C1-T02: Introduction to Energy and Motion"
+      },
+      {
+        "category": "Activity",
+        "title": "Table Fan Bot",
+        "video_id": "G6-C1-A01: Table Fan Bot"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 1",
+        "video_id": "G6-C1-P01: Capstone Build 1"
+      }
+    ]
+  },
+  "G6-C2": {
+    "grade": 6,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Getting Started with Electronics",
+    "platform_kit": "Snap Circuit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "NA",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Circuits",
+        "video_id": "G6-C2-T01: Introduction to Circuits"
+      },
+      {
+        "category": "Topic",
+        "title": "Explore basic electronic components like resistors, capacitors, switches",
+        "video_id": "G6-C2-T02: Explore basic electronic components like resistors, capacitors, switches"
+      },
+      {
+        "category": "Activity",
+        "title": "LED Glow with Battery",
+        "video_id": "G6-C2-A01: LED Glow with Battery"
+      },
+      {
+        "category": "Activity",
+        "title": "Control LED with Switch",
+        "video_id": "G6-C2-A02: Control LED with Switch"
+      },
+      {
+        "category": "Project",
+        "title": "Control LED brightness",
+        "video_id": "G6-C2-P01: Control LED brightness"
+      },
+      {
+        "category": "Project",
+        "title": "Volume Up and Down",
+        "video_id": "G6-C2-P02: Volume Up and Down"
+      }
+    ]
+  },
+  "G6-C3": {
+    "grade": 6,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Exploring Electronic ICs",
+    "platform_kit": "555 Timer IC + Open Source\nElectronics componnets",
+    "domain": "",
+    "competencies": "(Breadboard + Basic Electronic Components)\n\n1- Component Identification\n2- Circuit Assembly\n3- Electrical Safety Awareness",
+    "learning_outcomes": "Students can identify basic electronic components, use a breadboard correctly, and build a simple electronic \ncircuit independently.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Breadboard",
+        "video_id": "G6-C3-T01: Introduction to Breadboard"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Basic Electronic Components (LED, Buzzer, Push Button, B...",
+        "video_id": "G6-C3-T02: Introduction to Basic Electronic Components (LED, Buzzer, Push Button, B..."
+      },
+      {
+        "category": "Activity",
+        "title": "LED with Potentiometer (LED + Potentiometer",
+        "video_id": "G6-C3-A01: LED with Potentiometer (LED + Potentiometer"
+      },
+      {
+        "category": "Project",
+        "title": "In Session 2): Adjustable LED and Buzzer Timer Circuit (555 Timer IC + L...",
+        "video_id": "G6-C3-P01: In Session 2): Adjustable LED and Buzzer Timer Circuit (555 Timer IC + L..."
+      },
+      {
+        "category": "Topic",
+        "title": "Exploring ICs and the 555 Timer IC",
+        "video_id": "G6-C3-T03: Exploring ICs and the 555 Timer IC"
+      },
+      {
+        "category": "Topic",
+        "title": "Working of the 555 Timer IC",
+        "video_id": "G6-C3-T04: Working of the 555 Timer IC"
+      }
+    ]
+  },
+  "G6-C4": {
+    "grade": 6,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Electronics in Robotics",
+    "platform_kit": "Snap-Logic Kit\nEdinno - Non Programmable Kit",
+    "domain": "",
+    "competencies": "(Non-Programmable Board + Basic Sensors)\n\n1- Board Configuration\n2- Sensor Interfacing\n3- Input–Output Logic",
+    "learning_outcomes": "Students will be able to understand the working of a non-programmable robotics board, identify different \nsensors, and build simple sensor-based robotic circuits.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the Non-Programmable Board",
+        "video_id": "G6-C4-T01: Introduction to the Non-Programmable Board"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (IR, LDR, Flame, Laser and MQ135",
+        "video_id": "G6-C4-T02: Introduction to Sensors (IR, LDR, Flame, Laser and MQ135"
+      },
+      {
+        "category": "Activity",
+        "title": "Obstacle Detection Indicator (IR Sensor + LED",
+        "video_id": "G6-C4-A01: Obstacle Detection Indicator (IR Sensor + LED"
+      },
+      {
+        "category": "Activity",
+        "title": "Laser Beam Security Alarm (Laser Sensor + LED + Buzzer",
+        "video_id": "G6-C4-A02: Laser Beam Security Alarm (Laser Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Topic",
+        "title": "Advanced Board Logic (Multiple Inputs–One Output & Multiple Inputs–Multiple",
+        "video_id": "G6-C4-T03: Advanced Board Logic (Multiple Inputs–One Output & Multiple Inputs–Multiple"
+      },
+      {
+        "category": "Activity",
+        "title": "Dual Sensor Security Alert (IR Sensor + Laser Sensor + LED + Buzzer",
+        "video_id": "G6-C4-A03: Dual Sensor Security Alert (IR Sensor + Laser Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Fire & Intruder Alert (IR Sensor + Laser Sensor + Flame Sensor + B...",
+        "video_id": "G6-C4-A04: Smart Fire & Intruder Alert (IR Sensor + Laser Sensor + Flame Sensor + B..."
+      },
+      {
+        "category": "Project",
+        "title": "Crop Protection Alarm (IR + LED + Buzzer",
+        "video_id": "G6-C4-P01: Crop Protection Alarm (IR + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Street Light (LDR + LED",
+        "video_id": "G6-C4-P02: Automatic Street Light (LDR + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Flame Detection System (Flame + LED + Buzzer",
+        "video_id": "G6-C4-P03: Flame Detection System (Flame + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Laser Security Alarm System (Laser + LED + Buzzer",
+        "video_id": "G6-C4-P04: Laser Security Alarm System (Laser + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Weather Monitoring Station (Rain + Buzzer + LED",
+        "video_id": "G6-C4-P05: Weather Monitoring Station (Rain + Buzzer + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Air Quality Monitor (MQ135 + LED",
+        "video_id": "G6-C4-P06: Air Quality Monitor (MQ135 + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Medical Gas Leak Alert System",
+        "video_id": "G6-C4-P07: Medical Gas Leak Alert System"
+      }
+    ]
+  },
+  "G6-C5": {
+    "grade": 6,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Creative Coding with Scratch",
+    "platform_kit": "Scratch / Blockly\nwithin EdinnoVerse",
+    "domain": "",
+    "competencies": "(Scratch Interface, Sprites & Backdrops)\n\n1- Digital Navigation\n2- Animation Design\n3- Visual Programming",
+    "learning_outcomes": "Students will be able to use the Scratch interface, work with sprites and backdrops, and create a simple \nanimation independently.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Scratch and its platform",
+        "video_id": "G6-C5-T01: Introduction to Scratch and its platform"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sprites and Backdrops",
+        "video_id": "G6-C5-T02: Introduction to Sprites and Backdrops"
+      },
+      {
+        "category": "Activity",
+        "title": "Animate your name",
+        "video_id": "G6-C5-A01: Animate your name"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Variables and If-Else Conditions",
+        "video_id": "G6-C5-T03: Introduction to Variables and If-Else Conditions"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Loops (Forever & Repeat",
+        "video_id": "G6-C5-T04: Introduction to Loops (Forever & Repeat"
+      },
+      {
+        "category": "Activity",
+        "title": "Catch the Star Game",
+        "video_id": "G6-C5-A02: Catch the Star Game"
+      },
+      {
+        "category": "Project",
+        "title": "Agriculture Maze",
+        "video_id": "G6-C5-P01: Agriculture Maze"
+      },
+      {
+        "category": "Project",
+        "title": "Infrastructure Rush",
+        "video_id": "G6-C5-P02: Infrastructure Rush"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Car Dodge Game",
+        "video_id": "G6-C5-P03: Smart Car Dodge Game"
+      },
+      {
+        "category": "Project",
+        "title": "Aim Shooting Game",
+        "video_id": "G6-C5-P04: Aim Shooting Game"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Rover",
+        "video_id": "G6-C5-P05: Smart Rover"
+      },
+      {
+        "category": "Project",
+        "title": "Jump Game to avoid obstacles",
+        "video_id": "G6-C5-P06: Jump Game to avoid obstacles"
+      },
+      {
+        "category": "Project",
+        "title": "Catch healthy Food",
+        "video_id": "G6-C5-P07: Catch healthy Food"
+      }
+    ]
+  },
+  "G6-C6": {
+    "grade": 6,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G6-C7": {
+    "grade": 6,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Getting Started with Robotics \nProgramming",
+    "platform_kit": "Edinno - RoboSpark Kit (Light Version)\n(Block Coding)",
+    "domain": "",
+    "competencies": "(Programmable Board + Software + LED Pattern)\n\n1- Programming Confidence\n2- System Exploration\n3- Digital Control",
+    "learning_outcomes": "Students will be able to identify the programmable robotics board, use the block-based programming software\nand create a simple LED blink program.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the Board and its features",
+        "video_id": "G6-C7-T01: Introduction to the Board and its features"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Software and its blocks",
+        "video_id": "G6-C7-T02: Introduction to Software and its blocks"
+      },
+      {
+        "category": "Activity",
+        "title": "Color Patterns with LED",
+        "video_id": "G6-C7-A01: Color Patterns with LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Conditional Statements",
+        "video_id": "G6-C7-T03: Introduction to Conditional Statements"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to IR Sensor and its working",
+        "video_id": "G6-C7-T04: Introduction to IR Sensor and its working"
+      },
+      {
+        "category": "Activity",
+        "title": "Object Alert System (IR Sensor + LED Ring (in-built) + Buzzer ((in-built",
+        "video_id": "G6-C7-A02: Object Alert System (IR Sensor + LED Ring (in-built) + Buzzer ((in-built"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Actuators",
+        "video_id": "G6-C7-T05: Introduction to Actuators"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Soil, LDR, Water Level, Touch, Pulse Sensor",
+        "video_id": "G6-C7-T06: Introduction to Sensors (Soil, LDR, Water Level, Touch, Pulse Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "LDR Sensor with LED (Night - LED on and Day - LED Off",
+        "video_id": "G6-C7-A03: LDR Sensor with LED (Night - LED on and Day - LED Off"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Dryness Warning System",
+        "video_id": "G6-C7-P01: Soil Dryness Warning System"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Sensor + LED Ring",
+        "video_id": "G6-C7-P02: Soil Sensor + LED Ring"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Street Light (LDR + LED",
+        "video_id": "G6-C7-P03: Automatic Street Light (LDR + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Obstacle Avoidance Car (IR + LED Ring + DC Motor",
+        "video_id": "G6-C7-P04: Obstacle Avoidance Car (IR + LED Ring + DC Motor"
+      },
+      {
+        "category": "Project",
+        "title": "+ Chassis",
+        "video_id": "G6-C7-P05: + Chassis"
+      },
+      {
+        "category": "Project",
+        "title": "Flood Water Level Alert (Water Level Sensor +",
+        "video_id": "G6-C7-P06: Flood Water Level Alert (Water Level Sensor +"
+      },
+      {
+        "category": "Project",
+        "title": "Buzzer + LED",
+        "video_id": "G6-C7-P07: Buzzer + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Runway Visibility Indicator (LDR + LED",
+        "video_id": "G6-C7-P08: Runway Visibility Indicator (LDR + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Touch-based doorbell (Touch Sensor + Buzzer + LED",
+        "video_id": "G6-C7-P09: Touch-based doorbell (Touch Sensor + Buzzer + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Pulse Rate Display System (Pulse Sensor + LED Ring +",
+        "video_id": "G6-C7-P10: Pulse Rate Display System (Pulse Sensor + LED Ring +"
+      },
+      {
+        "category": "Project",
+        "title": "Buzzer",
+        "video_id": "G6-C7-P11: Buzzer"
+      }
+    ]
+  },
+  "G6-C8": {
+    "grade": 6,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Building Smart Robotic Systems",
+    "platform_kit": "(Robo-Build Kit)\nEdinno- Programmable Kit",
+    "domain": "",
+    "competencies": "(Programmable Board + Block Programming)\n\n1- Program Configuration\n2- Block Programming\n3- Execution Control",
+    "learning_outcomes": "Students will be able to identify the programmable robotics board, understand its features, and develop a \nsimple block-based program to control an LED.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the Board and Its Features",
+        "video_id": "G6-C8-T01: Introduction to the Board and Its Features"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to the Software and Block-Based Coding",
+        "video_id": "G6-C8-T02: Introduction to the Software and Block-Based Coding"
+      },
+      {
+        "category": "Activity",
+        "title": "LED Blink using Block Programming",
+        "video_id": "G6-C8-A01: LED Blink using Block Programming"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Ultrasonic, PIR, Color, Soil Moisture, Gas and ...",
+        "video_id": "G6-C8-T03: Introduction to Sensors (Ultrasonic, PIR, Color, Soil Moisture, Gas and ..."
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to BO and Servo Motors",
+        "video_id": "G6-C8-T04: Introduction to BO and Servo Motors"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Distance Alert System (Ultrasonic Sensor + LED Matrix + Built-in",
+        "video_id": "G6-C8-A02: Smart Distance Alert System (Ultrasonic Sensor + LED Matrix + Built-in"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Display Systems (16×2 LCD Display",
+        "video_id": "G6-C8-T05: Introduction to Display Systems (16×2 LCD Display"
+      },
+      {
+        "category": "Activity",
+        "title": "Distance Measurement Display System (Ultrasonic Sensor + 16×2 LCD",
+        "video_id": "G6-C8-A03: Distance Measurement Display System (Ultrasonic Sensor + 16×2 LCD"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Sensor with the OLED Display",
+        "video_id": "G6-C8-P01: Soil Sensor with the OLED Display"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Motion Alert System",
+        "video_id": "G6-C8-P02: Smart Motion Alert System"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Reverse Parking System",
+        "video_id": "G6-C8-P03: Smart Reverse Parking System"
+      },
+      {
+        "category": "Project",
+        "title": "Security Alarm System",
+        "video_id": "G6-C8-P04: Security Alarm System"
+      },
+      {
+        "category": "Project",
+        "title": "Space Air Safety System",
+        "video_id": "G6-C8-P05: Space Air Safety System"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Color Recognition Display",
+        "video_id": "G6-C8-P06: Smart Color Recognition Display"
+      },
+      {
+        "category": "Project",
+        "title": "Humidity Alert System",
+        "video_id": "G6-C8-P07: Humidity Alert System"
+      }
+    ]
+  },
+  "G6-C9": {
+    "grade": 6,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Getting Started with Arduino",
+    "platform_kit": "Open Source Arudino Kit",
+    "domain": "",
+    "competencies": "(Arduino Board + IDE + Embedded Coding)\n\n1- Embedded Thinking\n2- Code Implementation\n3- Hardware Programming",
+    "learning_outcomes": "Students will be able to identify the Arduino board, understand the Arduino IDE and basic embedded \nprogramming concepts, and develop a simple LED Blink program.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Arduino and Arduino Board",
+        "video_id": "G6-C9-T01: Introduction to Arduino and Arduino Board"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Software and its Blocks",
+        "video_id": "G6-C9-T02: Introduction to Software and its Blocks"
+      },
+      {
+        "category": "Activity",
+        "title": "LED Blink with Arduino",
+        "video_id": "G6-C9-A01: LED Blink with Arduino"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to PWM (Pulse Width Modulation",
+        "video_id": "G6-C9-T03: Introduction to PWM (Pulse Width Modulation"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Digital Input using a Push Button",
+        "video_id": "G6-C9-T04: Introduction to Digital Input using a Push Button"
+      },
+      {
+        "category": "Activity",
+        "title": "Interactive LED brightness",
+        "video_id": "G6-C9-A02: Interactive LED brightness"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors and Pin Configuration (IR, LDR, PIR, Soil Moisture",
+        "video_id": "G6-C9-T05: Introduction to Sensors and Pin Configuration (IR, LDR, PIR, Soil Moisture"
+      },
+      {
+        "category": "Activity",
+        "title": "IR Sensor Detection",
+        "video_id": "G6-C9-A03: IR Sensor Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Dryness Detection",
+        "video_id": "G6-C9-P01: Soil Dryness Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Motion Detection Light",
+        "video_id": "G6-C9-P02: Motion Detection Light"
+      },
+      {
+        "category": "Project",
+        "title": "Porject Name: Automatic Car headlight",
+        "video_id": "G6-C9-P03: Porject Name: Automatic Car headlight"
+      },
+      {
+        "category": "Project",
+        "title": "Intrusion alert system",
+        "video_id": "G6-C9-P04: Intrusion alert system"
+      },
+      {
+        "category": "Project",
+        "title": "Obstacle Alert system",
+        "video_id": "G6-C9-P05: Obstacle Alert system"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Visitor Counting System",
+        "video_id": "G6-C9-P06: Automatic Visitor Counting System"
+      },
+      {
+        "category": "Project",
+        "title": "Patient Room Temperature Monitoring",
+        "video_id": "G6-C9-P07: Patient Room Temperature Monitoring"
+      }
+    ]
+  },
+  "G6-C10": {
+    "grade": 6,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Designing with 3D Printing",
+    "platform_kit": "TinkerCAD Platform",
+    "domain": "",
+    "competencies": "(Introduction to 3D Printing + Tinkercad)\n\n1- Spatial Visualization\n2- Digital Modelling\n3- Design Exploration",
+    "learning_outcomes": "Students will be able to explain the basics of 3D printing, use the Tinkercad platform, and create simple 3D \nmodels using basic shapes.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to 3D Printing and Its Applications",
+        "video_id": "G6-C10-T01: Introduction to 3D Printing and Its Applications"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to the Tinkercad Platform",
+        "video_id": "G6-C10-T02: Introduction to the Tinkercad Platform"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a 3D Cube",
+        "video_id": "G6-C10-A01: Design a 3D Cube"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Group, Ungroup and Bundle Group Properties",
+        "video_id": "G6-C10-T03: Introduction to Group, Ungroup and Bundle Group Properties"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Hole (Hollow Shape) Properties",
+        "video_id": "G6-C10-T04: Introduction to Hole (Hollow Shape) Properties"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Personalized Name Keychain",
+        "video_id": "G6-C10-A02: Design a Personalized Name Keychain"
+      },
+      {
+        "category": "Project",
+        "title": "Drip Irrigation Pipe Connector",
+        "video_id": "G6-C10-P01: Drip Irrigation Pipe Connector"
+      },
+      {
+        "category": "Project",
+        "title": "Cable Clip for Smart Panels",
+        "video_id": "G6-C10-P02: Cable Clip for Smart Panels"
+      },
+      {
+        "category": "Project",
+        "title": "Car Chassis Design",
+        "video_id": "G6-C10-P03: Car Chassis Design"
+      },
+      {
+        "category": "Project",
+        "title": "Mini Tank Model (Mobility Prototype",
+        "video_id": "G6-C10-P04: Mini Tank Model (Mobility Prototype"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Model",
+        "video_id": "G6-C10-P05: Satellite Model"
+      },
+      {
+        "category": "Project",
+        "title": "Pen Holder",
+        "video_id": "G6-C10-P06: Pen Holder"
+      },
+      {
+        "category": "Project",
+        "title": "Finger Splint Support",
+        "video_id": "G6-C10-P07: Finger Splint Support"
+      }
+    ]
+  },
+  "G6-C11": {
+    "grade": 6,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Discovering Artificial Intelligence",
+    "platform_kit": "Within EdinnoVerse\n(Like Teachable Machine - Model Testing and Project Development)",
+    "domain": "",
+    "competencies": "(Introduction to AI + How AI Works)\n\n1- AI Awareness\n2- Data Observation",
+    "learning_outcomes": "Students will be able to explain the basic concept of Artificial Intelligence, describe how AI works, and \nexplore AI through interactive learning activities.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Artificial Intelligence",
+        "video_id": "G6-C11-T01: Introduction to Artificial Intelligence"
+      },
+      {
+        "category": "Topic",
+        "title": "How Artificial Intelligence Works",
+        "video_id": "G6-C11-T02: How Artificial Intelligence Works"
+      },
+      {
+        "category": "Activity",
+        "title": "Quick Draw with AI (Google Draw Activity",
+        "video_id": "G6-C11-A01: Quick Draw with AI (Google Draw Activity"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to AI Model Training and Testing",
+        "video_id": "G6-C11-T03: Introduction to AI Model Training and Testing"
+      },
+      {
+        "category": "Topic",
+        "title": "Face Detection using AI",
+        "video_id": "G6-C11-T04: Face Detection using AI"
+      },
+      {
+        "category": "Activity",
+        "title": "AI Face Expression Detection",
+        "video_id": "G6-C11-A02: AI Face Expression Detection"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Object Detection with AI",
+        "video_id": "G6-C11-T05: Introduction to Object Detection with AI"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Image Classification with AI",
+        "video_id": "G6-C11-T06: Introduction to Image Classification with AI"
+      },
+      {
+        "category": "Activity",
+        "title": "AI Object Classification",
+        "video_id": "G6-C11-A03: AI Object Classification"
+      },
+      {
+        "category": "Project",
+        "title": "Healthy vs Diseased Leaf Classifier",
+        "video_id": "G6-C11-P01: Healthy vs Diseased Leaf Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Traffic Condition Detection",
+        "video_id": "G6-C11-P02: Smart Traffic Condition Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Driver Alertness Detector",
+        "video_id": "G6-C11-P03: Driver Alertness Detector"
+      },
+      {
+        "category": "Project",
+        "title": "Authorized vs Unauthorized Face Detection",
+        "video_id": "G6-C11-P04: Authorized vs Unauthorized Face Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Cloud vs Clear Sky Detector",
+        "video_id": "G6-C11-P05: Cloud vs Clear Sky Detector"
+      },
+      {
+        "category": "Project",
+        "title": "Hand Gesture Control Classification",
+        "video_id": "G6-C11-P06: Hand Gesture Control Classification"
+      },
+      {
+        "category": "Project",
+        "title": "Mask Detection Model",
+        "video_id": "G6-C11-P07: Mask Detection Model"
+      }
+    ]
+  },
+  "G6-C12": {
+    "grade": 6,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G7-C1": {
+    "grade": 7,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Exploring STEM Innovations",
+    "platform_kit": "DIYConstruction Kit",
+    "domain": "No Domain relevant project. Students have to\nmake generic projects",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to STEM Design Process (Ask, Imagine, Plan, Create, Test an...",
+        "video_id": "G7-C1-T01: Introduction to STEM Design Process (Ask, Imagine, Plan, Create, Test an..."
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Friction",
+        "video_id": "G7-C1-T02: Introduction to Friction"
+      },
+      {
+        "category": "Activity",
+        "title": "Rover",
+        "video_id": "G7-C1-A01: Rover"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 1",
+        "video_id": "G7-C1-P01: Capstone Build 1"
+      }
+    ]
+  },
+  "G7-C2": {
+    "grade": 7,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Building Smart Circuits",
+    "platform_kit": "Snap Circuit Kit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Exploring Different Types of Electronic Circuits",
+        "video_id": "G7-C2-T01: Exploring Different Types of Electronic Circuits"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Ohm's Law",
+        "video_id": "G7-C2-T02: Introduction to Ohm's Law"
+      },
+      {
+        "category": "Activity",
+        "title": "Connect LED and Switch in Series",
+        "video_id": "G7-C2-A01: Connect LED and Switch in Series"
+      },
+      {
+        "category": "Project",
+        "title": "Home Doorbell",
+        "video_id": "G7-C2-P01: Home Doorbell"
+      }
+    ]
+  },
+  "G7-C3": {
+    "grade": 7,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Getting Started with Electronic Circuits",
+    "platform_kit": "555 Timer IC  + Open Electronics",
+    "domain": "",
+    "competencies": "1- Electronic Circuit Design\n2- Timing System Development\n3- Circuit Performance Analysis",
+    "learning_outcomes": "Students will be able to build and test a timer-based electronic circuit using a 555 Timer IC \nand explain how timing controls the output of an electronic circuit.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to basic electronics components (Breadboard, LED, Buzzer, p...",
+        "video_id": "G7-C3-T01: Introduction to basic electronics components (Breadboard, LED, Buzzer, p..."
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to 555 Timer ICs and its working",
+        "video_id": "G7-C3-T02: Introduction to 555 Timer ICs and its working"
+      },
+      {
+        "category": "Activity",
+        "title": "LED with Pushbutton and 555 Timer ICs",
+        "video_id": "G7-C3-A01: LED with Pushbutton and 555 Timer ICs"
+      },
+      {
+        "category": "Project",
+        "title": "s",
+        "video_id": "G7-C3-P01: s"
+      },
+      {
+        "category": "Project",
+        "title": "555 Timer Operating Modes (Bistable Mode",
+        "video_id": "G7-C3-P02: 555 Timer Operating Modes (Bistable Mode"
+      }
+    ]
+  },
+  "G7-C4": {
+    "grade": 7,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Exploring Smart Logic Systems",
+    "platform_kit": "Edinno - Snap Logic Kit\n(Edinno Non Programmable Kit)",
+    "domain": "",
+    "competencies": "1- Logic System Design\n2- Input–Output Integration\n3- Sensor-Based Control",
+    "learning_outcomes": "Students will be able to connect inputs and outputs on the Snap Logic board and develop \nsimple logic-based electronic applications using sensors and LEDs.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Non-Programmable Board and its logics(One Input - One Ou...",
+        "video_id": "G7-C4-T01: Introduction to Non-Programmable Board and its logics(One Input - One Ou..."
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Inputs and Outputs in Snap Logic Kit",
+        "video_id": "G7-C4-T02: Introduction to Inputs and Outputs in Snap Logic Kit"
+      },
+      {
+        "category": "Activity",
+        "title": "Rain Sensor + LED (Rain Detection",
+        "video_id": "G7-C4-A01: Rain Sensor + LED (Rain Detection"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Advanced Logic (Multiple Inputs - One Output and",
+        "video_id": "G7-C4-T03: Introduction to Advanced Logic (Multiple Inputs - One Output and"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors and Actuators (Rain, MQ135, LDR, Laser, IR, Motors",
+        "video_id": "G7-C4-T04: Introduction to Sensors and Actuators (Rain, MQ135, LDR, Laser, IR, Motors"
+      },
+      {
+        "category": "Activity",
+        "title": "Object Detection (IR + Laser + LED",
+        "video_id": "G7-C4-A02: Object Detection (IR + Laser + LED"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Rain Protection (Rain Sensor + Motor + LED + Buzzer",
+        "video_id": "G7-C4-A03: Automatic Rain Protection (Rain Sensor + Motor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Rain Detection System (Rain + LED + Buzzer",
+        "video_id": "G7-C4-P01: Rain Detection System (Rain + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Building Gas Leak + Alarm System (MQ135 + LED + Buzzer",
+        "video_id": "G7-C4-P02: Building Gas Leak + Alarm System (MQ135 + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Headlight ON/OFF (LDR + LED",
+        "video_id": "G7-C4-P03: Automatic Headlight ON/OFF (LDR + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Laser Beam Perimeter Wall Alarm (Laser + LED + Buzzer",
+        "video_id": "G7-C4-P04: Laser Beam Perimeter Wall Alarm (Laser + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Rover Obstacle Alert (IR-based",
+        "video_id": "G7-C4-P05: Rover Obstacle Alert (IR-based"
+      },
+      {
+        "category": "Project",
+        "title": "Server Room Gas Leak Alert (MQ135 + LED + Buzzer",
+        "video_id": "G7-C4-P06: Server Room Gas Leak Alert (MQ135 + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Patient Fall Detection (Vibration Sensor + Buzzer",
+        "video_id": "G7-C4-P07: Patient Fall Detection (Vibration Sensor + Buzzer"
+      }
+    ]
+  },
+  "G7-C5": {
+    "grade": 7,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Creating Interactive Games with Scratch",
+    "platform_kit": "Scratch (Within EdinnoVerse)",
+    "domain": "",
+    "competencies": "1- Interactive Game Design\n2- Event-Based Programming\n3- Player Interaction",
+    "learning_outcomes": "Students will be able to develop an interactive Scratch game by applying motion, decision-making, \nvariables and loop blocks to control game behaviour.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Scratch and it's platform",
+        "video_id": "G7-C5-T01: Introduction to Scratch and it's platform"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to decision statements, Motion, Variable and Loops concepts",
+        "video_id": "G7-C5-T02: Introduction to decision statements, Motion, Variable and Loops concepts"
+      },
+      {
+        "category": "Activity",
+        "title": "Catch the apple game",
+        "video_id": "G7-C5-A01: Catch the apple game"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to User Input Function",
+        "video_id": "G7-C5-T03: Introduction to User Input Function"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Operators",
+        "video_id": "G7-C5-T04: Introduction to Operators"
+      },
+      {
+        "category": "Activity",
+        "title": "Make user-input-based calculator",
+        "video_id": "G7-C5-A02: Make user-input-based calculator"
+      },
+      {
+        "category": "Project",
+        "title": "How to grow crops",
+        "video_id": "G7-C5-P01: How to grow crops"
+      },
+      {
+        "category": "Project",
+        "title": "Automation-Based Fan ON/OFF",
+        "video_id": "G7-C5-P02: Automation-Based Fan ON/OFF"
+      },
+      {
+        "category": "Project",
+        "title": "Obstacle Avoidance Game",
+        "video_id": "G7-C5-P03: Obstacle Avoidance Game"
+      },
+      {
+        "category": "Project",
+        "title": "Rock Blaster Shooting Game",
+        "video_id": "G7-C5-P04: Rock Blaster Shooting Game"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Orbit Simulation Game",
+        "video_id": "G7-C5-P05: Satellite Orbit Simulation Game"
+      },
+      {
+        "category": "Project",
+        "title": "Password Strength Checker",
+        "video_id": "G7-C5-P06: Password Strength Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Healthy vs Junk Food Game",
+        "video_id": "G7-C5-P07: Healthy vs Junk Food Game"
+      }
+    ]
+  },
+  "G7-C6": {
+    "grade": 7,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G7-C7": {
+    "grade": 7,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Exploring Smart Robotics",
+    "platform_kit": "Edinno -  Robo Spark Kit\n(Edinno Light Verison Kit)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Controller adn its feastures",
+        "video_id": "G7-C7-T01: Introduction to Controller adn its feastures"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Servo Motor and PWM Control of Servo Motor (360 and 180 ...",
+        "video_id": "G7-C7-T02: Introduction to Servo Motor and PWM Control of Servo Motor (360 and 180 ..."
+      },
+      {
+        "category": "Activity",
+        "title": "Light Tracker using LDR Sensor and Servo Motor 180 degrees",
+        "video_id": "G7-C7-A01: Light Tracker using LDR Sensor and Servo Motor 180 degrees"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (PIR and Touch Sensors, Soil and DHT11 Sensor",
+        "video_id": "G7-C7-T03: Introduction to Sensors (PIR and Touch Sensors, Soil and DHT11 Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Print the temperature values on the built-in display",
+        "video_id": "G7-C7-A02: Print the temperature values on the built-in display"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Logical Operators (AND or OR",
+        "video_id": "G7-C7-T04: Introduction to Logical Operators (AND or OR"
+      },
+      {
+        "category": "Activity",
+        "title": "Measure soil values and temperature (Soil Sensor with DHT11 Sensor",
+        "video_id": "G7-C7-A03: Measure soil values and temperature (Soil Sensor with DHT11 Sensor"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Irrigation System",
+        "video_id": "G7-C7-P01: Smart Irrigation System"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Soil Sensor + Rain Drop Sensor + Servo Motor",
+        "video_id": "G7-C7-P02: Component Names: Soil Sensor + Rain Drop Sensor + Servo Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Parking Gate",
+        "video_id": "G7-C7-P03: Smart Parking Gate"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Braking Assistant Model",
+        "video_id": "G7-C7-P04: Smart Braking Assistant Model"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: IR sensor, DC motor, Servo motor, Buzzer",
+        "video_id": "G7-C7-P05: Component Names: IR sensor, DC motor, Servo motor, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Disaster Alert Station",
+        "video_id": "G7-C7-P06: Disaster Alert Station"
+      },
+      {
+        "category": "Project",
+        "title": "Mission Control Launch Console",
+        "video_id": "G7-C7-P07: Mission Control Launch Console"
+      },
+      {
+        "category": "Project",
+        "title": "Motion-Triggered System",
+        "video_id": "G7-C7-P08: Motion-Triggered System"
+      },
+      {
+        "category": "Project",
+        "title": "Contactless Patient Room Automation",
+        "video_id": "G7-C7-P09: Contactless Patient Room Automation"
+      }
+    ]
+  },
+  "G7-C8": {
+    "grade": 7,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Programming Smart Robots",
+    "platform_kit": "Edinno - Robo Build Kit\n(Edinno Programmable Kit)",
+    "domain": "",
+    "competencies": "1- Sensor Integration\n2- Smart Device Development\n3- Input-Based Control",
+    "learning_outcomes": "Students will be able to interface different sensors with the programmable board and develop smart input-based \nrobotic applications using sensor data.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Robo Build Board and its software",
+        "video_id": "G7-C8-T01: Introduction to Robo Build Board and its software"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Soil, Touch, Ultrasonic, PR, IR and Pulse Sensor",
+        "video_id": "G7-C8-T02: Introduction to Sensors (Soil, Touch, Ultrasonic, PR, IR and Pulse Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Touch-Controlled Lamp (Touch Sensor + LED",
+        "video_id": "G7-C8-A01: Touch-Controlled Lamp (Touch Sensor + LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to basic actuators (SG90 motor",
+        "video_id": "G7-C8-T03: Introduction to basic actuators (SG90 motor"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Entry Gate (Ultrasonic Sensor + SG90 Motor",
+        "video_id": "G7-C8-A02: Automatic Entry Gate (Ultrasonic Sensor + SG90 Motor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Display Systems",
+        "video_id": "G7-C8-T04: Introduction to Display Systems"
+      },
+      {
+        "category": "Activity",
+        "title": "Digital Door Lock (Touch Sensor + OLED + SG90 Servo",
+        "video_id": "G7-C8-A03: Digital Door Lock (Touch Sensor + OLED + SG90 Servo"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Dryness Warning System",
+        "video_id": "G7-C8-P01: Soil Dryness Warning System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Soil Sensor + OLED",
+        "video_id": "G7-C8-P02: Components: Soil Sensor + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Touch-based lock system",
+        "video_id": "G7-C8-P03: Touch-based lock system"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: touch Sensor + OLED + Buzzer + servo mtoor",
+        "video_id": "G7-C8-P04: Components Name: touch Sensor + OLED + Buzzer + servo mtoor"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Collision Alert",
+        "video_id": "G7-C8-P05: Vehicle Collision Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Ultrasonic Sensor + OLED + Buzzer",
+        "video_id": "G7-C8-P06: Components Name: Ultrasonic Sensor + OLED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Motion Detection Security Alarm",
+        "video_id": "G7-C8-P07: Motion Detection Security Alarm"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: PIR + buzzer + oled",
+        "video_id": "G7-C8-P08: Components Name: PIR + buzzer + oled"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Fuel Tank Monitor",
+        "video_id": "G7-C8-P09: Rocket Fuel Tank Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Ultrasonic + OLED + Buzzer",
+        "video_id": "G7-C8-P10: Components Name: Ultrasonic + OLED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Object Detection System",
+        "video_id": "G7-C8-P11: Object Detection System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + LCD + Buzzer",
+        "video_id": "G7-C8-P12: Components Name: IR Sensor + LCD + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Pulse Monitoring System",
+        "video_id": "G7-C8-P13: Pulse Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Pulse Sensor + OELD + Buzzer",
+        "video_id": "G7-C8-P14: Components Name: Pulse Sensor + OELD + Buzzer"
+      }
+    ]
+  },
+  "G7-C9": {
+    "grade": 7,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Intelligent Systems with Arduino",
+    "platform_kit": "Arduino Open Source Kit",
+    "domain": "",
+    "competencies": "1- Embedded Programming\n2- Digital Device Control\n3- Code Implementation",
+    "learning_outcomes": "Students will be able to write and upload Arduino programs to control multiple outputs using digital input and \noutput instructions.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Arduino Uno and its features",
+        "video_id": "G7-C9-T01: Introduction to Arduino Uno and its features"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to software",
+        "video_id": "G7-C9-T02: Introduction to software"
+      },
+      {
+        "category": "Activity",
+        "title": "Touch-Controlled Lamp (Touch Sensor + LED",
+        "video_id": "G7-C9-A01: Touch-Controlled Lamp (Touch Sensor + LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Digital Communications (Digital High and Low",
+        "video_id": "G7-C9-T03: Introduction to Digital Communications (Digital High and Low"
+      },
+      {
+        "category": "Activity",
+        "title": "Control 3 LEDs with Arduino\"",
+        "video_id": "G7-C9-A02: Control 3 LEDs with Arduino\""
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Ultrasonic, MQ2, MQ3, 4x4 Keypad",
+        "video_id": "G7-C9-T04: Introduction to Sensors (Ultrasonic, MQ2, MQ3, 4x4 Keypad"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Display Systems (7-segment, OLED, LCD 16x2",
+        "video_id": "G7-C9-T05: Introduction to Display Systems (7-segment, OLED, LCD 16x2"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Distance Display (Ultrasonic + OLED + LED",
+        "video_id": "G7-C9-A03: Smart Distance Display (Ultrasonic + OLED + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Rainwater Conservation System",
+        "video_id": "G7-C9-P01: Smart Rainwater Conservation System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Rain Sensor + Servo Motor",
+        "video_id": "G7-C9-P02: Components: Rain Sensor + Servo Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G7-C9-P03: Link"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic dustbin",
+        "video_id": "G7-C9-P04: Automatic dustbin"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno + Ultrasonic Sensor + Servo Motor + LED + Buzzer",
+        "video_id": "G7-C9-P05: Arduino Uno + Ultrasonic Sensor + Servo Motor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Display Parking Distance",
+        "video_id": "G7-C9-P06: Display Parking Distance"
+      },
+      {
+        "category": "Project",
+        "title": "Compoinents Using: Ultrasonic + OLED Display + 3x LED + Buzzer",
+        "video_id": "G7-C9-P07: Compoinents Using: Ultrasonic + OLED Display + 3x LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smoke alert system",
+        "video_id": "G7-C9-P08: Smoke alert system"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno + MQ2 + LED + Buzzer",
+        "video_id": "G7-C9-P09: Arduino Uno + MQ2 + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Aircraft launch countdown system",
+        "video_id": "G7-C9-P10: Aircraft launch countdown system"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno + 4 Digit 7-segment display + servo + LED + Buzzer",
+        "video_id": "G7-C9-P11: Arduino Uno + 4 Digit 7-segment display + servo + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Password authentication system",
+        "video_id": "G7-C9-P12: Password authentication system"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno + 4x4 Keypad + 16x2 LCD",
+        "video_id": "G7-C9-P13: Arduino Uno + 4x4 Keypad + 16x2 LCD"
+      },
+      {
+        "category": "Project",
+        "title": "Alcohol Detection System",
+        "video_id": "G7-C9-P14: Alcohol Detection System"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno + MQ3 Sensor + Buzzer + LED",
+        "video_id": "G7-C9-P15: Arduino Uno + MQ3 Sensor + Buzzer + LED"
+      }
+    ]
+  },
+  "G7-C10": {
+    "grade": 7,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Creating 3D Models",
+    "platform_kit": "TinkerCAD - Within EdinnoVerse",
+    "domain": "",
+    "competencies": "1- 3D Model Creation\n2- Shape Alignment\n3- Precision Designing",
+    "learning_outcomes": "Students will be able to use Tinkercad design tools to create accurate 3D models by applying alignment, measurement \nand duplication techniques.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to 3D Printing and uses",
+        "video_id": "G7-C10-T01: Introduction to 3D Printing and uses"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Align and Ruler Tools",
+        "video_id": "G7-C10-T02: Introduction to Align and Ruler Tools"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a simple 3D Dice",
+        "video_id": "G7-C10-A01: Design a simple 3D Dice"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to TinkerCAD Platform",
+        "video_id": "G7-C10-T03: Introduction to TinkerCAD Platform"
+      },
+      {
+        "category": "Topic",
+        "title": "Explore TinkerCAD platform",
+        "video_id": "G7-C10-T04: Explore TinkerCAD platform"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Name Badge",
+        "video_id": "G7-C10-A02: Design a Name Badge"
+      },
+      {
+        "category": "Project",
+        "title": "Ferris Wheel Planter",
+        "video_id": "G7-C10-P01: Ferris Wheel Planter"
+      },
+      {
+        "category": "Project",
+        "title": "3D Printed Smart House Model",
+        "video_id": "G7-C10-P02: 3D Printed Smart House Model"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Emission Monitoring Car Model",
+        "video_id": "G7-C10-P03: Smart Emission Monitoring Car Model"
+      },
+      {
+        "category": "Project",
+        "title": "Fighter Jet Model",
+        "video_id": "G7-C10-P04: Fighter Jet Model"
+      },
+      {
+        "category": "Project",
+        "title": "Spaceship Model",
+        "video_id": "G7-C10-P05: Spaceship Model"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Dustbin Model",
+        "video_id": "G7-C10-P06: Smart Dustbin Model"
+      },
+      {
+        "category": "Project",
+        "title": "Smartwatch Model",
+        "video_id": "G7-C10-P07: Smartwatch Model"
+      }
+    ]
+  },
+  "G7-C11": {
+    "grade": 7,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Exploring Artificial Intelligence",
+    "platform_kit": "Like Teachable Machine (EdinnoVerse)",
+    "domain": "",
+    "competencies": "1- AI Model Training\n2- Data Classification\n3- Pattern Recognition",
+    "learning_outcomes": "Students will be able to train a simple AI model by organizing training and testing data and explain how machine \nlearning uses data to make predictions.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to ML and AI",
+        "video_id": "G7-C11-T01: Introduction to ML and AI"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding Training Data and Testing Data",
+        "video_id": "G7-C11-T02: Understanding Training Data and Testing Data"
+      },
+      {
+        "category": "Activity",
+        "title": "Rock, Paper & Scissors using AI",
+        "video_id": "G7-C11-A01: Rock, Paper & Scissors using AI"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Image Classification Models",
+        "video_id": "G7-C11-T03: Introduction to Image Classification Models"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding AI Model Performance (Correct, incorrect predictions & con...",
+        "video_id": "G7-C11-T04: Understanding AI Model Performance (Correct, incorrect predictions & con..."
+      },
+      {
+        "category": "Activity",
+        "title": "Paper, Plastic and Metal Classification",
+        "video_id": "G7-C11-A02: Paper, Plastic and Metal Classification"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Pose Detection",
+        "video_id": "G7-C11-T05: Introduction to Pose Detection"
+      },
+      {
+        "category": "Topic",
+        "title": "AI Model Prediction using Body Poses",
+        "video_id": "G7-C11-T06: AI Model Prediction using Body Poses"
+      },
+      {
+        "category": "Activity",
+        "title": "Detect: Wave, Clap, Hands Up",
+        "video_id": "G7-C11-A03: Detect: Wave, Clap, Hands Up"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Conditioner Detector",
+        "video_id": "G7-C11-P01: Soil Conditioner Detector"
+      },
+      {
+        "category": "Project",
+        "title": "Dry Soil / Wet Soil / Cracked Soil",
+        "video_id": "G7-C11-P02: Dry Soil / Wet Soil / Cracked Soil"
+      },
+      {
+        "category": "Project",
+        "title": "Waste Segregation AI",
+        "video_id": "G7-C11-P03: Waste Segregation AI"
+      },
+      {
+        "category": "Project",
+        "title": "Paper / Plastic / Organic",
+        "video_id": "G7-C11-P04: Paper / Plastic / Organic"
+      },
+      {
+        "category": "Project",
+        "title": "Driver Distraction Detector",
+        "video_id": "G7-C11-P05: Driver Distraction Detector"
+      },
+      {
+        "category": "Project",
+        "title": "Looking Ahead / Using Phone",
+        "video_id": "G7-C11-P06: Looking Ahead / Using Phone"
+      },
+      {
+        "category": "Project",
+        "title": "Drone Presence Detection",
+        "video_id": "G7-C11-P07: Drone Presence Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Drone / Drone / Bird and No Drone",
+        "video_id": "G7-C11-P08: Drone / Drone / Bird and No Drone"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Launch Stage Classifier",
+        "video_id": "G7-C11-P09: Rocket Launch Stage Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "On Pad / Lift-Off / In Flight",
+        "video_id": "G7-C11-P10: On Pad / Lift-Off / In Flight"
+      },
+      {
+        "category": "Project",
+        "title": "Emotional Detection",
+        "video_id": "G7-C11-P11: Emotional Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Happy, Sad, Angry, Neutral",
+        "video_id": "G7-C11-P12: Happy, Sad, Angry, Neutral"
+      },
+      {
+        "category": "Project",
+        "title": "Yoga Postures Detection System",
+        "video_id": "G7-C11-P13: Yoga Postures Detection System"
+      }
+    ]
+  },
+  "G7-C12": {
+    "grade": 7,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G8-C1": {
+    "grade": 8,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: STEM Design and Engineering",
+    "platform_kit": "DIY Construction Kit",
+    "domain": "No domain-relevant project. All the students have to\nmake generic projects",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how forces, shapes and supports affect structural stability.\n2. Apply basic structural principles to plan a stable structure.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Structural Designs",
+        "video_id": "G8-C1-T01: Introduction to Structural Designs"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Forces",
+        "video_id": "G8-C1-T02: Introduction to Forces"
+      },
+      {
+        "category": "Activity",
+        "title": "Hands-on Lab 1",
+        "video_id": "G8-C1-A01: Hands-on Lab 1"
+      },
+      {
+        "category": "Project",
+        "title": "Dump Truck",
+        "video_id": "G8-C1-P01: Dump Truck"
+      }
+    ]
+  },
+  "G8-C2": {
+    "grade": 8,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Exploring Electronics Systems",
+    "platform_kit": "Snap Circuit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand the difference between conductors and insulators and identify their role in an electrical circuit.\n2. Apply basic circuit concepts to identify and prevent short-circuit conditions.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Conductors and Insulators",
+        "video_id": "G8-C2-T01: Introduction to Conductors and Insulators"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Short Circuit",
+        "video_id": "G8-C2-T02: Introduction to Short Circuit"
+      },
+      {
+        "category": "Activity",
+        "title": "Short Not",
+        "video_id": "G8-C2-A01: Short Not"
+      },
+      {
+        "category": "Project",
+        "title": "Sound Effects",
+        "video_id": "G8-C2-P01: Sound Effects"
+      }
+    ]
+  },
+  "G8-C3": {
+    "grade": 8,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Electronics Control Systems",
+    "platform_kit": "555 Timer + Open Source Electronics",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how electronic signals can be used to control the operation of electronic components.\n2. Apply basic signal-control concepts to operate an electronic output.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to PWM",
+        "video_id": "G8-C3-T01: Introduction to PWM"
+      },
+      {
+        "category": "Activity",
+        "title": "RGB LED Brightness control Using a Potentiometer",
+        "video_id": "G8-C3-A01: RGB LED Brightness control Using a Potentiometer"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to 555 Timer ICs",
+        "video_id": "G8-C3-T02: Introduction to 555 Timer ICs"
+      },
+      {
+        "category": "Activity",
+        "title": "Motor Speed with 555 Timer IC",
+        "video_id": "G8-C3-A02: Motor Speed with 555 Timer IC"
+      }
+    ]
+  },
+  "G8-C4": {
+    "grade": 8,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Smart Automation Systems",
+    "platform_kit": "Edinno - Snap Logic (Non Programmable)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how logic-based decisions can be used to control an electronic system.\n2. Apply simple conditions to create a system that responds to different inputs.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Understanding the Snap Logic Board: Signal Flow and Control",
+        "video_id": "G8-C4-T01: Understanding the Snap Logic Board: Signal Flow and Control"
+      },
+      {
+        "category": "Topic",
+        "title": "Logic Gates and Decision Making (AND or OR Gates",
+        "video_id": "G8-C4-T02: Logic Gates and Decision Making (AND or OR Gates"
+      },
+      {
+        "category": "Activity",
+        "title": "Object Detection",
+        "video_id": "G8-C4-A01: Object Detection"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to advanced Logic Gates (NAND, XOR, and Truth Tables",
+        "video_id": "G8-C4-T03: Introduction to advanced Logic Gates (NAND, XOR, and Truth Tables"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to NOT Logic Gates",
+        "video_id": "G8-C4-T04: Introduction to NOT Logic Gates"
+      },
+      {
+        "category": "Activity",
+        "title": "Object Follower",
+        "video_id": "G8-C4-A02: Object Follower"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Greenhouse Crop Health Monitor",
+        "video_id": "G8-C4-P01: Smart Greenhouse Crop Health Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: LDR Sensor + Soil Sensor + LED + Buzzer",
+        "video_id": "G8-C4-P02: Components Name: LDR Sensor + Soil Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Window Curtain System",
+        "video_id": "G8-C4-P03: Smart Window Curtain System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: LDR Sensor + Motor + LED",
+        "video_id": "G8-C4-P04: Components Name: LDR Sensor + Motor + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Car Parking Assistance",
+        "video_id": "G8-C4-P05: Car Parking Assistance"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + Motors + Chassis + LED + Buzzer",
+        "video_id": "G8-C4-P06: Components Name: IR Sensor + Motors + Chassis + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Dam Wall Crack Monitoring System",
+        "video_id": "G8-C4-P07: Dam Wall Crack Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Vibration + LED + Buzzer",
+        "video_id": "G8-C4-P08: Components Name: Vibration + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Drone Safety Perimeter Alert",
+        "video_id": "G8-C4-P09: Drone Safety Perimeter Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + LED + Buzzer",
+        "video_id": "G8-C4-P10: Components Name: IR Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Secure Entry System",
+        "video_id": "G8-C4-P11: Secure Entry System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + LED + Buzzer + Motor",
+        "video_id": "G8-C4-P12: Components Name: IR Sensor + LED + Buzzer + Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Hospital Fire Robot",
+        "video_id": "G8-C4-P13: Hospital Fire Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Flame Sensor + Relay + Water Pump + BO Motor",
+        "video_id": "G8-C4-P14: Components Name: Flame Sensor + Relay + Water Pump + BO Motor"
+      }
+    ]
+  },
+  "G8-C5": {
+    "grade": 8,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Introduction to 3D simulations Coding",
+    "platform_kit": "Creaticode (Block-based 3D Simulations)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand the basic principles of creating and viewing objects in a 3D digital environment.\n2. Apply basic 3D design and coding concepts to create a simple 3D model.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to CreatiCode platform and its blocks",
+        "video_id": "G8-C5-T01: Introduction to CreatiCode platform and its blocks"
+      },
+      {
+        "category": "Topic",
+        "title": "Introductions ot 3D Simulations",
+        "video_id": "G8-C5-T02: Introductions ot 3D Simulations"
+      },
+      {
+        "category": "Activity",
+        "title": "Design 3D Pyramid",
+        "video_id": "G8-C5-A01: Design 3D Pyramid"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Widget Blocks",
+        "video_id": "G8-C5-T03: Introduction to Widget Blocks"
+      },
+      {
+        "category": "Activity",
+        "title": "Spinning globe 3D",
+        "video_id": "G8-C5-A02: Spinning globe 3D"
+      },
+      {
+        "category": "Project",
+        "title": "Journey of Water Drops",
+        "video_id": "G8-C5-P01: Journey of Water Drops"
+      },
+      {
+        "category": "Project",
+        "title": "AI Chatbot Taking Orders",
+        "video_id": "G8-C5-P02: AI Chatbot Taking Orders"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 3",
+        "video_id": "G8-C5-P03: Capstone Build 3"
+      },
+      {
+        "category": "Project",
+        "title": "Self-Driving Car with Distance Sensors",
+        "video_id": "G8-C5-P04: Self-Driving Car with Distance Sensors"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 5",
+        "video_id": "G8-C5-P05: Capstone Build 5"
+      },
+      {
+        "category": "Project",
+        "title": "Flying Drone Simulation",
+        "video_id": "G8-C5-P06: Flying Drone Simulation"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 7",
+        "video_id": "G8-C5-P07: Capstone Build 7"
+      },
+      {
+        "category": "Project",
+        "title": "Planet Classification Simulation Game",
+        "video_id": "G8-C5-P08: Planet Classification Simulation Game"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 9",
+        "video_id": "G8-C5-P09: Capstone Build 9"
+      },
+      {
+        "category": "Project",
+        "title": "AI Assistant (Talk or Walk",
+        "video_id": "G8-C5-P10: AI Assistant (Talk or Walk"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 11",
+        "video_id": "G8-C5-P11: Capstone Build 11"
+      },
+      {
+        "category": "Project",
+        "title": "Diabetes Classification Model",
+        "video_id": "G8-C5-P12: Diabetes Classification Model"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 13",
+        "video_id": "G8-C5-P13: Capstone Build 13"
+      }
+    ]
+  },
+  "G8-C6": {
+    "grade": 8,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G8-C7": {
+    "grade": 8,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Explore Robotics Mechanics",
+    "platform_kit": "Edinno - RoboSpark (Light Version Kit)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how information from the surroundings can be observed and used to understand a situation.\n2. Apply basic observation and measurement skills to identify and record changes.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to RoboSpark Board and its software",
+        "video_id": "G8-C7-T01: Introduction to RoboSpark Board and its software"
+      },
+      {
+        "category": "Topic",
+        "title": "Printing values on serial monitor",
+        "video_id": "G8-C7-T02: Printing values on serial monitor"
+      },
+      {
+        "category": "Activity",
+        "title": "Detect a motion using IR sensor and print it's status on the serial monitor",
+        "video_id": "G8-C7-A01: Detect a motion using IR sensor and print it's status on the serial monitor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Comparison operator",
+        "video_id": "G8-C7-T03: Introduction to Comparison operator"
+      },
+      {
+        "category": "Topic",
+        "title": "Comparing values of DHT11 and Raindrop sensor",
+        "video_id": "G8-C7-T04: Comparing values of DHT11 and Raindrop sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Make a Fan turn On when temperature goes high and turn it OFF during Rain",
+        "video_id": "G8-C7-A02: Make a Fan turn On when temperature goes high and turn it OFF during Rain"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Events blocks",
+        "video_id": "G8-C7-T05: Introduction to Events blocks"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to different blocks and conditions",
+        "video_id": "G8-C7-T06: Introduction to different blocks and conditions"
+      },
+      {
+        "category": "Activity",
+        "title": "Make a weather station using the sensor",
+        "video_id": "G8-C7-A03: Make a weather station using the sensor"
+      },
+      {
+        "category": "Project",
+        "title": "Rain Detection Alarm",
+        "video_id": "G8-C7-P01: Rain Detection Alarm"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Ventilation Control",
+        "video_id": "G8-C7-P02: Automated Ventilation Control"
+      },
+      {
+        "category": "Project",
+        "title": "Touch Start and Stop Ignition Switch",
+        "video_id": "G8-C7-P03: Touch Start and Stop Ignition Switch"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Checkpoint Barrier",
+        "video_id": "G8-C7-P04: Automated Checkpoint Barrier"
+      },
+      {
+        "category": "Project",
+        "title": "Touch Launch Button Simulator",
+        "video_id": "G8-C7-P05: Touch Launch Button Simulator"
+      },
+      {
+        "category": "Project",
+        "title": "Visitor Counter",
+        "video_id": "G8-C7-P06: Visitor Counter"
+      },
+      {
+        "category": "Project",
+        "title": "Touch Sanitizer Dispenser Trigger",
+        "video_id": "G8-C7-P07: Touch Sanitizer Dispenser Trigger"
+      }
+    ]
+  },
+  "G8-C8": {
+    "grade": 8,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Smart Solutions with Robotics",
+    "platform_kit": "Edinno - RoboBuild (Programmable Kit)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how sensors can detect changes in the surrounding environment and provide information to a robotic system.\n2. Apply sensor-based control concepts to create a system that responds to detected changes.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Board and its software",
+        "video_id": "G8-C8-T01: Introduction to Board and its software"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Ultrasonic Sensor",
+        "video_id": "G8-C8-T02: Introduction to Ultrasonic Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Ultrasonic Sensor with LED",
+        "video_id": "G8-C8-A01: Ultrasonic Sensor with LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to advanced actuators (MG90 and BO Motors",
+        "video_id": "G8-C8-T03: Introduction to advanced actuators (MG90 and BO Motors"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Components (Relay + Pump Module",
+        "video_id": "G8-C8-T04: Introduction to Components (Relay + Pump Module"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Door Open (Ultrasonic + BO motor",
+        "video_id": "G8-C8-A02: Automatic Door Open (Ultrasonic + BO motor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Soil, LDR, Flame, Touch, Pulse Sensor",
+        "video_id": "G8-C8-T05: Introduction to Sensors (Soil, LDR, Flame, Touch, Pulse Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Fire Alert (Flame + LED + Buzzer",
+        "video_id": "G8-C8-A03: Fire Alert (Flame + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Crop Irrigation System",
+        "video_id": "G8-C8-P01: Automated Crop Irrigation System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Soil Sensor, Relay, Pump, OLED",
+        "video_id": "G8-C8-P02: Components: Soil Sensor, Relay, Pump, OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Autonomous Curtain System",
+        "video_id": "G8-C8-P03: Autonomous Curtain System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: LDR Sensor, Servo Motor",
+        "video_id": "G8-C8-P04: Components Name: LDR Sensor, Servo Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Fire Alert System",
+        "video_id": "G8-C8-P05: Vehicle Fire Alert System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Flame Sensor + Buzzer + LED + OLED Display",
+        "video_id": "G8-C8-P06: Components Name: Flame Sensor + Buzzer + LED + OLED Display"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Security Checkpoint",
+        "video_id": "G8-C8-P07: Automated Security Checkpoint"
+      },
+      {
+        "category": "Project",
+        "title": "Component : Ultrasonic, Servo, OLED",
+        "video_id": "G8-C8-P08: Component : Ultrasonic, Servo, OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Measure Rocket Height",
+        "video_id": "G8-C8-P09: Measure Rocket Height"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Ultrasonic Sensor, LCD/OLED",
+        "video_id": "G8-C8-P10: Component: Ultrasonic Sensor, LCD/OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Touch based Lock System",
+        "video_id": "G8-C8-P11: Touch based Lock System"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Touch Sensor, OELD, Buzzer",
+        "video_id": "G8-C8-P12: Component: Touch Sensor, OELD, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Stress Level Indicator",
+        "video_id": "G8-C8-P13: Smart Stress Level Indicator"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Pulse Sensor + LED + Buzzer + OLED",
+        "video_id": "G8-C8-P14: Components Name: Pulse Sensor + LED + Buzzer + OLED"
+      }
+    ]
+  },
+  "G8-C9": {
+    "grade": 8,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Explore Embedded System with Arduino",
+    "platform_kit": "Arduino Open Source Electronics",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how information from the surrounding environment can be collected and observed.\n2. Apply basic monitoring concepts to identify and display changes in the environment.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Arduino Uno",
+        "video_id": "G8-C9-T01: Introduction to Arduino Uno"
+      },
+      {
+        "category": "Activity",
+        "title": "IR Sensor Value Monitor",
+        "video_id": "G8-C9-A01: IR Sensor Value Monitor"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding Sensor Thresholds",
+        "video_id": "G8-C9-T02: Understanding Sensor Thresholds"
+      },
+      {
+        "category": "Activity",
+        "title": "Sensor Threshold Alert (Rain Sensor + LED + Buzzer",
+        "video_id": "G8-C9-A02: Sensor Threshold Alert (Rain Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Ultrasonic, Rain, LM35 / DHT11, Colour Sensor",
+        "video_id": "G8-C9-T03: Introduction to Sensors (Ultrasonic, Rain, LM35 / DHT11, Colour Sensor"
+      },
+      {
+        "category": "Topic",
+        "title": "Mapping Sensor Values to Servo Movement",
+        "video_id": "G8-C9-T04: Mapping Sensor Values to Servo Movement"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Rain Shed (Rain Sensor + Motor",
+        "video_id": "G8-C9-A03: Automatic Rain Shed (Rain Sensor + Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Rainwater Tanks Monitoring System",
+        "video_id": "G8-C9-P01: Rainwater Tanks Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Ultrasonic Sensor, OLED Display, Buzzer, LED (Red",
+        "video_id": "G8-C9-P02: Components: Ultrasonic Sensor, OLED Display, Buzzer, LED (Red"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Drainage Monitoring System",
+        "video_id": "G8-C9-P03: Smart Drainage Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Rain Sensor, Ultrasonic Sensor, Buzzer",
+        "video_id": "G8-C9-P04: Component Names: Rain Sensor, Ultrasonic Sensor, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Engine Overheating Warning System",
+        "video_id": "G8-C9-P05: Vehicle Engine Overheating Warning System"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Temperature Sensor, Buzzer, OLED, LED",
+        "video_id": "G8-C9-P06: Component Names: Temperature Sensor, Buzzer, OLED, LED"
+      },
+      {
+        "category": "Project",
+        "title": "Flood Level Monitoring System",
+        "video_id": "G8-C9-P07: Flood Level Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Ultrasonic Sensor + 3 LED + Buzzer",
+        "video_id": "G8-C9-P08: Component: Ultrasonic Sensor + 3 LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Aircraft B-Scope Radar Display",
+        "video_id": "G8-C9-P09: Aircraft B-Scope Radar Display"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Ultrasonic + Servo + OLED + Buzzer",
+        "video_id": "G8-C9-P10: Components: Ultrasonic + Servo + OLED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G8-C9-P11: Link"
+      },
+      {
+        "category": "Project",
+        "title": "Colour Sorting Machine",
+        "video_id": "G8-C9-P12: Colour Sorting Machine"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Color Sensor, Servo Motor, OLED",
+        "video_id": "G8-C9-P13: Component Names: Color Sensor, Servo Motor, OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Drip Level Monitoring System",
+        "video_id": "G8-C9-P14: Smart Drip Level Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Component : Arduino Uno + Ultrasonic Sensor + OLED + Buzzer + LED",
+        "video_id": "G8-C9-P15: Component : Arduino Uno + Ultrasonic Sensor + OLED + Buzzer + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G8-C9-P16: Link"
+      }
+    ]
+  },
+  "G8-C10": {
+    "grade": 8,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Designing Functional 3D Models",
+    "platform_kit": "TinkerCAD (3D Printing)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand the purpose and applications of 3D printing in creating useful objects.\n2. Apply basic design and measurement principles to create a simple functional model.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to 3D Printing and its applications",
+        "video_id": "G8-C10-T01: Introduction to 3D Printing and its applications"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to the Tinkercad platform",
+        "video_id": "G8-C10-T02: Introduction to the Tinkercad platform"
+      },
+      {
+        "category": "Activity",
+        "title": "Basic pencil box 3D Model",
+        "video_id": "G8-C10-A01: Basic pencil box 3D Model"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Mirror and Duplicate tools",
+        "video_id": "G8-C10-T03: Introduction to Mirror and Duplicate tools"
+      },
+      {
+        "category": "Topic",
+        "title": "Explore Interlocking Parts Tools",
+        "video_id": "G8-C10-T04: Explore Interlocking Parts Tools"
+      },
+      {
+        "category": "Activity",
+        "title": "Plant Pot 3D Model",
+        "video_id": "G8-C10-A02: Plant Pot 3D Model"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Moisture Sensor Protective Case",
+        "video_id": "G8-C10-P01: Soil Moisture Sensor Protective Case"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Dustbin Hinged Lid",
+        "video_id": "G8-C10-P02: Smart Dustbin Hinged Lid"
+      },
+      {
+        "category": "Project",
+        "title": "Mini 4WD Chassis Base",
+        "video_id": "G8-C10-P03: Mini 4WD Chassis Base"
+      },
+      {
+        "category": "Project",
+        "title": "Surveillance Mini Tower Model",
+        "video_id": "G8-C10-P04: Surveillance Mini Tower Model"
+      },
+      {
+        "category": "Project",
+        "title": "Rover 3D Model Design",
+        "video_id": "G8-C10-P05: Rover 3D Model Design"
+      },
+      {
+        "category": "Project",
+        "title": "Arduino Uno Casing",
+        "video_id": "G8-C10-P06: Arduino Uno Casing"
+      },
+      {
+        "category": "Project",
+        "title": "Pulse Sensor Finger Clip Case",
+        "video_id": "G8-C10-P07: Pulse Sensor Finger Clip Case"
+      }
+    ]
+  },
+  "G8-C11": {
+    "grade": 8,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Explore Machine Learning Models",
+    "platform_kit": "Machine Learning for Kids",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Understand how examples and patterns help a computer learn to identify different categories.\n2. Apply basic learning concepts to train and test a simple model using given examples.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Getting Started with Machine Learning for Kids",
+        "video_id": "G8-C11-T01: Getting Started with Machine Learning for Kids"
+      },
+      {
+        "category": "Topic",
+        "title": "Training a Machine Learning Model with Examples",
+        "video_id": "G8-C11-T02: Training a Machine Learning Model with Examples"
+      },
+      {
+        "category": "Activity",
+        "title": "Train an Image Recognition Model",
+        "video_id": "G8-C11-A01: Train an Image Recognition Model"
+      },
+      {
+        "category": "Topic",
+        "title": "Features, Labels and Training Examples",
+        "video_id": "G8-C11-T03: Features, Labels and Training Examples"
+      },
+      {
+        "category": "Topic",
+        "title": "Model Training, Testing and Prediction",
+        "video_id": "G8-C11-T04: Model Training, Testing and Prediction"
+      },
+      {
+        "category": "Activity",
+        "title": "Build and Test a Fruit Classifier",
+        "video_id": "G8-C11-A02: Build and Test a Fruit Classifier"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to number recognition",
+        "video_id": "G8-C11-T05: Introduction to number recognition"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Pattern Recognition",
+        "video_id": "G8-C11-T06: Introduction to Pattern Recognition"
+      },
+      {
+        "category": "Activity",
+        "title": "Handwritten Number Recognition",
+        "video_id": "G8-C11-A03: Handwritten Number Recognition"
+      },
+      {
+        "category": "Project",
+        "title": "Crop Field Category Classifier",
+        "video_id": "G8-C11-P01: Crop Field Category Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Waste Category Classifier",
+        "video_id": "G8-C11-P02: Smart Waste Category Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Weather-Based Driving Advice Classifier",
+        "video_id": "G8-C11-P03: Weather-Based Driving Advice Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Threat Level Predictor",
+        "video_id": "G8-C11-P04: Threat Level Predictor"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Signal Strength Classifier",
+        "video_id": "G8-C11-P05: Satellite Signal Strength Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Object Identification Classifier",
+        "video_id": "G8-C11-P06: Object Identification Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Health through Mood Prediction",
+        "video_id": "G8-C11-P07: Health through Mood Prediction"
+      }
+    ]
+  },
+  "G8-C12": {
+    "grade": 8,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G9-C1": {
+    "grade": 9,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Exploring Advanced STEM Concepts",
+    "platform_kit": "DIY Construction Kit",
+    "domain": "No domain-relevant project. All the students have to\nmake generic projects",
+    "competencies": "",
+    "learning_outcomes": "1- Students will understand how force and load affect the stability of a structure.\n2- Students will apply balance and load distribution to design a stable structure.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Advanced STEM Thinking",
+        "video_id": "G9-C1-T01: Introduction to Advanced STEM Thinking"
+      },
+      {
+        "category": "Topic",
+        "title": "Forces and Load Distribution",
+        "video_id": "G9-C1-T02: Forces and Load Distribution"
+      },
+      {
+        "category": "Activity",
+        "title": "Robo Soccerr",
+        "video_id": "G9-C1-A01: Robo Soccerr"
+      },
+      {
+        "category": "Project",
+        "title": "Mechnaical Tank",
+        "video_id": "G9-C1-P01: Mechnaical Tank"
+      }
+    ]
+  },
+  "G9-C2": {
+    "grade": 9,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Advanced Electronic Circuits",
+    "platform_kit": "Snap Circuit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how force and load affect the stability of structures.\n2. Students will apply basic ideas of balance and load distribution while designing a stable structure.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Electronic Components and Circuit Fundamentals",
+        "video_id": "G9-C2-T01: Electronic Components and Circuit Fundamentals"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Motor Vibrations",
+        "video_id": "G9-C2-T02: Introduction to Motor Vibrations"
+      },
+      {
+        "category": "Activity",
+        "title": "Super Vibrator Earthquake",
+        "video_id": "G9-C2-A01: Super Vibrator Earthquake"
+      },
+      {
+        "category": "Project",
+        "title": "Make a stroboscopic Effect project",
+        "video_id": "G9-C2-P01: Make a stroboscopic Effect project"
+      }
+    ]
+  },
+  "G9-C3": {
+    "grade": 9,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Sequential Circuits with CD4017",
+    "platform_kit": "CD4017 IC + Basic Electronic Components",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand the basic working and pin functions of the CD4017 IC.\n2. Students will build and observe simple sequential LED circuits using the CD4017.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the CD4017 IC and its Pin Configuration",
+        "video_id": "G9-C3-T01: Introduction to the CD4017 IC and its Pin Configuration"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding How to Build Basic Circuits Using CD4017",
+        "video_id": "G9-C3-T02: Understanding How to Build Basic Circuits Using CD4017"
+      },
+      {
+        "category": "Activity",
+        "title": "LED Glow using CD4017 ICs",
+        "video_id": "G9-C3-A01: LED Glow using CD4017 ICs"
+      },
+      {
+        "category": "Project",
+        "title": "LED Running Chaser Light Circuit",
+        "video_id": "G9-C3-P01: LED Running Chaser Light Circuit"
+      }
+    ]
+  },
+  "G9-C4": {
+    "grade": 9,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Designing Smart Logic Systems",
+    "platform_kit": "Edinno - Snap Logic (Non Programmable)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how sensor inputs can be used to control an output based on a condition.\n2. Students will apply basic logic and decision-making to create a simple automated system.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Exploring the Edinno Logic Board and Its Feastures",
+        "video_id": "G9-C4-T01: Exploring the Edinno Logic Board and Its Feastures"
+      },
+      {
+        "category": "Topic",
+        "title": "Exploring the LDR Sensor and Its Applications",
+        "video_id": "G9-C4-T02: Exploring the LDR Sensor and Its Applications"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Light Control Challenge using LDR Sensor",
+        "video_id": "G9-C4-A01: Smart Light Control Challenge using LDR Sensor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Soil Sensor, Flame, IR, Vibration",
+        "video_id": "G9-C4-T03: Introduction to Sensors (Soil Sensor, Flame, IR, Vibration"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Security Alert Challenge using IR Sensor",
+        "video_id": "G9-C4-A02: Smart Security Alert Challenge using IR Sensor"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Dryness Warning",
+        "video_id": "G9-C4-P01: Soil Dryness Warning"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Moisture → LED",
+        "video_id": "G9-C4-P02: Soil Moisture → LED"
+      },
+      {
+        "category": "Project",
+        "title": "Fire Indicator Panel",
+        "video_id": "G9-C4-P03: Fire Indicator Panel"
+      },
+      {
+        "category": "Project",
+        "title": "Flame → LED + Buzzer",
+        "video_id": "G9-C4-P04: Flame → LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Dual Side Parking Alert",
+        "video_id": "G9-C4-P05: Dual Side Parking Alert"
+      },
+      {
+        "category": "Project",
+        "title": "2 IR → LED + Buzzer + BO motor",
+        "video_id": "G9-C4-P06: 2 IR → LED + Buzzer + BO motor"
+      },
+      {
+        "category": "Project",
+        "title": "Emergency Alarm",
+        "video_id": "G9-C4-P07: Emergency Alarm"
+      },
+      {
+        "category": "Project",
+        "title": "MQ135 + Flame → Buzzer/LED",
+        "video_id": "G9-C4-P08: MQ135 + Flame → Buzzer/LED"
+      },
+      {
+        "category": "Project",
+        "title": "Safe Rocket Landing",
+        "video_id": "G9-C4-P09: Safe Rocket Landing"
+      },
+      {
+        "category": "Project",
+        "title": "Vibration → LED + Buzzer",
+        "video_id": "G9-C4-P10: Vibration → LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Vent Motor Control",
+        "video_id": "G9-C4-P11: Vent Motor Control"
+      },
+      {
+        "category": "Project",
+        "title": "LDR → BO Motor + LED",
+        "video_id": "G9-C4-P12: LDR → BO Motor + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Room Air Quality Warning",
+        "video_id": "G9-C4-P13: Room Air Quality Warning"
+      },
+      {
+        "category": "Project",
+        "title": "M135 Sensor → LED + Buzzer",
+        "video_id": "G9-C4-P14: M135 Sensor → LED + Buzzer"
+      }
+    ]
+  },
+  "G9-C5": {
+    "grade": 9,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Creating Interactive 3D Simulations",
+    "platform_kit": "Creaticode",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how 3D objects can be moved and controlled within a virtual environment.\n2. Students will apply basic controls to create a simple interactive 3D simulation.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Understanding Interactive 3D Environments",
+        "video_id": "G9-C5-T01: Understanding Interactive 3D Environments"
+      },
+      {
+        "category": "Topic",
+        "title": "Creating Movement and Behaviour in 3D Models",
+        "video_id": "G9-C5-T02: Creating Movement and Behaviour in 3D Models"
+      },
+      {
+        "category": "Activity",
+        "title": "3D Cube",
+        "video_id": "G9-C5-A01: 3D Cube"
+      },
+      {
+        "category": "Topic",
+        "title": "Designing User-Controlled 3D Simulations",
+        "video_id": "G9-C5-T03: Designing User-Controlled 3D Simulations"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Parking Simulation",
+        "video_id": "G9-C5-A02: Smart Parking Simulation"
+      },
+      {
+        "category": "Project",
+        "title": "Catch the Waste",
+        "video_id": "G9-C5-P01: Catch the Waste"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 2",
+        "video_id": "G9-C5-P02: Capstone Build 2"
+      },
+      {
+        "category": "Project",
+        "title": "3D Drone Delivery View",
+        "video_id": "G9-C5-P03: 3D Drone Delivery View"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 4",
+        "video_id": "G9-C5-P04: Capstone Build 4"
+      },
+      {
+        "category": "Project",
+        "title": "Light Control with Distance Sensors",
+        "video_id": "G9-C5-P05: Light Control with Distance Sensors"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 6",
+        "video_id": "G9-C5-P06: Capstone Build 6"
+      },
+      {
+        "category": "Project",
+        "title": "Finger Recognition Security System",
+        "video_id": "G9-C5-P07: Finger Recognition Security System"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 8",
+        "video_id": "G9-C5-P08: Capstone Build 8"
+      },
+      {
+        "category": "Project",
+        "title": "Mars 3D Simulation",
+        "video_id": "G9-C5-P09: Mars 3D Simulation"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 10",
+        "video_id": "G9-C5-P10: Capstone Build 10"
+      },
+      {
+        "category": "Project",
+        "title": "Voice Translator",
+        "video_id": "G9-C5-P11: Voice Translator"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 12",
+        "video_id": "G9-C5-P12: Capstone Build 12"
+      },
+      {
+        "category": "Project",
+        "title": "Fitness Game Using Body Pose Detection",
+        "video_id": "G9-C5-P13: Fitness Game Using Body Pose Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 14",
+        "video_id": "G9-C5-P14: Capstone Build 14"
+      }
+    ]
+  },
+  "G9-C6": {
+    "grade": 9,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G9-C7": {
+    "grade": 9,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Programming Smart Robotic Systems",
+    "platform_kit": "Edinno - RoboBuild (Programmable Kit)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how sensor information can be used to make a robotic system respond to its surroundings.\n2. Students will apply sensor-based decision-making to create a simple responsive robotic system.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to RoboBuild Board and its software",
+        "video_id": "G9-C7-T01: Introduction to RoboBuild Board and its software"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding Sensor-Based Decision Making",
+        "video_id": "G9-C7-T02: Understanding Sensor-Based Decision Making"
+      },
+      {
+        "category": "Activity",
+        "title": "Follow the Light",
+        "video_id": "G9-C7-A01: Follow the Light"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Relays and their types",
+        "video_id": "G9-C7-T03: Introduction to Relays and their types"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding Relay Operation and Switching",
+        "video_id": "G9-C7-T04: Understanding Relay Operation and Switching"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Light Switch (Relay, LDR, LED",
+        "video_id": "G9-C7-A02: Automatic Light Switch (Relay, LDR, LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors and OLED Display and its applications",
+        "video_id": "G9-C7-T05: Introduction to Sensors and OLED Display and its applications"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Soil, MQ135, Ultrasonic, Touch Sensor",
+        "video_id": "G9-C7-T06: Introduction to Soil, MQ135, Ultrasonic, Touch Sensor"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Environment Check (Soil + MQ135 + LED + Buzzer",
+        "video_id": "G9-C7-A03: Smart Environment Check (Soil + MQ135 + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Soil Irrigation Alert System",
+        "video_id": "G9-C7-P01: Smart Soil Irrigation Alert System"
+      },
+      {
+        "category": "Project",
+        "title": "Smart City Air Monitoring Pole",
+        "video_id": "G9-C7-P02: Smart City Air Monitoring Pole"
+      },
+      {
+        "category": "Project",
+        "title": "Intelligent Vehicle Distance Mapper",
+        "video_id": "G9-C7-P03: Intelligent Vehicle Distance Mapper"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Defence Radar System",
+        "video_id": "G9-C7-P04: Smart Defence Radar System"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Launch Control System",
+        "video_id": "G9-C7-P05: Rocket Launch Control System"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Biometric Authentication System",
+        "video_id": "G9-C7-P06: Smart Biometric Authentication System"
+      },
+      {
+        "category": "Project",
+        "title": "Active Buzzer",
+        "video_id": "G9-C7-P07: Active Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Assistive Walking Stick",
+        "video_id": "G9-C7-P08: Smart Assistive Walking Stick"
+      }
+    ]
+  },
+  "G9-C8": {
+    "grade": 9,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Developing Embedded Systems",
+    "platform_kit": "Arduino (Within EdinnoVerse)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand the basic working of the Arduino board and its role in controlling electronic outputs.\n2. Students will learn to organise a simple program and control multiple LEDs in different patterns.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Explore Arduino Development (Board intro and features",
+        "video_id": "G9-C8-T01: Explore Arduino Development (Board intro and features"
+      },
+      {
+        "category": "Activity",
+        "title": "Traffic Light Controller",
+        "video_id": "G9-C8-A01: Traffic Light Controller"
+      },
+      {
+        "category": "Topic",
+        "title": "Introducton to Sensors (Ultrasonic, Soil, Color, Touch, LDR) and",
+        "video_id": "G9-C8-T02: Introducton to Sensors (Ultrasonic, Soil, Color, Touch, LDR) and"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Light Control System (LDR and LED",
+        "video_id": "G9-C8-A02: Automatic Light Control System (LDR and LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to OLED Display",
+        "video_id": "G9-C8-T03: Introduction to OLED Display"
+      },
+      {
+        "category": "Activity",
+        "title": "Humidity Alert System (DHT11 + OLED Display + LED + Buzzer",
+        "video_id": "G9-C8-A03: Humidity Alert System (DHT11 + OLED Display + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Crop Ripeness Analyzer",
+        "video_id": "G9-C8-P01: Crop Ripeness Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: TCS3200 Color Sensor + OLED + LED\"",
+        "video_id": "G9-C8-P02: Components Name: TCS3200 Color Sensor + OLED + LED\""
+      },
+      {
+        "category": "Project",
+        "title": "Automated Waste Segregation Assistant",
+        "video_id": "G9-C8-P03: Automated Waste Segregation Assistant"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Ultrasonic + Soil + Servo motor + OLED",
+        "video_id": "G9-C8-P04: Components Name: Ultrasonic + Soil + Servo motor + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G9-C8-P05: Link"
+      },
+      {
+        "category": "Project",
+        "title": "Emergency Braking System",
+        "video_id": "G9-C8-P06: Emergency Braking System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Ultrasonic Sensor + OLED + L293D Motor Driver + Buzzer ...",
+        "video_id": "G9-C8-P07: Components Name: Ultrasonic Sensor + OLED + L293D Motor Driver + Buzzer ..."
+      },
+      {
+        "category": "Project",
+        "title": "Laser Security System",
+        "video_id": "G9-C8-P08: Laser Security System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Laser Diode Sensor + LED + LDR+ OLED + Buzzer",
+        "video_id": "G9-C8-P09: Components Name: Laser Diode Sensor + LED + LDR+ OLED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Space Debris Detection System",
+        "video_id": "G9-C8-P10: Space Debris Detection System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Ultrasonic Sensor + Buzzer + OLED + LED\"",
+        "video_id": "G9-C8-P11: Components: Ultrasonic Sensor + Buzzer + OLED + LED\""
+      },
+      {
+        "category": "Project",
+        "title": "Employee Check-In System",
+        "video_id": "G9-C8-P12: Employee Check-In System"
+      },
+      {
+        "category": "Project",
+        "title": "Patient Assistance Alert System",
+        "video_id": "G9-C8-P13: Patient Assistance Alert System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Touch Sensor + OLED + Buzzer + LED",
+        "video_id": "G9-C8-P14: Components Name: Touch Sensor + OLED + Buzzer + LED"
+      }
+    ]
+  },
+  "G9-C9": {
+    "grade": 9,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Introduction to Python Programming",
+    "platform_kit": "Python Coding  (Within EdinnoVerse)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand the purpose of Python and the basic rules used to write simple programs.\n2. Students will write and run a simple Python program to display information.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Python and Its Applications",
+        "video_id": "G9-C9-T01: Introduction to Python and Its Applications"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Python Coding Syntax",
+        "video_id": "G9-C9-T02: Introduction to Python Coding Syntax"
+      },
+      {
+        "category": "Activity",
+        "title": "Write Your First Python Code — Print your first and last name",
+        "video_id": "G9-C9-A01: Write Your First Python Code — Print your first and last name"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Variables and Rules for Defining Variables",
+        "video_id": "G9-C9-T03: Introduction to Variables and Rules for Defining Variables"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Strings and Their Types",
+        "video_id": "G9-C9-T04: Introduction to Strings and Their Types"
+      },
+      {
+        "category": "Activity",
+        "title": "Create Your Personal Profile",
+        "video_id": "G9-C9-A02: Create Your Personal Profile"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Lists and List Operations",
+        "video_id": "G9-C9-T05: Introduction to Lists and List Operations"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Decision-Making Statements",
+        "video_id": "G9-C9-T06: Introduction to Decision-Making Statements"
+      },
+      {
+        "category": "Activity",
+        "title": "Favourite Subject Checker (List and If and else Statements",
+        "video_id": "G9-C9-A03: Favourite Subject Checker (List and If and else Statements"
+      },
+      {
+        "category": "Project",
+        "title": "Crop Water Requirement Checker",
+        "video_id": "G9-C9-P01: Crop Water Requirement Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Room Status Checker",
+        "video_id": "G9-C9-P02: Smart Room Status Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Safety Check",
+        "video_id": "G9-C9-P03: Vehicle Safety Check"
+      },
+      {
+        "category": "Project",
+        "title": "Secure Identity Verification Checker",
+        "video_id": "G9-C9-P04: Secure Identity Verification Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Airport Runway Readiness Checker",
+        "video_id": "G9-C9-P05: Airport Runway Readiness Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Password Strength Checker",
+        "video_id": "G9-C9-P06: Password Strength Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Daily Health Routine Checker",
+        "video_id": "G9-C9-P07: Daily Health Routine Checker"
+      }
+    ]
+  },
+  "G9-C10": {
+    "grade": 9,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Designing Functional 3D Models",
+    "platform_kit": "Tinkercad",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how shape, size and support affect the function and stability of a 3D model.\n2. Students will create a simple functional 3D model using basic shapes and appropriate dimensions.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Getting Started with the Tinkercad 3D Design Workspace",
+        "video_id": "G9-C10-T01: Getting Started with the Tinkercad 3D Design Workspace"
+      },
+      {
+        "category": "Topic",
+        "title": "Creating Functional Forms with Basic Shapes",
+        "video_id": "G9-C10-T02: Creating Functional Forms with Basic Shapes"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Simple Phone Stand",
+        "video_id": "G9-C10-A01: Design a Simple Phone Stand"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Multi-Part 3D Design",
+        "video_id": "G9-C10-T03: Introduction to Multi-Part 3D Design"
+      },
+      {
+        "category": "Topic",
+        "title": "Creating Parts for Simple Assembly",
+        "video_id": "G9-C10-T04: Creating Parts for Simple Assembly"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Two-Piece Storage Box",
+        "video_id": "G9-C10-A02: Design a Two-Piece Storage Box"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Depth Measuring Rod Case",
+        "video_id": "G9-C10-P01: Soil Depth Measuring Rod Case"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Alarm Siren Enclosure",
+        "video_id": "G9-C10-P02: Smart Alarm Siren Enclosure"
+      },
+      {
+        "category": "Project",
+        "title": "Car Chassis Frame (2WD",
+        "video_id": "G9-C10-P03: Car Chassis Frame (2WD"
+      },
+      {
+        "category": "Project",
+        "title": "Radar Antenna Stand Model",
+        "video_id": "G9-C10-P04: Radar Antenna Stand Model"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Body Frame",
+        "video_id": "G9-C10-P05: Satellite Body Frame"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Case",
+        "video_id": "G9-C10-P06: Raspberry Pi Case"
+      },
+      {
+        "category": "Project",
+        "title": "Fitness Tracker Strap Holder",
+        "video_id": "G9-C10-P07: Fitness Tracker Strap Holder"
+      }
+    ]
+  },
+  "G9-C11": {
+    "grade": 9,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Exploring Machine Learning with Scratch",
+    "platform_kit": "Machine Learning for Kids + Scratch",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "1. Students will understand how images can be used to teach a machine to identify different objects.\n2. Students will create and test a simple model that recognises an object from the examples provided.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Getting started with ML with kids and software Introduction",
+        "video_id": "G9-C11-T01: Getting started with ML with kids and software Introduction"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Image Recognition",
+        "video_id": "G9-C11-T02: Introduction to Image Recognition"
+      },
+      {
+        "category": "Activity",
+        "title": "Describe the Glass",
+        "video_id": "G9-C11-A01: Describe the Glass"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Machine Learning Predictions",
+        "video_id": "G9-C11-T03: Introduction to Machine Learning Predictions"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to image classification techniques",
+        "video_id": "G9-C11-T04: Introduction to image classification techniques"
+      },
+      {
+        "category": "Activity",
+        "title": "Make Me Happy",
+        "video_id": "G9-C11-A02: Make Me Happy"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Face Recognition",
+        "video_id": "G9-C11-T05: Introduction to Face Recognition"
+      },
+      {
+        "category": "Topic",
+        "title": "Face Recognition Techniques like filters",
+        "video_id": "G9-C11-T06: Face Recognition Techniques like filters"
+      },
+      {
+        "category": "Activity",
+        "title": "Face Finder",
+        "video_id": "G9-C11-A03: Face Finder"
+      },
+      {
+        "category": "Project",
+        "title": "Identify Organic and Original Fertilizer",
+        "video_id": "G9-C11-P01: Identify Organic and Original Fertilizer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Home Automation",
+        "video_id": "G9-C11-P02: Smart Home Automation"
+      },
+      {
+        "category": "Project",
+        "title": "AI Smart Carpooling",
+        "video_id": "G9-C11-P03: AI Smart Carpooling"
+      },
+      {
+        "category": "Project",
+        "title": "Secret Code Identification using AI",
+        "video_id": "G9-C11-P04: Secret Code Identification using AI"
+      },
+      {
+        "category": "Project",
+        "title": "Planet Classification using AI",
+        "video_id": "G9-C11-P05: Planet Classification using AI"
+      },
+      {
+        "category": "Project",
+        "title": "Face Unlock System using AI",
+        "video_id": "G9-C11-P06: Face Unlock System using AI"
+      },
+      {
+        "category": "Project",
+        "title": "AI Health Chatbot",
+        "video_id": "G9-C11-P07: AI Health Chatbot"
+      }
+    ]
+  },
+  "G9-C12": {
+    "grade": 9,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G10-C1": {
+    "grade": 10,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Engineering Design Challenges",
+    "platform_kit": "DIY Construction Kit",
+    "domain": "No domain-relevant project. All the students have to\nmake generic projects",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic engineering design process and apply the concepts of stress, strain\nmaterial strength, and structural stability to develop a simple prototype using the DIY Construction Kit.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Engineering Design Challenges",
+        "video_id": "G10-C1-T01: Introduction to Engineering Design Challenges"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Torque",
+        "video_id": "G10-C1-T02: Introduction to Torque"
+      },
+      {
+        "category": "Activity",
+        "title": "Steering Car",
+        "video_id": "G10-C1-A01: Steering Car"
+      },
+      {
+        "category": "Project",
+        "title": "Robotic Hand",
+        "video_id": "G10-C1-P01: Robotic Hand"
+      }
+    ]
+  },
+  "G10-C2": {
+    "grade": 10,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Control Circuits for Robotics",
+    "platform_kit": "CD4017 ICs + Open Electronics \nComponents",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic operation of the CD4017 counter IC and use it to design and test \nsequential-output control circuits that produce programmed LED patterns, applying the same control \nprinciple to simple applications such as traffic signals and running lights.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Exploring the Role of CD4017 in Control Systems",
+        "video_id": "G10-C2-T01: Exploring the Role of CD4017 in Control Systems"
+      },
+      {
+        "category": "Activity",
+        "title": "Build an IC-Based LED Flasher",
+        "video_id": "G10-C2-A01: Build an IC-Based LED Flasher"
+      },
+      {
+        "category": "Project",
+        "title": "Create a Two-LED Alternating Circuit",
+        "video_id": "G10-C2-P01: Create a Two-LED Alternating Circuit"
+      },
+      {
+        "category": "Project",
+        "title": "Capstone Build 2",
+        "video_id": "G10-C2-P02: Capstone Build 2"
+      }
+    ]
+  },
+  "G10-C3": {
+    "grade": 10,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Decision Making with Logic Boards",
+    "platform_kit": "Edinno Non-Programmable Kit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic working of a non-programmable logic board and apply multi\ncondition logic to connect sensor inputs with LED and buzzer outputs for a simple safety-alert system.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Boards and its feastures",
+        "video_id": "G10-C3-T01: Introduction to Boards and its feastures"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Multi-Condition Logic",
+        "video_id": "G10-C3-T02: Introduction to Multi-Condition Logic"
+      },
+      {
+        "category": "Activity",
+        "title": "Two-Condition Safety Light (PIR, LED and Buzzer",
+        "video_id": "G10-C3-A01: Two-Condition Safety Light (PIR, LED and Buzzer"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Combined Logic Gates",
+        "video_id": "G10-C3-T03: Introduction to Combined Logic Gates"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Multi-Output Logic Systems",
+        "video_id": "G10-C3-T04: Introduction to Multi-Output Logic Systems"
+      },
+      {
+        "category": "Activity",
+        "title": "Smart Entry Indicator (IR Sensor, LED and Buzzer",
+        "video_id": "G10-C3-A02: Smart Entry Indicator (IR Sensor, LED and Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Heat-Based Crop Zone Alarm",
+        "video_id": "G10-C3-P01: Heat-Based Crop Zone Alarm"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Flame Sensor + LED + Buzzer",
+        "video_id": "G10-C3-P02: Component: Flame Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Air Quality Fan Controller",
+        "video_id": "G10-C3-P03: Air Quality Fan Controller"
+      },
+      {
+        "category": "Project",
+        "title": "Component: MQ135 + Relay → BO Motor + LED",
+        "video_id": "G10-C3-P04: Component: MQ135 + Relay → BO Motor + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Headlight Brightness",
+        "video_id": "G10-C3-P05: Automatic Headlight Brightness"
+      },
+      {
+        "category": "Project",
+        "title": "Component: LDR Sensor + LED",
+        "video_id": "G10-C3-P06: Component: LDR Sensor + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Shock Detection System",
+        "video_id": "G10-C3-P07: Shock Detection System"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Vibration Sensor + Buzzer + LED",
+        "video_id": "G10-C3-P08: Component: Vibration Sensor + Buzzer + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Air Vent Control system",
+        "video_id": "G10-C3-P09: Air Vent Control system"
+      },
+      {
+        "category": "Project",
+        "title": "Component: MQ135 Sensor + Relay + LED + Buzzer",
+        "video_id": "G10-C3-P10: Component: MQ135 Sensor + Relay + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Intrusion Entry Alarm System",
+        "video_id": "G10-C3-P11: Intrusion Entry Alarm System"
+      },
+      {
+        "category": "Project",
+        "title": "Component: IR Sensor + Buzzer",
+        "video_id": "G10-C3-P12: Component: IR Sensor + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Gas Leak Detection System",
+        "video_id": "G10-C3-P13: Gas Leak Detection System"
+      }
+    ]
+  },
+  "G10-C4": {
+    "grade": 10,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Programmable Control Systems",
+    "platform_kit": "Edinno Programmable Kit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to use an Arduino, sensor inputs and display outputs to build and test a basic programmable \nmonitoring system that reads sensor data and provides an appropriate output response.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the Board and Software",
+        "video_id": "G10-C4-T01: Introduction to the Board and Software"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Data Reading and Monitoring",
+        "video_id": "G10-C4-T02: Introduction to Data Reading and Monitoring"
+      },
+      {
+        "category": "Activity",
+        "title": "Temperature Reading Display",
+        "video_id": "G10-C4-A01: Temperature Reading Display"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Motor Speed Control",
+        "video_id": "G10-C4-T03: Introduction to Motor Speed Control"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Variable-Based Motor Control",
+        "video_id": "G10-C4-T04: Introduction to Variable-Based Motor Control"
+      },
+      {
+        "category": "Activity",
+        "title": "Adjustable Motor Speed",
+        "video_id": "G10-C4-A02: Adjustable Motor Speed"
+      },
+      {
+        "category": "Topic",
+        "title": "Decision-Making using Combined Sensor Inputs",
+        "video_id": "G10-C4-T05: Decision-Making using Combined Sensor Inputs"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Oil, ultrasonic, PIR, IR, Flame, Pulse",
+        "video_id": "G10-C4-T06: Introduction to Sensors (Oil, ultrasonic, PIR, IR, Flame, Pulse"
+      },
+      {
+        "category": "Activity",
+        "title": "Dual-Sensor Alert System (Ultrasonic + IR",
+        "video_id": "G10-C4-A03: Dual-Sensor Alert System (Ultrasonic + IR"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Soil Recovery Monitoring",
+        "video_id": "G10-C4-P01: Smart Soil Recovery Monitoring"
+      },
+      {
+        "category": "Project",
+        "title": "Components : Soil Sensor, OLED, Relay, Pump",
+        "video_id": "G10-C4-P02: Components : Soil Sensor, OLED, Relay, Pump"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Waste Bin Monitoring System",
+        "video_id": "G10-C4-P03: Smart Waste Bin Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Ultrasonic, OLED, Buzzer + Servo",
+        "video_id": "G10-C4-P04: Component: Ultrasonic, OLED, Buzzer + Servo"
+      },
+      {
+        "category": "Project",
+        "title": "Smart ADAS System",
+        "video_id": "G10-C4-P05: Smart ADAS System"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Ultrasonic, Buzzer, OLED",
+        "video_id": "G10-C4-P06: Components: Ultrasonic, Buzzer, OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Border Surveillance System",
+        "video_id": "G10-C4-P07: Smart Border Surveillance System"
+      },
+      {
+        "category": "Project",
+        "title": "Component : PIR, IR, OLED, Buzzer",
+        "video_id": "G10-C4-P08: Component : PIR, IR, OLED, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Engine Heat Monitoring",
+        "video_id": "G10-C4-P09: Rocket Engine Heat Monitoring"
+      },
+      {
+        "category": "Project",
+        "title": "Component: Flame Sensor, OLED, Buzzer",
+        "video_id": "G10-C4-P10: Component: Flame Sensor, OLED, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Obstacle Avoidance Robot",
+        "video_id": "G10-C4-P11: Obstacle Avoidance Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Ultrasonic Sensor, Chassis Kit, BO motors, OLED",
+        "video_id": "G10-C4-P12: Components: Ultrasonic Sensor, Chassis Kit, BO motors, OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Healthcare Monitoring",
+        "video_id": "G10-C4-P13: Smart Healthcare Monitoring"
+      },
+      {
+        "category": "Project",
+        "title": "Components: Pulse Sensor + DHT11 + OLED",
+        "video_id": "G10-C4-P14: Components: Pulse Sensor + DHT11 + OLED"
+      }
+    ]
+  },
+  "G10-C5": {
+    "grade": 10,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Microcontroller Applications",
+    "platform_kit": "Arduino + Open Source Electronics\n(Introdution to Arduino and its software)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to use Arduino, a push button, LED and buzzer to design and test an event-based alert circuit \nin which a user input triggers a defined output response.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Arduino and its feature",
+        "video_id": "G10-C5-T01: Introduction to Arduino and its feature"
+      },
+      {
+        "category": "Activity",
+        "title": "Emergency Alert (Arduino and Buzzer",
+        "video_id": "G10-C5-A01: Emergency Alert (Arduino and Buzzer"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors (Color Sensor, Ultrasonic, IR, Flame and Pulse",
+        "video_id": "G10-C5-T02: Introduction to Sensors (Color Sensor, Ultrasonic, IR, Flame and Pulse"
+      },
+      {
+        "category": "Activity",
+        "title": "Temperature and Humidity Display (DHT11, I2C Display",
+        "video_id": "G10-C5-A02: Temperature and Humidity Display (DHT11, I2C Display"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Servo Motor",
+        "video_id": "G10-C5-T03: Introduction to Servo Motor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to L293D Motor Driver",
+        "video_id": "G10-C5-T04: Introduction to L293D Motor Driver"
+      },
+      {
+        "category": "Activity",
+        "title": "Control Servo Motor with Poteniometer",
+        "video_id": "G10-C5-A03: Control Servo Motor with Poteniometer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Seed Sorting Machine",
+        "video_id": "G10-C5-P01: Smart Seed Sorting Machine"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Servo motor + Color Sensor + OLED + LED + Buzzer",
+        "video_id": "G10-C5-P02: Components Name: Servo motor + Color Sensor + OLED + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Floor Cleaning Robot",
+        "video_id": "G10-C5-P03: Smart Floor Cleaning Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Arduino Uno + Ultrasonic Sensor + L293D Motor Driver + ...",
+        "video_id": "G10-C5-P04: Components Name: Arduino Uno + Ultrasonic Sensor + L293D Motor Driver + ..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Car Wiper System",
+        "video_id": "G10-C5-P05: Smart Car Wiper System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Rain Sensor + OLED + 2 servo motors",
+        "video_id": "G10-C5-P06: Components Name: Rain Sensor + OLED + 2 servo motors"
+      },
+      {
+        "category": "Project",
+        "title": "Autonomous Fire Response Robot",
+        "video_id": "G10-C5-P07: Autonomous Fire Response Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Flame Sensor, L293D Motor Driver, Chassis, Servo Motor,...",
+        "video_id": "G10-C5-P08: Component Names: Flame Sensor, L293D Motor Driver, Chassis, Servo Motor,..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Satellite Landing Guidance",
+        "video_id": "G10-C5-P09: Smart Satellite Landing Guidance"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Arduino + Ultrasonic Sensor + buzzer + 4 Servo motor + ...",
+        "video_id": "G10-C5-P10: Components Name: Arduino + Ultrasonic Sensor + buzzer + 4 Servo motor + ..."
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G10-C5-P11: Link"
+      },
+      {
+        "category": "Project",
+        "title": "Food Delivery Robot",
+        "video_id": "G10-C5-P12: Food Delivery Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components Names: 2 IR Sensors + L293D Motor Driver + Arduino + chassis ...",
+        "video_id": "G10-C5-P13: Components Names: 2 IR Sensors + L293D Motor Driver + Arduino + chassis ..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Pulse Rate Monitoring System",
+        "video_id": "G10-C5-P14: Smart Pulse Rate Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + Pulse Sensor + OLED + LED + Buzzer",
+        "video_id": "G10-C5-P15: Components Name: IR Sensor + Pulse Sensor + OLED + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Objective: The patient walks on a circular track, and each time they pas...",
+        "video_id": "G10-C5-P16: Objective: The patient walks on a circular track, and each time they pas..."
+      }
+    ]
+  },
+  "G10-C6": {
+    "grade": 10,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G10-C7": {
+    "grade": 10,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Connecting Devices to the Internet",
+    "platform_kit": "NodeMCU (Basic IoT)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic working of NodeMCU (ESP8266) and connect a simple input-output system \nto Wi-Fi to understand how a device can communicate through the internet.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to IoT and Connected Devices",
+        "video_id": "G10-C7-T01: Introduction to IoT and Connected Devices"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to NodeMCU and Wi-Fi Connectivity",
+        "video_id": "G10-C7-T02: Introduction to NodeMCU and Wi-Fi Connectivity"
+      },
+      {
+        "category": "Activity",
+        "title": "Connect and Glow an LED",
+        "video_id": "G10-C7-A01: Connect and Glow an LED"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Wi-Fi Communication with NodeMCU",
+        "video_id": "G10-C7-T03: Introduction to Wi-Fi Communication with NodeMCU"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensor-Based IoT Alerts",
+        "video_id": "G10-C7-T04: Introduction to Sensor-Based IoT Alerts"
+      },
+      {
+        "category": "Activity",
+        "title": "Wi-Fi Motion Detection Alert (PIR Sensor, LED and Buzzer",
+        "video_id": "G10-C7-A02: Wi-Fi Motion Detection Alert (PIR Sensor, LED and Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Moisture Wi-Fi Alert",
+        "video_id": "G10-C7-P01: Soil Moisture Wi-Fi Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: NodeMCU, Soil Sensor, LED, Buzzer",
+        "video_id": "G10-C7-P02: Component Names: NodeMCU, Soil Sensor, LED, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Automatic Staircase Light",
+        "video_id": "G10-C7-P03: Automatic Staircase Light"
+      },
+      {
+        "category": "Project",
+        "title": "Names: Vehicle Parking Alert",
+        "video_id": "G10-C7-P04: Names: Vehicle Parking Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Earthquake Vibration Alert",
+        "video_id": "G10-C7-P05: Earthquake Vibration Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Space Station Air Quality Alert",
+        "video_id": "G10-C7-P06: Space Station Air Quality Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Online Temperature Monitor",
+        "video_id": "G10-C7-P07: Online Temperature Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Medicine Reminder Buzzer",
+        "video_id": "G10-C7-P08: Medicine Reminder Buzzer"
+      }
+    ]
+  },
+  "G10-C8": {
+    "grade": 10,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Structured Programming with Python",
+    "platform_kit": "Python (Within EdinnoVerse)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to use basic Python programming concepts and loops to create simple programs that perform \nrepeated operations based on defined conditions.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Python Programming (Variables, lists, strings and if",
+        "video_id": "G10-C8-T01: Introduction to Python Programming (Variables, lists, strings and if"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Loops and Repetition",
+        "video_id": "G10-C8-T02: Introduction to Loops and Repetition"
+      },
+      {
+        "category": "Activity",
+        "title": "Create a Number Repetition Program",
+        "video_id": "G10-C8-A01: Create a Number Repetition Program"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to for and while Loops",
+        "video_id": "G10-C8-T03: Introduction to for and while Loops"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Functions and Their Uses",
+        "video_id": "G10-C8-T04: Introduction to Functions and Their Uses"
+      },
+      {
+        "category": "Activity",
+        "title": "Build a Multiplication Table Generator",
+        "video_id": "G10-C8-A02: Build a Multiplication Table Generator"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Indexed Data Using Lists",
+        "video_id": "G10-C8-T05: Introduction to Indexed Data Using Lists"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Functions with Data Collections",
+        "video_id": "G10-C8-T06: Introduction to Functions with Data Collections"
+      },
+      {
+        "category": "Activity",
+        "title": "Create a Student Marks Analyzer",
+        "video_id": "G10-C8-A03: Create a Student Marks Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Farm Fertiliser Requirement Planner",
+        "video_id": "G10-C8-P01: Farm Fertiliser Requirement Planner"
+      },
+      {
+        "category": "Project",
+        "title": "Parking Space Availability Checker",
+        "video_id": "G10-C8-P02: Parking Space Availability Checker"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Service Reminder",
+        "video_id": "G10-C8-P03: Vehicle Service Reminder"
+      },
+      {
+        "category": "Project",
+        "title": "Emergency Evacuation Planner",
+        "video_id": "G10-C8-P04: Emergency Evacuation Planner"
+      },
+      {
+        "category": "Project",
+        "title": "Aircraft Pre-Flight Checklist",
+        "video_id": "G10-C8-P05: Aircraft Pre-Flight Checklist"
+      },
+      {
+        "category": "Project",
+        "title": "Student Attendance Analyzer",
+        "video_id": "G10-C8-P06: Student Attendance Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Medicine Stock Checker",
+        "video_id": "G10-C8-P07: Medicine Stock Checker"
+      }
+    ]
+  },
+  "G10-C9": {
+    "grade": 10,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Working with Data and Graphs",
+    "platform_kit": "Matplotlib and Pandas \n(Within EdinnnoVerse)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to use Matplotlib to create and interpret basic graphs by representing measured data on appropriate \naxes, scales and graph types.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Matplotlib",
+        "video_id": "G10-C9-T01: Introduction to Matplotlib"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Graphs and Their Types",
+        "video_id": "G10-C9-T02: Introduction to Graphs and Their Types"
+      },
+      {
+        "category": "Activity",
+        "title": "Create a Simple Temperature Graph",
+        "video_id": "G10-C9-A01: Create a Simple Temperature Graph"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Pandas",
+        "video_id": "G10-C9-T03: Introduction to Pandas"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Pandas Series and DataFrames",
+        "video_id": "G10-C9-T04: Introduction to Pandas Series and DataFrames"
+      },
+      {
+        "category": "Activity",
+        "title": "Create a Simple Student Marks Table",
+        "video_id": "G10-C9-A02: Create a Simple Student Marks Table"
+      },
+      {
+        "category": "Project",
+        "title": "Crop Production Data Analyzer",
+        "video_id": "G10-C9-P01: Crop Production Data Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Building Maintenance Data Analyzer",
+        "video_id": "G10-C9-P02: Building Maintenance Data Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Mileage Data Analyzer",
+        "video_id": "G10-C9-P03: Vehicle Mileage Data Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Flood Impact Data Visualizer",
+        "video_id": "G10-C9-P04: Flood Impact Data Visualizer"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Orbit Data Visualizer",
+        "video_id": "G10-C9-P05: Satellite Orbit Data Visualizer"
+      },
+      {
+        "category": "Project",
+        "title": "Typing Speed Data Analyzer",
+        "video_id": "G10-C9-P06: Typing Speed Data Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Daily Exercise Data Analyzer",
+        "video_id": "G10-C9-P07: Daily Exercise Data Analyzer"
+      }
+    ]
+  },
+  "G10-C10": {
+    "grade": 10,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Creating Products with 3D Tools",
+    "platform_kit": "Tinkercad / 3D Printing",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic 3D-printing process and use Tinkercad to create a simple 3D model with accurate \ndimensions and basic design precision.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to 3D printing and how to use it",
+        "video_id": "G10-C10-T01: Introduction to 3D printing and how to use it"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Precision in 3D Design",
+        "video_id": "G10-C10-T02: Introduction to Precision in 3D Design"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Custom Cable Organizer",
+        "video_id": "G10-C10-A01: Design a Custom Cable Organizer"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Design for 3D Printing",
+        "video_id": "G10-C10-T03: Introduction to Design for 3D Printing"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Dimensions, Scale and Tolerances",
+        "video_id": "G10-C10-T04: Introduction to Dimensions, Scale and Tolerances"
+      },
+      {
+        "category": "Activity",
+        "title": "Design a Simple Key Tag",
+        "video_id": "G10-C10-A02: Design a Simple Key Tag"
+      },
+      {
+        "category": "Project",
+        "title": "Drip Irrigation Nozzle Controller Model",
+        "video_id": "G10-C10-P01: Drip Irrigation Nozzle Controller Model"
+      },
+      {
+        "category": "Project",
+        "title": "Modular Pipe Joint Lock System",
+        "video_id": "G10-C10-P02: Modular Pipe Joint Lock System"
+      },
+      {
+        "category": "Project",
+        "title": "Anti-Slip Pedal 3D Model",
+        "video_id": "G10-C10-P03: Anti-Slip Pedal 3D Model"
+      },
+      {
+        "category": "Project",
+        "title": "Portable Equipment Clip System 3D Model",
+        "video_id": "G10-C10-P04: Portable Equipment Clip System 3D Model"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Fin Alignment Tool",
+        "video_id": "G10-C10-P05: Rocket Fin Alignment Tool"
+      },
+      {
+        "category": "Project",
+        "title": "Ventilated CPU Cable Spacer 3D Model",
+        "video_id": "G10-C10-P06: Ventilated CPU Cable Spacer 3D Model"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Pill Separator 3D Model",
+        "video_id": "G10-C10-P07: Smart Pill Separator 3D Model"
+      }
+    ]
+  },
+  "G10-C11": {
+    "grade": 10,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Intelligent Systems with Machine Learning",
+    "platform_kit": "Basic OpenCV + Python \n(Within EdinnoVerse)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "Students will be able to explain the basic idea of Artificial Intelligence and Computer Vision and use OpenCV to load, \ndisplay and perform simple operations on digital images.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Artificial Intelligence and Computer Vision",
+        "video_id": "G10-C11-T01: Introduction to Artificial Intelligence and Computer Vision"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to OpenCV and Image Processing",
+        "video_id": "G10-C11-T02: Introduction to OpenCV and Image Processing"
+      },
+      {
+        "category": "Activity",
+        "title": "Add Text to an existing Image",
+        "video_id": "G10-C11-A01: Add Text to an existing Image"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Image Data and Model Training",
+        "video_id": "G10-C11-T03: Introduction to Image Data and Model Training"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Image Classification with Python and OpenCV",
+        "video_id": "G10-C11-T04: Introduction to Image Classification with Python and OpenCV"
+      },
+      {
+        "category": "Activity",
+        "title": "Train and Test a Simple Image Classification (Happy and Sad",
+        "video_id": "G10-C11-A02: Train and Test a Simple Image Classification (Happy and Sad"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Model Prediction with New Images",
+        "video_id": "G10-C11-T05: Introduction to Model Prediction with New Images"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to AI Model Accuracy and Evaluation",
+        "video_id": "G10-C11-T06: Introduction to AI Model Accuracy and Evaluation"
+      },
+      {
+        "category": "Activity",
+        "title": "Object Recognition with OpenCV",
+        "video_id": "G10-C11-A03: Object Recognition with OpenCV"
+      },
+      {
+        "category": "Project",
+        "title": "Plant Leaf Type Recognizer",
+        "video_id": "G10-C11-P01: Plant Leaf Type Recognizer"
+      },
+      {
+        "category": "Project",
+        "title": "AI-Based Parking Space Detection",
+        "video_id": "G10-C11-P02: AI-Based Parking Space Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Type Recognizer",
+        "video_id": "G10-C11-P03: Vehicle Type Recognizer"
+      },
+      {
+        "category": "Project",
+        "title": "AI-Based Security Access Screen Recognition",
+        "video_id": "G10-C11-P04: AI-Based Security Access Screen Recognition"
+      },
+      {
+        "category": "Project",
+        "title": "AI-Based Landing Marker Detection",
+        "video_id": "G10-C11-P05: AI-Based Landing Marker Detection"
+      },
+      {
+        "category": "Project",
+        "title": "Object Recognization",
+        "video_id": "G10-C11-P06: Object Recognization"
+      },
+      {
+        "category": "Project",
+        "title": "Face Mask Recognition",
+        "video_id": "G10-C11-P07: Face Mask Recognition"
+      }
+    ]
+  },
+  "G10-C12": {
+    "grade": 10,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G11-C1": {
+    "grade": 11,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Design Thinking and Prototyping",
+    "platform_kit": "DIY Construction Kit",
+    "domain": "No domain-relevant project. All the students have to\nmake common projects",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Centre of Gravity and Equilibrium",
+        "video_id": "G11-C1-T01: Centre of Gravity and Equilibrium"
+      },
+      {
+        "category": "Topic",
+        "title": "Torque and Rotational Stability",
+        "video_id": "G11-C1-T02: Torque and Rotational Stability"
+      },
+      {
+        "category": "Activity",
+        "title": "Hands-on Lab 1",
+        "video_id": "G11-C1-A01: Hands-on Lab 1"
+      }
+    ]
+  },
+  "G11-C2": {
+    "grade": 11,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Digital Output Control with Shift Registers",
+    "platform_kit": "74HC595 IC + Open Electronics",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the 74HC595 Shift Register",
+        "video_id": "G11-C2-T01: Introduction to the 74HC595 Shift Register"
+      },
+      {
+        "category": "Topic",
+        "title": "Understanding Serial to Parallel Data Transfer",
+        "video_id": "G11-C2-T02: Understanding Serial to Parallel Data Transfer"
+      },
+      {
+        "category": "Activity",
+        "title": "Light an LED Using 74HC595",
+        "video_id": "G11-C2-A01: Light an LED Using 74HC595"
+      },
+      {
+        "category": "Project",
+        "title": "8-LED Digital Display (74HC595, 8 LEDs, Resistors, Breadboard",
+        "video_id": "G11-C2-P01: 8-LED Digital Display (74HC595, 8 LEDs, Resistors, Breadboard"
+      },
+      {
+        "category": "Project",
+        "title": "Battery",
+        "video_id": "G11-C2-P02: Battery"
+      },
+      {
+        "category": "Project",
+        "title": "Binary Counter Display (4HC595, 8 LEDs, Resistors, Push Button",
+        "video_id": "G11-C2-P03: Binary Counter Display (4HC595, 8 LEDs, Resistors, Push Button"
+      },
+      {
+        "category": "Project",
+        "title": "Breadboard",
+        "video_id": "G11-C2-P04: Breadboard"
+      }
+    ]
+  },
+  "G11-C3": {
+    "grade": 11,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Logic-Based Decision Systems",
+    "platform_kit": "Edinno Non-Programmable Kit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Boolean Logic and Truth Tables",
+        "video_id": "G11-C3-T01: Boolean Logic and Truth Tables"
+      },
+      {
+        "category": "Topic",
+        "title": "Logic Gate Combinations",
+        "video_id": "G11-C3-T02: Logic Gate Combinations"
+      },
+      {
+        "category": "Activity",
+        "title": "Hands-on Lab 1",
+        "video_id": "G11-C3-A01: Hands-on Lab 1"
+      },
+      {
+        "category": "Topic",
+        "title": "NAND and NOR as Universal Gates",
+        "video_id": "G11-C3-T03: NAND and NOR as Universal Gates"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Sensors",
+        "video_id": "G11-C3-T04: Introduction to Sensors"
+      },
+      {
+        "category": "Activity",
+        "title": "Hands-on Lab 2",
+        "video_id": "G11-C3-A02: Hands-on Lab 2"
+      },
+      {
+        "category": "Project",
+        "title": "Crop Storage Gas Monitoring Alarm",
+        "video_id": "G11-C3-P01: Crop Storage Gas Monitoring Alarm"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: MQ135 → LED + Buzzer",
+        "video_id": "G11-C3-P02: Component Names: MQ135 → LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Gas Safety System Ventilation + Auto Vent Control",
+        "video_id": "G11-C3-P03: Smart Gas Safety System Ventilation + Auto Vent Control"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: MQ135 → BO Motor + LED + Buzzer",
+        "video_id": "G11-C3-P04: Component Names: MQ135 → BO Motor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Reverse Obstacle Alert",
+        "video_id": "G11-C3-P05: Reverse Obstacle Alert"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: IR (2 sides) Buzzer -> led",
+        "video_id": "G11-C3-P06: Component Names: IR (2 sides) Buzzer -> led"
+      },
+      {
+        "category": "Project",
+        "title": "Multi-Layer Bunker Security System + Fire Panel",
+        "video_id": "G11-C3-P07: Multi-Layer Bunker Security System + Fire Panel"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: MQ135 + Flame → LED + Buzzer",
+        "video_id": "G11-C3-P08: Component Names: MQ135 + Flame → LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Aircraft Air Monitoring System",
+        "video_id": "G11-C3-P09: Aircraft Air Monitoring System"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: MQ135 → LED + Buzzer",
+        "video_id": "G11-C3-P10: Component Names: MQ135 → LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Hand Follower Robot",
+        "video_id": "G11-C3-P11: Hand Follower Robot"
+      },
+      {
+        "category": "Project",
+        "title": "ICU Fire Activate Alert System",
+        "video_id": "G11-C3-P12: ICU Fire Activate Alert System"
+      }
+    ]
+  },
+  "G11-C4": {
+    "grade": 11,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Interactive Control Systems",
+    "platform_kit": "Edinno Programmable Kit",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to the Programmable Board and",
+        "video_id": "G11-C4-T01: Introduction to the Programmable Board and"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Digital Inputs and Outputs",
+        "video_id": "G11-C4-T02: Introduction to Digital Inputs and Outputs"
+      },
+      {
+        "category": "Activity",
+        "title": "Board to LED Control",
+        "video_id": "G11-C4-A01: Board to LED Control"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Coding",
+        "video_id": "G11-C4-T03: Introduction to Coding"
+      },
+      {
+        "category": "Topic",
+        "title": "Advanced Control Blocks: Conditions, Operators",
+        "video_id": "G11-C4-T04: Advanced Control Blocks: Conditions, Operators"
+      },
+      {
+        "category": "Activity",
+        "title": "Ultrasonic Sensor + LED + Buzzer",
+        "video_id": "G11-C4-A02: Ultrasonic Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Topic",
+        "title": "Sensor-Based Actuator Control",
+        "video_id": "G11-C4-T05: Sensor-Based Actuator Control"
+      },
+      {
+        "category": "Topic",
+        "title": "Timed Sequential Control",
+        "video_id": "G11-C4-T06: Timed Sequential Control"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Railway Crossing Gate",
+        "video_id": "G11-C4-A03: Automatic Railway Crossing Gate"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Seed Germination",
+        "video_id": "G11-C4-P01: Smart Seed Germination"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Soil Sensor + DHT11 + OLED",
+        "video_id": "G11-C4-P02: Components Name: Soil Sensor + DHT11 + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Adaptive Smart Corridor Lighting",
+        "video_id": "G11-C4-P03: Adaptive Smart Corridor Lighting"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: PIR + LDR + Relay + OLED",
+        "video_id": "G11-C4-P04: Components Name: PIR + LDR + Relay + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Autonomous Delivery Rover",
+        "video_id": "G11-C4-P05: Autonomous Delivery Rover"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: BO Motor + Ultrasonic + OLED",
+        "video_id": "G11-C4-P06: Components Name: BO Motor + Ultrasonic + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Military Bunker",
+        "video_id": "G11-C4-P07: Smart Military Bunker"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Flame + OLED + DHT11 + Servo Motor",
+        "video_id": "G11-C4-P08: Components Name: Flame + OLED + DHT11 + Servo Motor"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket Storage Monitoring",
+        "video_id": "G11-C4-P09: Rocket Storage Monitoring"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: DHT11 + MQ135 + OLED",
+        "video_id": "G11-C4-P10: Components Name: DHT11 + MQ135 + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Attendance Analytics System",
+        "video_id": "G11-C4-P11: Smart Attendance Analytics System"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: PIR Sensor + Touch Sensor + OLED",
+        "video_id": "G11-C4-P12: Component Names: PIR Sensor + Touch Sensor + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Patient Health Monitoring Console",
+        "video_id": "G11-C4-P13: Patient Health Monitoring Console"
+      },
+      {
+        "category": "Project",
+        "title": "Components Names : Pulse Sensor, DHT11, OLED, Buzzer",
+        "video_id": "G11-C4-P14: Components Names : Pulse Sensor, DHT11, OLED, Buzzer"
+      }
+    ]
+  },
+  "G11-C5": {
+    "grade": 11,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Microcontroller Programming",
+    "platform_kit": "Arduino + Open Source Electronics",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Structured Arduino Programs",
+        "video_id": "G11-C5-T01: Introduction to Structured Arduino Programs"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Arrays in Arduino",
+        "video_id": "G11-C5-T02: Introduction to Arrays in Arduino"
+      },
+      {
+        "category": "Activity",
+        "title": "8-LED Pattern Display",
+        "video_id": "G11-C5-A01: 8-LED Pattern Display"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Non-Blocking Timing with millis",
+        "video_id": "G11-C5-T03: Introduction to Non-Blocking Timing with millis"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to State-Based Programming",
+        "video_id": "G11-C5-T04: Introduction to State-Based Programming"
+      },
+      {
+        "category": "Activity",
+        "title": "Two-Mode Lighting System",
+        "video_id": "G11-C5-A02: Two-Mode Lighting System"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Modular Arduino Programming",
+        "video_id": "G11-C5-T05: Introduction to Modular Arduino Programming"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Event-Based Control",
+        "video_id": "G11-C5-T06: Introduction to Event-Based Control"
+      },
+      {
+        "category": "Activity",
+        "title": "Adaptive Alert System (IR, LED, Buzzer",
+        "video_id": "G11-C5-A03: Adaptive Alert System (IR, LED, Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Seed Sorting Machine",
+        "video_id": "G11-C5-P01: Smart Seed Sorting Machine"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Servo motor + Color Sensor + OLED + LED + Buzzer",
+        "video_id": "G11-C5-P02: Components Name: Servo motor + Color Sensor + OLED + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Floor Cleaning Robot",
+        "video_id": "G11-C5-P03: Smart Floor Cleaning Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Arduino Uno + Ultrasonic Sensor + L293D Motor Driver + ...",
+        "video_id": "G11-C5-P04: Components Name: Arduino Uno + Ultrasonic Sensor + L293D Motor Driver + ..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Car Wiper System",
+        "video_id": "G11-C5-P05: Smart Car Wiper System"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Rain Sensor + OLED + 2 servo motors",
+        "video_id": "G11-C5-P06: Components Name: Rain Sensor + OLED + 2 servo motors"
+      },
+      {
+        "category": "Project",
+        "title": "Autonomous Fire Response Robot",
+        "video_id": "G11-C5-P07: Autonomous Fire Response Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Component Names: Flame Sensor, L293D Motor Driver, Chassis, Servo Motor,...",
+        "video_id": "G11-C5-P08: Component Names: Flame Sensor, L293D Motor Driver, Chassis, Servo Motor,..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Satellite Landing Guidance",
+        "video_id": "G11-C5-P09: Smart Satellite Landing Guidance"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: Arduino + Ultrasonic Sensor + buzzer + 4 Servo motor + ...",
+        "video_id": "G11-C5-P10: Components Name: Arduino + Ultrasonic Sensor + buzzer + 4 Servo motor + ..."
+      },
+      {
+        "category": "Project",
+        "title": "Link",
+        "video_id": "G11-C5-P11: Link"
+      },
+      {
+        "category": "Project",
+        "title": "Food Delivery Robot",
+        "video_id": "G11-C5-P12: Food Delivery Robot"
+      },
+      {
+        "category": "Project",
+        "title": "Components List: 2 IR Sensors + L293D Motor Driver + Arduino + chassis +...",
+        "video_id": "G11-C5-P13: Components List: 2 IR Sensors + L293D Motor Driver + Arduino + chassis +..."
+      },
+      {
+        "category": "Project",
+        "title": "Smart Patient Recovery Monitor",
+        "video_id": "G11-C5-P14: Smart Patient Recovery Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Components Name: IR Sensor + Pulse Sensor + OLED + LED + Buzzer",
+        "video_id": "G11-C5-P15: Components Name: IR Sensor + Pulse Sensor + OLED + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Objective: The patient walks on a circular track, and each time they pas...",
+        "video_id": "G11-C5-P16: Objective: The patient walks on a circular track, and each time they pas..."
+      }
+    ]
+  },
+  "G11-C6": {
+    "grade": 11,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Project Showcase Day",
+    "platform_kit": "Project Showcase Day (Mid-Year)\n\n1- Project Presentation – Students present the projects they have built.\n2- Working Demonstration – Students demonstrate how their project works.\n3- Teacher & Peer Feedback – Receive suggestions to improve the project.\n4- Communication Skills – Explain ideas and answer simple questions confidently.\n5- Project Improvement – Refine the project before the final exhibition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G11-C7": {
+    "grade": 11,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Internet-Enabled Device Control",
+    "platform_kit": "NodeMCU + Open Source \nElectronics Components",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to NodeMCU",
+        "video_id": "G11-C7-T01: Introduction to NodeMCU"
+      },
+      {
+        "category": "Topic",
+        "title": "Sending Sensor Data to the Cloud",
+        "video_id": "G11-C7-T02: Sending Sensor Data to the Cloud"
+      },
+      {
+        "category": "Activity",
+        "title": "Send DHT11 Data to Web Dashboard",
+        "video_id": "G11-C7-A01: Send DHT11 Data to Web Dashboard"
+      },
+      {
+        "category": "Topic",
+        "title": "Controlling Multiple Devices over the Internet",
+        "video_id": "G11-C7-T03: Controlling Multiple Devices over the Internet"
+      },
+      {
+        "category": "Topic",
+        "title": "Turning Devices ON and OFF Based on Conditions",
+        "video_id": "G11-C7-T04: Turning Devices ON and OFF Based on Conditions"
+      },
+      {
+        "category": "Activity",
+        "title": "Automatic Light and Buzzer Control using DHT11",
+        "video_id": "G11-C7-A02: Automatic Light and Buzzer Control using DHT11"
+      },
+      {
+        "category": "Project",
+        "title": "Greenhouse Ventilation Monitor",
+        "video_id": "G11-C7-P01: Greenhouse Ventilation Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Street Light Controller",
+        "video_id": "G11-C7-P02: Smart Street Light Controller"
+      },
+      {
+        "category": "Project",
+        "title": "Vehicle Status Monitor",
+        "video_id": "G11-C7-P03: Vehicle Status Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Area Temperature Monitor",
+        "video_id": "G11-C7-P04: Area Temperature Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Status Monitor",
+        "video_id": "G11-C7-P05: Satellite Status Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Room Temperature Monitor",
+        "video_id": "G11-C7-P06: Room Temperature Monitor"
+      },
+      {
+        "category": "Project",
+        "title": "Patient Room Environment Monitor",
+        "video_id": "G11-C7-P07: Patient Room Environment Monitor"
+      }
+    ]
+  },
+  "G11-C8": {
+    "grade": 11,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Embedded Computing with Pico",
+    "platform_kit": "Raspberry Pi Pico",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Raspberry Pi Pico and Its Software",
+        "video_id": "G11-C8-T01: Introduction to Raspberry Pi Pico and Its Software"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Pico Pins and GPIO",
+        "video_id": "G11-C8-T02: Introduction to Pico Pins and GPIO"
+      },
+      {
+        "category": "Activity",
+        "title": "Pico LED Blinker",
+        "video_id": "G11-C8-A01: Pico LED Blinker"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Digital Input and Output",
+        "video_id": "G11-C8-T03: Introduction to Digital Input and Output"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to GPIO Control and Conditions",
+        "video_id": "G11-C8-T04: Introduction to GPIO Control and Conditions"
+      },
+      {
+        "category": "Activity",
+        "title": "Pico Distance Indicator using ultrasonic sensor",
+        "video_id": "G11-C8-A02: Pico Distance Indicator using ultrasonic sensor"
+      },
+      {
+        "category": "Project",
+        "title": "Detect soil dryness with pico",
+        "video_id": "G11-C8-P01: Detect soil dryness with pico"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + Soil Moisture Sensor + LED",
+        "video_id": "G11-C8-P02: Raspberry Pi Pico + Soil Moisture Sensor + LED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Motion Light System",
+        "video_id": "G11-C8-P03: Smart Motion Light System"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + PIR Sensor + LED + Buzzer",
+        "video_id": "G11-C8-P04: Raspberry Pi Pico + PIR Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Parking distance alert",
+        "video_id": "G11-C8-P05: Parking distance alert"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + Ultrasonic Sensor + LED + Buzzer",
+        "video_id": "G11-C8-P06: Raspberry Pi Pico + Ultrasonic Sensor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Password Door Lock System",
+        "video_id": "G11-C8-P07: Smart Password Door Lock System"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + Keypad + Servo Motor + LED + Buzzer",
+        "video_id": "G11-C8-P08: Raspberry Pi Pico + Keypad + Servo Motor + LED + Buzzer"
+      },
+      {
+        "category": "Project",
+        "title": "Rocket launch countdown system",
+        "video_id": "G11-C8-P09: Rocket launch countdown system"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + 7-Segment Display",
+        "video_id": "G11-C8-P10: Raspberry Pi Pico + 7-Segment Display"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Entry Counter System",
+        "video_id": "G11-C8-P11: Smart Entry Counter System"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + IR Sensor + OLED",
+        "video_id": "G11-C8-P12: Raspberry Pi Pico + IR Sensor + OLED"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Pulse Rate Monitor System",
+        "video_id": "G11-C8-P13: Smart Pulse Rate Monitor System"
+      },
+      {
+        "category": "Project",
+        "title": "Raspberry Pi Pico + Pulse Sensor + OLED + LED + Buzzer",
+        "video_id": "G11-C8-P14: Raspberry Pi Pico + Pulse Sensor + OLED + LED + Buzzer"
+      }
+    ]
+  },
+  "G11-C9": {
+    "grade": 11,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Data Handling and Machine Learning Libraries",
+    "platform_kit": "Pandas + Scikit-Learn (Python \nWithin EdinnoVerse",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Pandas",
+        "video_id": "G11-C9-T01: Introduction to Pandas"
+      },
+      {
+        "category": "Topic",
+        "title": "Working with DataFrames and Tables",
+        "video_id": "G11-C9-T02: Working with DataFrames and Tables"
+      },
+      {
+        "category": "Activity",
+        "title": "Create a Simple Student Marks Table",
+        "video_id": "G11-C9-A01: Create a Simple Student Marks Table"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Scikit-Learn",
+        "video_id": "G11-C9-T03: Introduction to Scikit-Learn"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Classification, Regression and Clustering",
+        "video_id": "G11-C9-T04: Introduction to Classification, Regression and Clustering"
+      },
+      {
+        "category": "Activity",
+        "title": "Student Score Predictor",
+        "video_id": "G11-C9-A02: Student Score Predictor"
+      },
+      {
+        "category": "Project",
+        "title": "Soil Moisture Condition Classifier",
+        "video_id": "G11-C9-P01: Soil Moisture Condition Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Parking Slot Finder",
+        "video_id": "G11-C9-P02: Automated Parking Slot Finder"
+      },
+      {
+        "category": "Project",
+        "title": "Road Speed Pattern Analyzer",
+        "video_id": "G11-C9-P03: Road Speed Pattern Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Flood Risk Level Classifier",
+        "video_id": "G11-C9-P04: Flood Risk Level Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Satellite Communication Status Classifier",
+        "video_id": "G11-C9-P05: Satellite Communication Status Classifier"
+      },
+      {
+        "category": "Project",
+        "title": "Student Performance Predictor",
+        "video_id": "G11-C9-P06: Student Performance Predictor"
+      },
+      {
+        "category": "Project",
+        "title": "Sleep Pattern Classifier",
+        "video_id": "G11-C9-P07: Sleep Pattern Classifier"
+      }
+    ]
+  },
+  "G11-C10": {
+    "grade": 11,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Digital Product Modelling",
+    "platform_kit": "Tinkercad / 3D Printing",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction and Understanding of 3D Printing",
+        "video_id": "G11-C10-T01: Introduction and Understanding of 3D Printing"
+      },
+      {
+        "category": "Topic",
+        "title": "Shapes and Properties",
+        "video_id": "G11-C10-T02: Shapes and Properties"
+      },
+      {
+        "category": "Activity",
+        "title": "Mini Door Sign",
+        "video_id": "G11-C10-A01: Mini Door Sign"
+      },
+      {
+        "category": "Topic",
+        "title": "Shape Modification",
+        "video_id": "G11-C10-T03: Shape Modification"
+      },
+      {
+        "category": "Topic",
+        "title": "Combining Shapes and Holes",
+        "video_id": "G11-C10-T04: Combining Shapes and Holes"
+      },
+      {
+        "category": "Activity",
+        "title": "Shape Badge",
+        "video_id": "G11-C10-A02: Shape Badge"
+      },
+      {
+        "category": "Project",
+        "title": "Projct Name: Smart Planter with Water Level Window",
+        "video_id": "G11-C10-P01: Projct Name: Smart Planter with Water Level Window"
+      },
+      {
+        "category": "Project",
+        "title": "Traffic Signal Model Enclosure",
+        "video_id": "G11-C10-P02: Traffic Signal Model Enclosure"
+      },
+      {
+        "category": "Project",
+        "title": "Car RWD Chassis Frame",
+        "video_id": "G11-C10-P03: Car RWD Chassis Frame"
+      },
+      {
+        "category": "Project",
+        "title": "Radio Antenna Mount",
+        "video_id": "G11-C10-P04: Radio Antenna Mount"
+      },
+      {
+        "category": "Project",
+        "title": "Porject Name: Satellite Body Frame",
+        "video_id": "G11-C10-P05: Porject Name: Satellite Body Frame"
+      },
+      {
+        "category": "Project",
+        "title": "Porject Name: Ultrasonic Sensor Enclosure",
+        "video_id": "G11-C10-P06: Porject Name: Ultrasonic Sensor Enclosure"
+      },
+      {
+        "category": "Project",
+        "title": "Mini Prosthetic Arm 3D Model",
+        "video_id": "G11-C10-P07: Mini Prosthetic Arm 3D Model"
+      }
+    ]
+  },
+  "G11-C11": {
+    "grade": 11,
+    "chapter_number": 11,
+    "chapter_title": "Chapter 11: Applied Artificial Intelligence",
+    "platform_kit": "AI + Python (Advanced)",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to AI Data and Datasets",
+        "video_id": "G11-C11-T01: Introduction to AI Data and Datasets"
+      },
+      {
+        "category": "Topic",
+        "title": "Build an AI Dataset",
+        "video_id": "G11-C11-T02: Build an AI Dataset"
+      },
+      {
+        "category": "Activity",
+        "title": "Study Score Predictor",
+        "video_id": "G11-C11-A01: Study Score Predictor"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Regression in Machine Learning",
+        "video_id": "G11-C11-T03: Introduction to Regression in Machine Learning"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Decision Trees",
+        "video_id": "G11-C11-T04: Introduction to Decision Trees"
+      },
+      {
+        "category": "Activity",
+        "title": "Fruit Type Classification",
+        "video_id": "G11-C11-A02: Fruit Type Classification"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Model Testing and Accuracy",
+        "video_id": "G11-C11-T05: Introduction to Model Testing and Accuracy"
+      },
+      {
+        "category": "Topic",
+        "title": "Introduction to Overfitting and Model Performance",
+        "video_id": "G11-C11-T06: Introduction to Overfitting and Model Performance"
+      },
+      {
+        "category": "Activity",
+        "title": "AI Accuracy Calculator",
+        "video_id": "G11-C11-A03: AI Accuracy Calculator"
+      },
+      {
+        "category": "Project",
+        "title": "Wet and Dry Crop AI Classification",
+        "video_id": "G11-C11-P01: Wet and Dry Crop AI Classification"
+      },
+      {
+        "category": "Project",
+        "title": "CCTV Motion Detection using AI",
+        "video_id": "G11-C11-P02: CCTV Motion Detection using AI"
+      },
+      {
+        "category": "Project",
+        "title": "Lane Detection using AI",
+        "video_id": "G11-C11-P03: Lane Detection using AI"
+      },
+      {
+        "category": "Project",
+        "title": "Secure Entry Face Detection System",
+        "video_id": "G11-C11-P04: Secure Entry Face Detection System"
+      },
+      {
+        "category": "Project",
+        "title": "Planet Detection Using AI",
+        "video_id": "G11-C11-P05: Planet Detection Using AI"
+      },
+      {
+        "category": "Project",
+        "title": "QR Code Detection Using AI",
+        "video_id": "G11-C11-P06: QR Code Detection Using AI"
+      },
+      {
+        "category": "Project",
+        "title": "Mask Detection Using AI",
+        "video_id": "G11-C11-P07: Mask Detection Using AI"
+      }
+    ]
+  },
+  "G11-C12": {
+    "grade": 11,
+    "chapter_number": 12,
+    "chapter_title": "Chapter 12: DIY Exhibition Day (End of Year)",
+    "platform_kit": "DIY Exhibition Day (End of Year)\n\n1- Project Exhibition – Display the best projects created during the course.\n2- Live Demonstration – Showcase project functionality to visitors.\n3- Innovation Display – Highlight students' creativity and problem-solving skills.\n4- Interaction with Visitors – Explain projects to parents, teachers, and guests.\n5- Recognition & Celebration – Appreciate students efforts through certificates, awards, or participation recognition.",
+    "domain": "",
+    "competencies": "",
+    "learning_outcomes": "",
+    "items": []
+  },
+  "G12-C1": {
+    "grade": 12,
+    "chapter_number": 1,
+    "chapter_title": "Chapter 1: Autonomous Mobile Robotics & Kinematics",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 1: Autonomous Mobile Robotics & Kinematics.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Introduction to Differential Drive & Robot Kinematics",
+        "video_id": "G12-C1-T01: Introduction to Differential Drive & Robot Kinematics"
+      },
+      {
+        "category": "Topic",
+        "title": "PID Velocity & Heading Control",
+        "video_id": "G12-C1-T02: PID Velocity & Heading Control"
+      },
+      {
+        "category": "Activity",
+        "title": "Calibrate Differential Drive Odometry",
+        "video_id": "G12-C1-A01: Calibrate Differential Drive Odometry"
+      },
+      {
+        "category": "Project",
+        "title": "Self-Navigating Maze Runner Robot",
+        "video_id": "G12-C1-P01: Self-Navigating Maze Runner Robot"
+      }
+    ]
+  },
+  "G12-C2": {
+    "grade": 12,
+    "chapter_number": 2,
+    "chapter_title": "Chapter 2: Embedded Computer Vision & Object Tracking",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 2: Embedded Computer Vision & Object Tracking.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Color Space Segmentation & Blob Detection",
+        "video_id": "G12-C2-T01: Color Space Segmentation & Blob Detection"
+      },
+      {
+        "category": "Topic",
+        "title": "Haar Cascades and MobileNet Object Detection",
+        "video_id": "G12-C2-T02: Haar Cascades and MobileNet Object Detection"
+      },
+      {
+        "category": "Activity",
+        "title": "Real-Time OpenCV Object Tracking",
+        "video_id": "G12-C2-A01: Real-Time OpenCV Object Tracking"
+      },
+      {
+        "category": "Project",
+        "title": "AI Autonomous Vision Sentry Turret",
+        "video_id": "G12-C2-P01: AI Autonomous Vision Sentry Turret"
+      }
+    ]
+  },
+  "G12-C3": {
+    "grade": 12,
+    "chapter_number": 3,
+    "chapter_title": "Chapter 3: Edge AI & TinyML Neural Networks",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 3: Edge AI & TinyML Neural Networks.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "TinyML Model Quantization for Microcontrollers",
+        "video_id": "G12-C3-T01: TinyML Model Quantization for Microcontrollers"
+      },
+      {
+        "category": "Topic",
+        "title": "Audio Wake-Word & Gesture Recognition",
+        "video_id": "G12-C3-T02: Audio Wake-Word & Gesture Recognition"
+      },
+      {
+        "category": "Activity",
+        "title": "Deploy Gesture Classification on Edge Device",
+        "video_id": "G12-C3-A01: Deploy Gesture Classification on Edge Device"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Predictive Maintenance Vibration Monitor",
+        "video_id": "G12-C3-P01: Smart Predictive Maintenance Vibration Monitor"
+      }
+    ]
+  },
+  "G12-C4": {
+    "grade": 12,
+    "chapter_number": 4,
+    "chapter_title": "Chapter 4: Industrial IoT & Cloud Telemetry",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 4: Industrial IoT & Cloud Telemetry.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "MQTT Broker Architecture & TLS Security",
+        "video_id": "G12-C4-T01: MQTT Broker Architecture & TLS Security"
+      },
+      {
+        "category": "Topic",
+        "title": "Time-Series Data Pipelines & Webhooks",
+        "video_id": "G12-C4-T02: Time-Series Data Pipelines & Webhooks"
+      },
+      {
+        "category": "Activity",
+        "title": "Publish Sensor Payloads to Cloud Broker",
+        "video_id": "G12-C4-A01: Publish Sensor Payloads to Cloud Broker"
+      },
+      {
+        "category": "Project",
+        "title": "Smart Factory Production Line Telemetry Station",
+        "video_id": "G12-C4-P01: Smart Factory Production Line Telemetry Station"
+      }
+    ]
+  },
+  "G12-C5": {
+    "grade": 12,
+    "chapter_number": 5,
+    "chapter_title": "Chapter 5: Precision Agriculture & Autonomous Systems",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 5: Precision Agriculture & Autonomous Systems.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Soil Spectrometry & NPK Nutrient Sensing",
+        "video_id": "G12-C5-T01: Soil Spectrometry & NPK Nutrient Sensing"
+      },
+      {
+        "category": "Topic",
+        "title": "Closed-Loop Automated Irrigation Logic",
+        "video_id": "G12-C5-T02: Closed-Loop Automated Irrigation Logic"
+      },
+      {
+        "category": "Activity",
+        "title": "Multi-Zone Soil Sensor Calibration",
+        "video_id": "G12-C5-A01: Multi-Zone Soil Sensor Calibration"
+      },
+      {
+        "category": "Project",
+        "title": "Automated Smart Hydroponic Climate Controller",
+        "video_id": "G12-C5-P01: Automated Smart Hydroponic Climate Controller"
+      }
+    ]
+  },
+  "G12-C6": {
+    "grade": 12,
+    "chapter_number": 6,
+    "chapter_title": "Chapter 6: Renewable Energy Micro-Grid & Power Electronics",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 6: Renewable Energy Micro-Grid & Power Electronics.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "MPPT Solar Charge Control Algorithms",
+        "video_id": "G12-C6-T01: MPPT Solar Charge Control Algorithms"
+      },
+      {
+        "category": "Topic",
+        "title": "Battery Management Systems & Thermal Protection",
+        "video_id": "G12-C6-T02: Battery Management Systems & Thermal Protection"
+      },
+      {
+        "category": "Activity",
+        "title": "Plot Solar Photovoltaic IV Curves",
+        "video_id": "G12-C6-A01: Plot Solar Photovoltaic IV Curves"
+      },
+      {
+        "category": "Project",
+        "title": "Intelligent Grid-Tied Solar Power Monitor",
+        "video_id": "G12-C6-P01: Intelligent Grid-Tied Solar Power Monitor"
+      }
+    ]
+  },
+  "G12-C7": {
+    "grade": 12,
+    "chapter_number": 7,
+    "chapter_title": "Chapter 7: Biomedical Instrumentation & Health Monitoring",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 7: Biomedical Instrumentation & Health Monitoring.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Photoplethysmography (PPG) & ECG Signal Filtering",
+        "video_id": "G12-C7-T01: Photoplethysmography (PPG) & ECG Signal Filtering"
+      },
+      {
+        "category": "Topic",
+        "title": "Analog Front-End Amplification & Isolation",
+        "video_id": "G12-C7-T02: Analog Front-End Amplification & Isolation"
+      },
+      {
+        "category": "Activity",
+        "title": "Digital Filtering of Biosensor Waves",
+        "video_id": "G12-C7-A01: Digital Filtering of Biosensor Waves"
+      },
+      {
+        "category": "Project",
+        "title": "Wearable Remote Patient Vitals Telemetry Monitor",
+        "video_id": "G12-C7-P01: Wearable Remote Patient Vitals Telemetry Monitor"
+      }
+    ]
+  },
+  "G12-C8": {
+    "grade": 12,
+    "chapter_number": 8,
+    "chapter_title": "Chapter 8: Multi-Agent Swarm Robotics",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 8: Multi-Agent Swarm Robotics.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Decentralized Swarm Communication & Consensus",
+        "video_id": "G12-C8-T01: Decentralized Swarm Communication & Consensus"
+      },
+      {
+        "category": "Topic",
+        "title": "Flocking & Collision Avoidance Protocols",
+        "video_id": "G12-C8-T02: Flocking & Collision Avoidance Protocols"
+      },
+      {
+        "category": "Activity",
+        "title": "Simulate Boids Flocking in Multi-Robot Grid",
+        "video_id": "G12-C8-A01: Simulate Boids Flocking in Multi-Robot Grid"
+      },
+      {
+        "category": "Project",
+        "title": "Cooperative Autonomous Warehouse Transport Swarm",
+        "video_id": "G12-C8-P01: Cooperative Autonomous Warehouse Transport Swarm"
+      }
+    ]
+  },
+  "G12-C9": {
+    "grade": 12,
+    "chapter_number": 9,
+    "chapter_title": "Chapter 9: Cyber-Physical Security & Hardware Hardening",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 9: Cyber-Physical Security & Hardware Hardening.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Firmware Encryption, Secure Boot & TrustZone",
+        "video_id": "G12-C9-T01: Firmware Encryption, Secure Boot & TrustZone"
+      },
+      {
+        "category": "Topic",
+        "title": "Bus Sniffing & Hardware Attack Surfaces",
+        "video_id": "G12-C9-T02: Bus Sniffing & Hardware Attack Surfaces"
+      },
+      {
+        "category": "Activity",
+        "title": "Analyze I2C and SPI Bus Payloads with Logic Analyzer",
+        "video_id": "G12-C9-A01: Analyze I2C and SPI Bus Payloads with Logic Analyzer"
+      },
+      {
+        "category": "Project",
+        "title": "Tamper-Evident Anti-Theft Cryptographic Vault",
+        "video_id": "G12-C9-P01: Tamper-Evident Anti-Theft Cryptographic Vault"
+      }
+    ]
+  },
+  "G12-C10": {
+    "grade": 12,
+    "chapter_number": 10,
+    "chapter_title": "Chapter 10: Engineering Capstone Exhibition & Defense",
+    "platform_kit": "NVIDIA Jetson Nano / ROS2 / Industrial IoT / Edge AI",
+    "domain": "Advanced Autonomous Robotics & Edge Computing",
+    "competencies": "Autonomous Navigation, Computer Vision, Embedded TinyML, Cloud Telemetry",
+    "learning_outcomes": "Students master senior engineering competencies in Chapter 10: Engineering Capstone Exhibition & Defense.",
+    "items": [
+      {
+        "category": "Topic",
+        "title": "Systems Engineering Integration & FMEA Analysis",
+        "video_id": "G12-C10-T01: Systems Engineering Integration & FMEA Analysis"
+      },
+      {
+        "category": "Topic",
+        "title": "Technical Defense, Documentation & Patent Writing",
+        "video_id": "G12-C10-T02: Technical Defense, Documentation & Patent Writing"
+      },
+      {
+        "category": "Activity",
+        "title": "Conduct Failure Mode and Effects Analysis",
+        "video_id": "G12-C10-A01: Conduct Failure Mode and Effects Analysis"
+      },
+      {
+        "category": "Project",
+        "title": "Final K-12 Engineering Innovation Capstone Showcase",
+        "video_id": "G12-C10-P01: Final K-12 Engineering Innovation Capstone Showcase"
+      }
+    ]
+  }
+}

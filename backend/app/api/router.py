@@ -2,15 +2,18 @@
 
 from fastapi import APIRouter
 
-from app.api.v1 import assessment, export, upload
+from app.api.v1 import assessment, curriculum, drive, export, storage, upload
 
 api_router = APIRouter()
 
 # API v1 routes (order is the order shown in the OpenAPI docs)
 _ROUTES = (
     (upload.router, "Curriculum Upload"),
+    (storage.router, "Cloudinary PDF Storage"),
     (assessment.router, "AI Assessment Generator"),
+    (curriculum.router, "Curriculum Workspace"),
     (export.router, "PDF Export"),
+    (drive.router, "Google Drive Workspace"),
 )
 
 for _router, _tag in _ROUTES:

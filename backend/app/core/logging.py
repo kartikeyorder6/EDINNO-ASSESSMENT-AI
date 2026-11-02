@@ -48,6 +48,16 @@ class RedactingFormatter(logging.Formatter):
             record.msg, record.args = original_msg, original_args
 
 
+class HealthCheckAccessFilter(logging.Filter):
+    """Suppress routine 200 OK access logs for /health endpoints to prevent terminal noise."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        msg = record.getMessage()
+        if " 200 " in msg and any(p in msg for p in ('"GET /health', '"GET /api/health', '"HEAD /health')):
+            return False
+        return True
+
+
 def setup_logging() -> None:
     """Configure the root logger once; safe to call multiple times."""
     level = getattr(logging, str(settings.LOG_LEVEL).upper(), logging.INFO)
@@ -67,6 +77,10 @@ def setup_logging() -> None:
 
     for name in _NOISY_LOGGERS:
         logging.getLogger(name).setLevel(max(level, logging.WARNING))
+
+    uvicorn_access = logging.getLogger("uvicorn.access")
+    if not any(isinstance(f, HealthCheckAccessFilter) for f in uvicorn_access.filters):
+        uvicorn_access.addFilter(HealthCheckAccessFilter())
 
 
 logger = logging.getLogger("edinno.assessment")

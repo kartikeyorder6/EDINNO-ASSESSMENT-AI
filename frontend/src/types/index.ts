@@ -1,3 +1,5 @@
+export * from "./domain";
+
 export type QuestionType =
   | "mcq"
   | "true_false"
@@ -16,6 +18,8 @@ export interface QuestionItem {
   marks?: number;
   section?: string;
   category?: string;
+  image_data?: string;
+  image_caption?: string;
 }
 
 export interface AssessmentPayload {
@@ -28,7 +32,7 @@ export interface AssessmentPayload {
   questions: QuestionItem[];
 }
 
-export type ResourceCategory = "topic" | "activity" | "project" | "resource";
+export type ResourceCategory = "topic" | "activity" | "project";
 
 export interface ResourceMetadata {
   name: string;
@@ -36,6 +40,14 @@ export interface ResourceMetadata {
   char_count: number;
   preview: string;
   category?: ResourceCategory | string;
+  image_count?: number;
+}
+
+export interface ExtractedImageItem {
+  image_data: string;
+  caption?: string;
+  page?: number;
+  source_doc?: string;
 }
 
 export interface UploadResponse {
@@ -44,6 +56,8 @@ export interface UploadResponse {
   count: number;
   resources: Record<string, string>;
   metadata?: Record<string, ResourceMetadata>;
+  suggested_chapter_title?: string;
+  extracted_images?: ExtractedImageItem[];
 }
 
 export interface GenerateAssessmentResponse {
@@ -119,4 +133,55 @@ export interface ChapterQuizzesOverview {
     completed_projects: number;
     percentage: number;
   };
+}
+
+export interface CloudinaryAssetMetadata {
+  page_count?: number;
+  char_count?: number;
+  preview_text?: string;
+  ocr_status?: string;
+  extracted_at?: string;
+  source?: string;
+}
+
+export interface CloudinaryAsset {
+  id: string;
+  public_id: string;
+  asset_id?: string | null;
+  grade: number;
+  chapter: string;
+  category: string;
+  title: string;
+  original_filename: string;
+  file_size_bytes: number;
+  mime_type: string;
+  secure_url: string;
+  preview_url?: string | null;
+  version: number;
+  sha256_hash?: string | null;
+  metadata?: CloudinaryAssetMetadata;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CloudinaryAssetListResponse {
+  success: boolean;
+  total: number;
+  page: number;
+  page_size: number;
+  items: CloudinaryAsset[];
+}
+
+export interface CloudinaryUploadResponse {
+  success: boolean;
+  message: string;
+  asset: CloudinaryAsset;
+  duplicate_detected?: boolean;
+}
+
+export interface CloudinaryConfigStatus {
+  configured: boolean;
+  cloud_name?: string | null;
+  folder_prefix: string;
+  max_file_size_bytes: number;
 }

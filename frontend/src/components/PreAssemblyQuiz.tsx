@@ -1,23 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   ShieldAlert,
   ShieldCheck,
   CheckCircle2,
   XCircle,
   AlertTriangle,
-  ArrowRight,
   RotateCcw,
   UploadCloud,
-  Cpu,
   Lock,
   Unlock,
   Sparkles,
-  HelpCircle,
   Wrench,
   FileText,
-  ChevronRight,
 } from "lucide-react";
 import {
   generatePreAssembly,
@@ -61,8 +57,9 @@ export default function PreAssemblyQuiz() {
       const resp = await generatePreAssembly(customFile, titleToUse);
       setProjectTitle(resp.chapter_name || titleToUse);
       setQuestions(resp.questions || []);
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to generate pre-assembly safety quiz from the uploaded PDF.");
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setErrorMsg(e.message || "Failed to generate pre-assembly safety quiz from the uploaded PDF.");
     } finally {
       setIsGenerating(false);
     }
@@ -105,8 +102,9 @@ export default function PreAssemblyQuiz() {
       // Verify backend assembly gate
       const gate = await checkAssemblyStatus(pid);
       setAssemblyStatus(gate);
-    } catch (err: any) {
-      setErrorMsg(err.message || "Failed to verify quiz submission on the backend.");
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setErrorMsg(e.message || "Failed to verify quiz submission on the backend.");
     } finally {
       setIsSubmitting(false);
     }
@@ -129,11 +127,11 @@ export default function PreAssemblyQuiz() {
   const qIdStr = currentQ ? String(currentQ.id ?? currentQIndex) : "";
 
   return (
-    <div className="bg-white border border-[#EAE5D9] rounded-2xl p-5 sm:p-7 shadow-xs mb-8 transition-all">
+    <div className="bg-white border border-[#EAE5D9] rounded-md p-5 sm:p-7 shadow-xs mb-8 transition-all">
       {/* Top Banner & Instructions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-100">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-700 mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-red-50 border border-red-200 text-xs font-bold text-red-700 mb-2">
             <ShieldAlert className="w-3.5 h-3.5 text-red-600" />
             <span>Mandatory Pre-Assembly Readiness Check</span>
           </div>
@@ -146,7 +144,7 @@ export default function PreAssemblyQuiz() {
         </div>
 
         {/* Gate Status Pill */}
-        <div className="flex items-center gap-2.5 bg-[#FBF9F5] border border-[#EAE5D9] px-4 py-2.5 rounded-xl self-start md:self-auto shrink-0 shadow-2xs">
+        <div className="flex items-center gap-2.5 bg-[#FBF9F5] border border-[#EAE5D9] px-4 py-2.5 rounded-md self-start md:self-auto shrink-0 shadow-2xs">
           {assemblyStatus?.allowed ? (
             <div className="flex items-center gap-2 text-emerald-700 font-bold text-xs">
               <Unlock className="w-4 h-4 text-emerald-600" />
@@ -163,7 +161,7 @@ export default function PreAssemblyQuiz() {
 
       {/* Error alert */}
       {errorMsg && (
-        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-center gap-3">
+        <div className="mb-6 p-4 rounded-md bg-red-50 border border-red-200 text-xs text-red-700 flex items-center gap-3">
           <AlertTriangle className="w-5 h-5 shrink-0 text-red-600" />
           <span>{errorMsg}</span>
         </div>
@@ -172,9 +170,9 @@ export default function PreAssemblyQuiz() {
       {/* STAGE 1: DYNAMIC PROJECT UPLOAD & SAFETY SETUP */}
       {questions.length === 0 && (
         <div className="space-y-6">
-          <div className="bg-[#FBF9F5] border border-[#EAE5D9] rounded-2xl p-6 sm:p-8">
+          <div className="bg-[#FBF9F5] border border-[#EAE5D9] rounded-md p-6 sm:p-8">
             <div className="max-w-2xl mx-auto text-center mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 rounded-md bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3">
                 <UploadCloud className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-1">
@@ -196,9 +194,9 @@ export default function PreAssemblyQuiz() {
             {!customFile ? (
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="max-w-xl mx-auto border-2 border-dashed border-slate-300 hover:border-red-400 bg-white rounded-2xl p-8 text-center cursor-pointer transition-all hover:shadow-xs group"
+                className="max-w-xl mx-auto border-2 border-dashed border-slate-300 hover:border-red-400 bg-white rounded-md p-8 text-center cursor-pointer transition-all hover:shadow-xs group"
               >
-                <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-red-50 flex items-center justify-center mx-auto mb-3 transition-colors">
+                <div className="w-12 h-12 rounded-md bg-slate-50 group-hover:bg-red-50 flex items-center justify-center mx-auto mb-3 transition-colors">
                   <FileText className="w-6 h-6 text-slate-400 group-hover:text-red-600 transition-colors" />
                 </div>
                 <span className="block text-sm font-bold text-slate-800">
@@ -209,10 +207,10 @@ export default function PreAssemblyQuiz() {
                 </span>
               </div>
             ) : (
-              <div className="max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+              <div className="max-w-xl mx-auto bg-white border border-slate-200 rounded-md p-5 shadow-xs">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center shrink-0">
+                    <div className="w-11 h-11 rounded-md bg-red-50 border border-red-200 text-red-600 flex items-center justify-center shrink-0">
                       <FileText className="w-6 h-6" />
                     </div>
                     <div>
@@ -245,7 +243,7 @@ export default function PreAssemblyQuiz() {
                     value={projectTitle}
                     onChange={(e) => setProjectTitle(e.target.value)}
                     placeholder="e.g. Defence Protection System"
-                    className="w-full text-xs font-semibold text-slate-900 px-3 py-2 bg-[#FBF9F5] border border-slate-200 rounded-lg focus:outline-none focus:border-red-500 focus:bg-white"
+                    className="w-full text-xs font-semibold text-slate-900 px-3 py-2 bg-[#FBF9F5] border border-slate-200 rounded focus:outline-none focus:border-red-500 focus:bg-white"
                   />
                 </div>
               </div>
@@ -256,7 +254,7 @@ export default function PreAssemblyQuiz() {
                 type="button"
                 disabled={isGenerating || !customFile}
                 onClick={handleStartQuiz}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-sm shadow-md transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-sm shadow-md transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isGenerating ? (
                   <>
@@ -279,7 +277,7 @@ export default function PreAssemblyQuiz() {
       {questions.length > 0 && !verificationResult && (
         <div>
           {/* Header Info */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6 bg-slate-50 p-4 rounded-md border border-slate-200">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                 Hardware Project
@@ -299,7 +297,7 @@ export default function PreAssemblyQuiz() {
                     key={idx}
                     type="button"
                     onClick={() => setCurrentQIndex(idx)}
-                    className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`w-8 h-8 rounded text-xs font-bold transition-all cursor-pointer ${
                       isCurrent
                         ? "bg-slate-900 text-white shadow-xs"
                         : isAnswered
@@ -316,7 +314,7 @@ export default function PreAssemblyQuiz() {
 
           {/* Active Question Card */}
           {currentQ && (
-            <div className="bg-[#FBF9F5] border border-[#EAE5D9] rounded-2xl p-6 mb-6">
+            <div className="bg-[#FBF9F5] border border-[#EAE5D9] rounded-md p-6 mb-6">
               <div className="flex items-center justify-between gap-2 mb-3">
                 <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-red-100 text-red-800">
                   Question {currentQIndex + 1} of {questions.length} • Component Readiness
@@ -339,7 +337,7 @@ export default function PreAssemblyQuiz() {
                           <div
                             key={oIdx}
                             onClick={() => handleSelectOption(qIdStr, optKey)}
-                            className={`p-3.5 rounded-xl border text-sm font-semibold transition-all cursor-pointer flex items-center gap-3 ${
+                            className={`p-3.5 rounded-md border text-sm font-semibold transition-all cursor-pointer flex items-center gap-3 ${
                               isSelected
                                 ? "bg-blue-600 text-white border-blue-600 shadow-xs"
                                 : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
@@ -362,7 +360,7 @@ export default function PreAssemblyQuiz() {
                           <div
                             key={key}
                             onClick={() => handleSelectOption(qIdStr, key)}
-                            className={`p-3.5 rounded-xl border text-sm font-semibold transition-all cursor-pointer flex items-center gap-3 ${
+                            className={`p-3.5 rounded-md border text-sm font-semibold transition-all cursor-pointer flex items-center gap-3 ${
                               isSelected
                                 ? "bg-blue-600 text-white border-blue-600 shadow-xs"
                                 : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
@@ -391,7 +389,7 @@ export default function PreAssemblyQuiz() {
                 type="button"
                 disabled={currentQIndex === 0}
                 onClick={() => setCurrentQIndex((prev) => Math.max(0, prev - 1))}
-                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
+                className="px-4 py-2 rounded-md border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
               >
                 Previous
               </button>
@@ -399,7 +397,7 @@ export default function PreAssemblyQuiz() {
                 type="button"
                 disabled={currentQIndex === questions.length - 1}
                 onClick={() => setCurrentQIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-                className="px-4 py-2 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
+                className="px-4 py-2 rounded-md border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
               >
                 Next
               </button>
@@ -409,7 +407,7 @@ export default function PreAssemblyQuiz() {
               <button
                 type="button"
                 onClick={() => setQuestions([])}
-                className="px-4 py-2 rounded-xl text-slate-400 hover:text-slate-600 font-bold text-xs cursor-pointer"
+                className="px-4 py-2 rounded-md text-slate-400 hover:text-slate-600 font-bold text-xs cursor-pointer"
               >
                 Cancel / Choose Another Project
               </button>
@@ -418,7 +416,7 @@ export default function PreAssemblyQuiz() {
                 type="button"
                 disabled={isSubmitting}
                 onClick={handleSubmitQuiz}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
@@ -442,7 +440,7 @@ export default function PreAssemblyQuiz() {
         <div>
           {/* Header Outcome Card */}
           <div
-            className={`p-6 rounded-2xl border mb-6 ${
+            className={`p-6 rounded-md border mb-6 ${
               verificationResult.passed
                 ? "bg-emerald-50/80 border-emerald-200 text-emerald-950"
                 : "bg-amber-50/80 border-amber-200 text-amber-950"
@@ -451,7 +449,7 @@ export default function PreAssemblyQuiz() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-xl shadow-xs ${
+                  className={`w-12 h-12 rounded-md flex items-center justify-center font-bold text-xl shadow-xs ${
                     verificationResult.passed ? "bg-emerald-600 text-white" : "bg-amber-600 text-white"
                   }`}
                 >
@@ -468,7 +466,7 @@ export default function PreAssemblyQuiz() {
               </div>
 
               {/* Score Badge */}
-              <div className="text-right bg-white/70 border border-white/80 p-3 rounded-xl shrink-0 shadow-2xs">
+              <div className="text-right bg-white/70 border border-white/80 p-3 rounded-md shrink-0 shadow-2xs">
                 <div className="text-xs uppercase font-bold tracking-wider text-slate-500">
                   Readiness Score
                 </div>
@@ -505,7 +503,7 @@ export default function PreAssemblyQuiz() {
               {verificationResult.details.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`p-4 rounded-xl border text-xs ${
+                  className={`p-4 rounded-md border text-xs ${
                     item.is_correct
                       ? "bg-white border-slate-200"
                       : "bg-red-50/40 border-red-200"
@@ -540,7 +538,7 @@ export default function PreAssemblyQuiz() {
                   </div>
 
                   {item.explanation && (
-                    <div className="mt-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                    <div className="mt-2 text-[11px] text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-100">
                       <strong>Safety Rationale:</strong> {item.explanation}
                     </div>
                   )}
@@ -554,7 +552,7 @@ export default function PreAssemblyQuiz() {
             <button
               type="button"
               onClick={handleStartQuiz}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-all cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Retry Quiz / Different Project</span>
@@ -564,7 +562,7 @@ export default function PreAssemblyQuiz() {
               <button
                 type="button"
                 onClick={() => setShowAssemblyWorkspace(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer animate-pulse"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer animate-pulse"
               >
                 <Wrench className="w-4 h-4" />
                 <span>Proceed to Physical Assembly Workspace →</span>
@@ -581,10 +579,10 @@ export default function PreAssemblyQuiz() {
 
       {/* STAGE 4: ASSEMBLY WORKSPACE MODAL / VIEW */}
       {showAssemblyWorkspace && (
-        <div className="mt-6 p-6 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-xl">
+        <div className="mt-6 p-6 rounded-md bg-slate-900 text-white border border-slate-800 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              <div className="w-9 h-9 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
                 <Wrench className="w-5 h-5" />
               </div>
               <div>
@@ -592,21 +590,21 @@ export default function PreAssemblyQuiz() {
                 <p className="text-xs text-slate-400">Safety clearance verified via backend token</p>
               </div>
             </div>
-            <span className="font-mono text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/30">
+            <span className="font-mono text-xs bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded border border-emerald-500/30">
               UNLOCKED
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mb-5">
-            <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div className="p-3.5 rounded-md bg-slate-800/60 border border-slate-700/60">
               <h5 className="font-bold text-slate-200 mb-1">Step 1: Power Safety</h5>
               <p className="text-slate-400">Ensure the USB cable is disconnected before wiring breadboard rail connections.</p>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div className="p-3.5 rounded-md bg-slate-800/60 border border-slate-700/60">
               <h5 className="font-bold text-slate-200 mb-1">Step 2: Polarity Inspection</h5>
               <p className="text-slate-400">Double check LED anode (+) vs cathode (-) and VCC vs GND pins on sensors.</p>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60">
+            <div className="p-3.5 rounded-md bg-slate-800/60 border border-slate-700/60">
               <h5 className="font-bold text-slate-200 mb-1">Step 3: Signal Verification</h5>
               <p className="text-slate-400">Connect signal/analog pins securely to designated headers before applying 5V power.</p>
             </div>
@@ -616,7 +614,7 @@ export default function PreAssemblyQuiz() {
             <button
               type="button"
               onClick={() => setShowAssemblyWorkspace(false)}
-              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all cursor-pointer"
+              className="px-4 py-2 rounded-md bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all cursor-pointer"
             >
               Close Workspace Preview
             </button>

@@ -14,6 +14,7 @@ Tiny = Annotated[str, StringConstraints(max_length=64)]
 Short = Annotated[str, StringConstraints(max_length=200)]
 Medium = Annotated[str, StringConstraints(max_length=1000)]
 Long = Annotated[str, StringConstraints(max_length=5000)]
+ImageUri = Annotated[str, StringConstraints(max_length=500_000)]
 CurriculumText = Annotated[str, StringConstraints(max_length=5_000_000)]   # matches service limit
 
 MAX_QUESTIONS_PER_PAYLOAD = 200
@@ -36,6 +37,8 @@ class QuestionItem(BaseModel):
     marks: Optional[int] = Field(default=1, ge=0, le=1000)
     section: Optional[Short] = None
     category: Optional[Short] = None  # e.g. "Component Identification", "Pin Identification"
+    image_data: Optional[ImageUri] = None
+    image_caption: Optional[Short] = None
 
 
 class AssessmentPayload(BaseModel):
@@ -60,6 +63,7 @@ class GenerateAssessmentRequest(BaseModel):
     provider: Optional[Tiny] = "auto"  # "auto", "gemini", "groq", "openrouter", "ollama"
     model: Optional[Short] = None
     rejected_questions: Optional[List[Medium]] = Field(default=None, max_length=200)
+    available_images: Optional[List[Dict[str, Any]]] = Field(default=None, max_length=200)
     # NOTE: the include_*/exclude_* flags below are accepted for client compatibility but are not
     # currently read by the router or service (the exclusions are always enforced).
     include_component_id: Optional[bool] = True
@@ -77,6 +81,7 @@ class MergedAssessmentPaperRequest(BaseModel):
     provider: Optional[Tiny] = "auto"
     model: Optional[Short] = None
     chapter_content: Optional[CurriculumText] = None
+    available_images: Optional[List[Dict[str, Any]]] = Field(default=None, max_length=200)
 
 
 class GenerateAssessmentResponse(BaseModel):
@@ -137,7 +142,7 @@ class AssemblyAccessStatusResponse(BaseModel):
 class ProjectSummary(BaseModel):
     id: str
     title: str
-    filename: str
+    filename: Optional[str] = None
     category: str = "project"
     has_pre_assembly: bool = True
     completed: bool = False

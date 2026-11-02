@@ -50,3 +50,12 @@ yarn-error.log*
 **/.env*
 backend/.env*
 frontend/.env*
+*service_account*.json
+*.key.json
+
+# Database WAL & temp files
+*.db-wal
+*.db-shm
+*.db-journal
+backend/data/curriculum_assets/
+!backend/data/curriculum_assets/.gitkeep

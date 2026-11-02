@@ -571,37 +571,52 @@ def _pick(
     return picked
 
 
-def _mixed_paper(components: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """10 questions: 5 MCQs (3 standard + 2 scenario) followed by 5 True/False."""
+def _mixed_paper(components: Sequence[Dict[str, Any]], target_count: int = 10) -> List[Dict[str, Any]]:
+    """Proportional mixed questions: MCQs (including scenario) followed by True/False. Default 10."""
     if not components:
         return []
+    target = max(3, min(int(target_count or 10), 25))
+    target_mcq = max(2, round(target * 0.5))
+    target_tf = target - target_mcq
+    target_scenario = max(1, round(target_mcq * 0.4))
+    target_std = target_mcq - target_scenario
+
     seen: Set[str] = set()
 
     standard: List[Dict[str, Any]] = []
     comp_idx = 0
-    for cat in STANDARD_MIXED_CATEGORIES:
-        picked = _pick(components, cat, seen, limit=1, start_index=comp_idx)
-        if picked:
-            standard.extend(picked)
-            comp_idx += 1
-        if len(standard) >= 3:
+    for _ in range(3):
+        for cat in STANDARD_MIXED_CATEGORIES:
+            picked = _pick(components, cat, seen, limit=1, start_index=comp_idx)
+            if picked:
+                standard.extend(picked)
+                comp_idx += 1
+            if len(standard) >= target_std:
+                break
+        if len(standard) >= target_std:
             break
 
-    scenario = _pick(components, CAT_SCENARIO, seen, limit=2, start_index=comp_idx)
+    scenario = _pick(components, CAT_SCENARIO, seen, limit=target_scenario, start_index=comp_idx)
     comp_idx += len(scenario)
 
-    true_false = _pick(components, CAT_TF, seen, limit=5, q_type="true_false", start_index=comp_idx)
+    true_false = _pick(components, CAT_TF, seen, limit=target_tf, q_type="true_false", start_index=comp_idx)
 
-    # Interleave: std, std, scenario, std, scenario
-    order = [
-        standard[0:1], standard[1:2], scenario[0:1], standard[2:3], scenario[1:2],
-    ]
-    mcqs = [q for group in order for q in group]
-    for q in standard + scenario:            # backfill if any slot was short
-        if q not in mcqs and len(mcqs) < 5:
+    # Interleave standard and scenario MCQs
+    mcqs: List[Dict[str, Any]] = []
+    s_idx, sc_idx = 0, 0
+    while len(mcqs) < target_mcq and (s_idx < len(standard) or sc_idx < len(scenario)):
+        if s_idx < len(standard):
+            mcqs.append(standard[s_idx])
+            s_idx += 1
+        if sc_idx < len(scenario) and len(mcqs) < target_mcq:
+            mcqs.append(scenario[sc_idx])
+            sc_idx += 1
+
+    for q in standard + scenario:
+        if q not in mcqs and len(mcqs) < target_mcq:
             mcqs.append(q)
 
-    return (mcqs[:5] + true_false[:5])[:10]
+    return (mcqs[:target_mcq] + true_false[:target_tf])[:target]
 
 
 def get_curriculum_component_questions(
@@ -614,7 +629,7 @@ def get_curriculum_component_questions(
     Generate balanced, factually validated questions from components found in `content`.
 
     Special modes:
-    - "mixed": exactly 10 questions (5 MCQs incl. 2 scenario-based + 5 True/False).
+    - "mixed": proportional MCQs (incl. scenario-based) + True/False up to `target_count` (default 10).
     - "true_false": conceptual True/False questions up to `target_count`.
     Otherwise questions are drawn round-robin across the requested categories.
     """
@@ -626,7 +641,7 @@ def get_curriculum_component_questions(
     components = matched + [c for c in CURRICULUM_COMPONENTS if c["id"] not in matched_ids]
 
     if a_type == "mixed":
-        return _mixed_paper(components)
+        return _mixed_paper(components, target_count=target_count or 10)
 
     if a_type == "true_false":
         return _pick(components, CAT_TF, set(), limit=target_count, q_type="true_false")
@@ -651,3 +666,40 @@ def get_curriculum_component_questions(
             break
 
     return selected[:target_count]
+
+
+def get_chapter_knowledge(grade: int, chapter_ref: Any = None) -> Optional[Dict[str, Any]]:
+    """Look up authentic chapter curriculum metadata from curriculum_knowledge.json."""
+    from pathlib import Path
+    data_file = Path(__file__).resolve().parents[2] / "data" / "curriculum_knowledge.json"
+    if not data_file.is_file():
+        return None
+    try:
+        with open(data_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return None
+
+    if not chapter_ref:
+        for k, v in data.items():
+            if v.get("grade") == grade:
+                return v
+        return None
+
+    ref_str = str(chapter_ref).strip().lower()
+    ch_num_match = re.search(r"\d+", ref_str)
+    ch_num = int(ch_num_match.group(0)) if ch_num_match else None
+
+    if ch_num:
+        candidate_key = f"G{grade}-C{ch_num}"
+        if candidate_key in data:
+            return data[candidate_key]
+
+    for k, v in data.items():
+        if v.get("grade") == grade:
+            title_lower = v.get("chapter_title", "").lower()
+            if ref_str in title_lower or title_lower in ref_str:
+                return v
+            if ch_num and v.get("chapter_number") == ch_num:
+                return v
+    return None

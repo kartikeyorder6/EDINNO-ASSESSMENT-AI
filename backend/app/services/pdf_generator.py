@@ -11,6 +11,7 @@ Hardening:
 
 from __future__ import annotations
 
+import base64
 import io
 import re
 import unicodedata
@@ -24,6 +25,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
+    Image as RLImage,
     KeepTogether,
     PageBreak,
     Paragraph,
@@ -48,7 +50,7 @@ AUTHOR = "EDINNO AI Assessment Engine"
 PAGE_MARGIN_X = 18 * mm
 PAGE_MARGIN_Y = 16 * mm
 CONTENT_WIDTH = A4[0] - 2 * PAGE_MARGIN_X          # 174 mm
-KEY_COL_WIDTHS = [14 * mm, 42 * mm, CONTENT_WIDTH - 56 * mm]
+KEY_COL_WIDTHS = [13 * mm, 52 * mm, CONTENT_WIDTH - 65 * mm]
 
 INK = "#0F172A"
 SLATE = "#334155"
@@ -216,35 +218,47 @@ def _styles() -> Dict[str, ParagraphStyle]:
         return ParagraphStyle(f"EDINNO{name}", parent=base[parent], **kw)
 
     return {
-        "title": make("Title", "Title", fontName="Times-Bold", fontSize=18, leading=22,
+        "title": make("Title", "Title", fontName="Helvetica-Bold", fontSize=17, leading=22,
                       alignment=TA_CENTER, textColor=colors.HexColor(INK), spaceAfter=4),
-        "meta": make("MetaSubtitle", fontName="Times-Roman", fontSize=10, leading=14,
+        "meta": make("MetaSubtitle", fontName="Helvetica", fontSize=9, leading=13,
                      alignment=TA_CENTER, textColor=colors.HexColor(MUTED), spaceAfter=8),
-        "question": make("Question", fontName="Times-Bold", fontSize=10.5, leading=15,
+        "question": make("Question", fontName="Helvetica-Bold", fontSize=10, leading=14.5,
                          textColor=colors.HexColor(INK), spaceAfter=4),
-        "scenario": make("Scenario", fontName="Times-Italic", fontSize=9.5, leading=13.5,
+        "scenario": make("Scenario", fontName="Helvetica-Oblique", fontSize=9, leading=13,
                          textColor=colors.HexColor(SLATE), spaceAfter=4),
-        "option": make("Option", fontName="Times-Roman", fontSize=10, leading=14,
+        "option": make("Option", fontName="Helvetica", fontSize=9.5, leading=13.5,
                        leftIndent=5 * mm, textColor=colors.HexColor("#1E293B"), spaceAfter=3),
-        "body": make("Body", fontName="Times-Roman", fontSize=9.5, leading=13.5,
+        "body": make("Body", fontName="Helvetica", fontSize=9, leading=13,
                      textColor=colors.HexColor(SLATE), spaceAfter=4),
-        "answer": make("Answer", fontName="Times-Bold", fontSize=9.5, leading=13,
-                       textColor=colors.HexColor("#15803D")),
-        "table_header": make("TableHeader", fontName="Times-Bold", fontSize=9.5, leading=13,
-                             textColor=colors.HexColor(INK)),
+        "table_header": make("TableHeader", fontName="Helvetica-Bold", fontSize=8, leading=10,
+                             textColor=colors.HexColor("#475569")),
+        "cell_q": make("CellQ", fontName="Helvetica-Bold", fontSize=8.5, leading=12,
+                       textColor=colors.HexColor("#1E293B")),
+        "cell_ans": make("CellAns", fontName="Helvetica", fontSize=8.5, leading=11.5,
+                         textColor=colors.HexColor("#0F172A")),
+        "cell_rubric": make("CellRubric", fontName="Helvetica", fontSize=8, leading=11,
+                            textColor=colors.HexColor("#334155")),
+        "rubric_badge": make("RubricBadge", fontName="Helvetica-Bold", fontSize=7.5, leading=10,
+                             textColor=colors.HexColor("#64748B"), alignment=TA_CENTER, spaceAfter=2),
+        "rubric_title": make("RubricTitle", fontName="Helvetica-Bold", fontSize=16, leading=20,
+                             textColor=colors.HexColor(INK), alignment=TA_CENTER, spaceAfter=3),
+        "rubric_meta": make("RubricMeta", fontName="Helvetica", fontSize=8.5, leading=12,
+                            textColor=colors.HexColor(MUTED), alignment=TA_CENTER, spaceAfter=8),
+        "rubric_footer": make("RubricFooter", fontName="Helvetica", fontSize=7.5, leading=10,
+                              textColor=colors.HexColor(MUTED), alignment=TA_CENTER),
     }
 
 
 _KEY_TABLE_STYLE = TableStyle([
     ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#F8FAFC")),
-    ("LINEBELOW", (0, 0), (-1, 0), 1.2, colors.HexColor(INK)),
-    ("LINEABOVE", (0, 0), (-1, 0), 0.8, colors.HexColor("#CBD5E1")),
-    ("TOPPADDING", (0, 0), (-1, 0), 6),
-    ("BOTTOMPADDING", (0, 0), (-1, 0), 6),
-    ("LEFTPADDING", (0, 0), (-1, -1), 5),
-    ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#FBF9F5")]),
-    ("LINEBELOW", (0, 1), (-1, -1), 0.4, colors.HexColor("#E2E8F0")),
+    ("LINEBELOW", (0, 0), (-1, 0), 1.0, colors.HexColor("#CBD5E1")),
+    ("LINEABOVE", (0, 0), (-1, 0), 0.5, colors.HexColor("#E2E8F0")),
+    ("TOPPADDING", (0, 0), (-1, 0), 5.5),
+    ("BOTTOMPADDING", (0, 0), (-1, 0), 5.5),
+    ("LEFTPADDING", (0, 0), (-1, -1), 6),
+    ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#F8FAFC")]),
+    ("LINEBELOW", (0, 1), (-1, -1), 0.35, colors.HexColor("#E2E8F0")),
     ("TOPPADDING", (0, 1), (-1, -1), 5),
     ("BOTTOMPADDING", (0, 1), (-1, -1), 5),
     ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -285,9 +299,9 @@ def create_assessment_pdf(chapter_name: str, assessment: Dict[str, Any]) -> io.B
     story += [divider, Spacer(1, 6 * mm)]
 
     key_rows: List[List[Any]] = [[
-        Paragraph("<b>Q#</b>", st["table_header"]),
-        Paragraph("<b>Correct Answer</b>", st["table_header"]),
-        Paragraph("<b>Pedagogical Rationale &amp; Grading Rubric</b>", st["table_header"]),
+        Paragraph("ITEM", st["table_header"]),
+        Paragraph("CORRECT ANSWER", st["table_header"]),
+        Paragraph("PEDAGOGICAL RATIONALE &amp; GRADING RUBRIC", st["table_header"]),
     ]]
 
     for i, item in enumerate(questions, start=1):
@@ -300,6 +314,22 @@ def create_assessment_pdf(chapter_name: str, assessment: Dict[str, Any]) -> io.B
             block.append(Paragraph(f"<b>[Scenario]:</b> {_esc(scenario)}", st["scenario"]))
 
         block.append(Paragraph(f"<b>Q{i}.</b> {_esc(clean_question_text(item.get('question', '')))}", st["question"]))
+
+        img_data = str(item.get("image_data") or "")
+        if img_data:
+            try:
+                b64_str = img_data.split(",", 1)[-1] if "," in img_data else img_data
+                img_bytes = base64.b64decode(b64_str)
+                img_io = io.BytesIO(img_bytes)
+                rl_img = RLImage(img_io, width=80 * mm, height=48 * mm)
+                block.append(Spacer(1, 2 * mm))
+                block.append(rl_img)
+                caption = sanitize_text_for_pdf(item.get("image_caption") or "").strip()
+                if caption:
+                    block.append(Paragraph(f"<i>[Diagram]: {_esc(caption)}</i>", st["scenario"]))
+                block.append(Spacer(1, 2 * mm))
+            except Exception as img_err:
+                logger.debug("Failed to render question %d image in PDF: %s", i, img_err)
 
         if option_pairs:
             for key, text in option_pairs:
@@ -323,22 +353,52 @@ def create_assessment_pdf(chapter_name: str, assessment: Dict[str, Any]) -> io.B
             sanitize_text_for_pdf(item.get("explanation", "")).strip()
             or "Derived directly from curriculum procedural documentation."
         )
+
+        if ans_display.startswith("(") and ")" in ans_display[:6]:
+            k_end = ans_display.find(")") + 1
+            key_tag = _esc(ans_display[:k_end])
+            key_body = _esc(ans_display[k_end:].strip())
+            is_tf = key_body in ("True", "False")
+            ans_html = (
+                f'<font color="#059669"><b>{key_tag}</b></font> <b>{key_body}</b>'
+                if is_tf else
+                f'<font color="#059669"><b>{key_tag}</b></font> {key_body}'
+            )
+        else:
+            ans_html = f'<font color="#0F172A"><b>{_esc(ans_display)}</b></font>'
+
+        item_label = f"Q{i:02d}" if len(questions) >= 10 else f"Q{i}"
         key_rows.append([
-            Paragraph(f"<b>Q{i}</b>", st["body"]),
-            Paragraph(f"<b>{_esc(ans_display)}</b>", st["answer"]),
-            Paragraph(_esc(rationale), st["body"]),
+            Paragraph(f"<b>{item_label}</b>", st["cell_q"]),
+            Paragraph(ans_html, st["cell_ans"]),
+            Paragraph(_esc(rationale), st["cell_rubric"]),
         ])
 
     # Appendix: answer key & rubric
     story += [
         PageBreak(),
-        Paragraph("<b>Answer Key &amp; Evaluation Rubric</b>", st["title"]),
-        Paragraph(f"Curriculum: {_esc(clean_chapter)}  -  Official Instructor Solution Guide", st["meta"]),
-        Spacer(1, 3 * mm),
+        Paragraph("EDINNO STEM CURRICULUM ASSESSMENT &bull; INSTRUCTOR SOLUTION GUIDE", st["rubric_badge"]),
+        Paragraph("Answer Key &amp; Evaluation Rubric", st["rubric_title"]),
+        Paragraph(
+            f"Curriculum: <b>{_esc(clean_chapter)}</b> &nbsp;&bull;&nbsp; "
+            f"Total Items: <b>{len(questions)} Questions</b> &nbsp;&bull;&nbsp; "
+            f"Benchmark: <b>80% Mastery</b>",
+            st["rubric_meta"],
+        ),
+        Spacer(1, 2 * mm),
     ]
     key_table = Table(key_rows, colWidths=KEY_COL_WIDTHS, repeatRows=1)
     key_table.setStyle(_KEY_TABLE_STYLE)
     story.append(key_table)
+    story += [
+        Spacer(1, 4 * mm),
+        Paragraph(
+            "<b>Evaluation Rubric:</b> 2 Marks per item &bull; "
+            "Pass standard: &ge;80% (&ge;16/20 pts) unlocks physical hardware assembly &bull; "
+            "Zero penalty for incorrect attempts.",
+            st["rubric_footer"],
+        ),
+    ]
 
     output = io.BytesIO()
     doc = SimpleDocTemplate(

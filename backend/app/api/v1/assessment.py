@@ -22,6 +22,7 @@ import time
 import uuid
 from collections import OrderedDict
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple
 
 from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Query, UploadFile
@@ -31,6 +32,7 @@ from app.api.common import (
     clean_text,
     http_error as _http_error,
     read_upload_limited as _read_upload_limited,
+    safe_basename,
 )
 from app.core.config import settings
 from app.core.logging import logger
@@ -45,12 +47,14 @@ from app.schemas.assessment import (
     QuizQuestionDetail,
 )
 from app.services.ai_generator import (
+    clean_chapter_title,
     detect_project_title,
     generate_assessment,
     generate_merged_assessment,
 )
 from app.services.gemini_pool import gemini_pool
 from app.services.pdf_reader import extract_pdf_text_with_meta
+from app.services.sensor_library import get_sensor_image_for_curriculum
 
 router = APIRouter()
 
@@ -97,6 +101,9 @@ class BoundedStore:
     def __setitem__(self, key: str, value: Any) -> None:
         now = time.monotonic()
         with self._lock:
+            if self._ttl is not None:
+                while self._data and self._expired(next(iter(self._data.values()))[0], now):
+                    self._data.popitem(last=False)
             self._data[key] = (now, value)
             self._data.move_to_end(key)
             while len(self._data) > self._max:
@@ -166,12 +173,20 @@ def _validate_project_id(project_id: Any) -> str:
     return pid
 
 
-async def require_admin(x_admin_token: Optional[str] = Header(default=None)) -> None:
+async def require_admin(
+    x_admin_token: Optional[str] = Header(default=None),
+    authorization: Optional[str] = Header(default=None),
+) -> None:
     """Protects operational endpoints when ADMIN_API_TOKEN is configured."""
     expected = getattr(settings, "ADMIN_API_TOKEN", None)
     if not expected:
         return
-    if not x_admin_token or not secrets.compare_digest(x_admin_token.encode(), str(expected).encode()):
+    token = x_admin_token
+    if not token and authorization:
+        parts = authorization.split(None, 1)
+        if len(parts) == 2 and parts[0].lower() == "bearer":
+            token = parts[1]
+    if not token or not secrets.compare_digest(token.strip().encode(), str(expected).strip().encode()):
         raise HTTPException(status_code=403, detail="Forbidden.")
 
 
@@ -232,6 +247,7 @@ async def generate_assessment_endpoint(payload: GenerateAssessmentRequest):
             provider=payload.provider or "auto",
             model=payload.model,
             rejected_questions=payload.rejected_questions,
+            available_images=payload.available_images,
         )
         questions = result.get("questions", [])
         _register_issued_questions(questions)
@@ -240,7 +256,7 @@ async def generate_assessment_endpoint(payload: GenerateAssessmentRequest):
             success=True,
             message="Assessment generated successfully.",
             assessment_type=payload.assessment_type,
-            chapter_name=result.get("chapter_name", "STEM Assessment"),
+            chapter_name=clean_chapter_title(result.get("chapter_name"), fallback="STEM Curriculum Assessment"),
             questions=questions,
             metadata={
                 "question_count": len(questions),
@@ -277,6 +293,7 @@ async def generate_merged_paper_endpoint(payload: MergedAssessmentPaperRequest):
             difficulty=payload.difficulty or "medium",
             provider=payload.provider or "auto",
             model=payload.model,
+            available_images=payload.available_images,
         )
         questions = res.get("questions", [])
         _register_issued_questions(questions)
@@ -285,7 +302,7 @@ async def generate_merged_paper_endpoint(payload: MergedAssessmentPaperRequest):
             success=True,
             message="Merged assessment question paper generated successfully with all parameters enforced.",
             assessment_type="merged_conceptual",
-            chapter_name=res.get("chapter_name", "Merged Curriculum Assessment"),
+            chapter_name=clean_chapter_title(res.get("chapter_name"), fallback="Merged Curriculum Assessment"),
             questions=questions,
             metadata={
                 "question_count": len(questions),
@@ -311,13 +328,23 @@ async def generate_pre_assembly_endpoint(
     try:
         content = await _read_upload_limited(file, settings.MAX_UPLOAD_SIZE_BYTES)
         text, _ = await run_in_threadpool(extract_pdf_text_with_meta, content)
+        images = []
+        local_img = await run_in_threadpool(get_sensor_image_for_curriculum, text)
+        if local_img:
+            images = [local_img]
         if not text.strip():
             raise ValueError("No readable text found in this PDF (scanned documents are not supported).")
 
-        filename = clean_text((file.filename or "").replace("\\", "/").split("/")[-1], 200)
+        filename = safe_basename(file.filename)
         title = clean_text(project_title, MAX_TITLE_CHARS) or detect_project_title(text, filename=filename)
 
-        result = await run_in_threadpool(generate_assessment, chapter_content=text, assessment_type="pre_assembly")
+        result = await run_in_threadpool(
+            generate_assessment,
+            chapter_content=text,
+            assessment_type="pre_assembly",
+            question_count=3,
+            available_images=images,
+        )
         questions = result.get("questions", [])
         _register_issued_questions(questions)
 
@@ -325,7 +352,7 @@ async def generate_pre_assembly_endpoint(
             success=True,
             message="Pre-assembly assessment generated successfully.",
             assessment_type="pre_assembly",
-            chapter_name=title,
+            chapter_name=clean_chapter_title(title, fallback="Pre-Assembly Assessment"),
             questions=questions,
             metadata={"question_count": len(questions)},
         )
@@ -339,37 +366,205 @@ async def generate_pre_assembly_endpoint(
 # PRE-ASSEMBLY QUIZ & ASSEMBLY ACCESS
 # =========================================================
 
+def _find_chapter_dirs(grade: Optional[int] = None) -> List[Path]:
+    """Dynamically discover chapter and curriculum folders across root and workspace."""
+    search_roots = [
+        Path.cwd(),
+        Path.cwd().parent,
+        Path(__file__).resolve().parents[4],
+    ]
+    found: List[Path] = []
+    seen = set()
+    for root in search_roots:
+        if not root.is_dir():
+            continue
+        if grade is not None:
+            for cand in [root / "curriculum" / f"grade_{grade}", root / "curriculum" / f"grade{grade}"]:
+                if cand.is_dir() and str(cand) not in seen:
+                    seen.add(str(cand))
+                    found.append(cand)
+            for cand in root.glob(f"Chapter {grade}*"):
+                if cand.is_dir() and str(cand) not in seen:
+                    seen.add(str(cand))
+                    found.append(cand)
+        else:
+            cand_curr = root / "curriculum"
+            if cand_curr.is_dir() and str(cand_curr) not in seen:
+                seen.add(str(cand_curr))
+                found.append(cand_curr)
+            for cand in root.glob("Chapter *"):
+                if cand.is_dir() and str(cand) not in seen:
+                    seen.add(str(cand))
+                    found.append(cand)
+    return found
+
+
+def _discover_grade_curriculum(grade: int):
+    """
+    Dynamically scan disk for curriculum documents corresponding to the requested grade.
+    Zero hardcoded topics, activities, or projects.
+    """
+    possible_dirs = _find_chapter_dirs(grade)
+
+    for ch_dir in possible_dirs:
+        if ch_dir and ch_dir.is_dir():
+            pdfs = sorted(list(ch_dir.glob("*.pdf")), key=lambda p: p.name)
+            if pdfs:
+                topics, activities, projects = [], [], []
+                for p in pdfs:
+                    fn = p.name.lower()
+                    if "topic" in fn or "lesson" in fn or "module" in fn:
+                        topics.append({
+                            "id": f"topic-{len(topics)+1}",
+                            "title": p.stem,
+                            "filename": p.name,
+                        })
+                    elif "activit" in fn or "lab" in fn or "experiment" in fn:
+                        activities.append({
+                            "id": f"activity-{len(activities)+1}",
+                            "title": p.stem,
+                            "filename": p.name,
+                        })
+                    elif "p-" in fn or "project" in fn or "capstone" in fn:
+                        projects.append({
+                            "id": f"p-{len(projects)+1}",
+                            "title": p.stem,
+                            "filename": p.name,
+                        })
+                    else:
+                        topics.append({
+                            "id": f"doc-{len(topics)+1}",
+                            "title": p.stem,
+                            "filename": p.name,
+                        })
+                return {
+                    "staged": True,
+                    "title": ch_dir.name,
+                    "topics": topics,
+                    "activities": activities,
+                    "projects": projects,
+                }
+    return {
+        "staged": False,
+        "title": f"Grade {grade} Curriculum",
+        "topics": [],
+        "activities": [],
+        "projects": [],
+    }
+
+
+def _resolve_project_pdf_path(project_id: str) -> Tuple[Optional[Path], str]:
+    """Find the PDF file on disk for a project id or name dynamically."""
+    norm = project_id.lower().replace(" ", "").replace("-", "").replace("_", "")
+
+    possible_dirs = _find_chapter_dirs(None)
+    for ch_dir in possible_dirs:
+        if ch_dir.is_dir():
+            for pdf in ch_dir.glob("*.pdf"):
+                pdf_norm = pdf.name.lower().replace(" ", "").replace("-", "").replace("_", "")
+                if norm in pdf_norm:
+                    return pdf, pdf.stem
+
+    return None, project_id
+
+
 @router.get("/pre-assembly/projects", response_model=List[ProjectSummary])
 async def list_pre_assembly_projects():
-    """List projects verified or completed in the current session."""
-    return [
-        ProjectSummary(
-            id=pid,
-            title=comp.get("title", pid),
-            filename=comp.get("filename", f"{pid}.pdf"),
-            completed=comp.get("passed", False),
-            score=comp.get("score"),
-        )
-        for pid, comp in COMPLETED_PRE_ASSEMBLY.items()
-    ]
+    """List projects verified or available dynamically in the current session."""
+    seen_ids = set()
+    results: List[ProjectSummary] = []
+
+    possible_dirs = _find_chapter_dirs(None)
+    for ch_dir in possible_dirs:
+        if ch_dir.is_dir():
+            for pdf in sorted(ch_dir.glob("*.pdf"), key=lambda p: p.name):
+                fn = pdf.name.lower()
+                if "p-" in fn or "project" in fn or "capstone" in fn:
+                    pid = pdf.stem.split()[0].replace("_", "").lower()
+                    if not pid.startswith("p-"):
+                        pid = f"p-{pid}"
+                    seen_ids.add(pid.upper())
+                    comp = COMPLETED_PRE_ASSEMBLY.get(pid.upper()) or COMPLETED_PRE_ASSEMBLY.get(pdf.stem.upper())
+                    results.append(
+                        ProjectSummary(
+                            id=pid,
+                            title=pdf.stem,
+                            filename=pdf.name,
+                            completed=bool(comp.get("passed", False)) if comp else False,
+                            score=comp.get("score") if comp else None,
+                        )
+                    )
+
+    for pid, comp in COMPLETED_PRE_ASSEMBLY.items():
+        if pid not in seen_ids:
+            results.append(
+                ProjectSummary(
+                    id=pid,
+                    title=comp.get("project_title", f"Project {pid}"),
+                    filename=comp.get("filename") or f"{pid.lower()}.pdf",
+                    completed=bool(comp.get("passed", False)),
+                    score=comp.get("score"),
+                )
+            )
+
+    return results
 
 
 @router.post("/pre-assembly/generate-for-project", response_model=GenerateAssessmentResponse)
 async def generate_pre_assembly_for_project(
     project_id: str = Query(..., min_length=1, max_length=64),
 ):
-    """Pre-assembly questions are generated from an uploaded PDF, not a stored project."""
-    raise HTTPException(
-        status_code=400,
-        detail="Please upload your project PDF directly to generate the pre-assembly safety quiz dynamically.",
-    )
+    """Dynamically generate pre-assembly safety questions for a curriculum project."""
+    pdf_path, title = _resolve_project_pdf_path(project_id)
+    if not pdf_path or not pdf_path.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail=f"Project PDF for '{project_id}' not found in curriculum library.",
+        )
+
+    try:
+        content = pdf_path.read_bytes()
+        text, _ = await run_in_threadpool(extract_pdf_text_with_meta, content)
+        if not text.strip():
+            raise ValueError(f"No readable text in curriculum PDF for {project_id}.")
+
+        images = []
+        local_img = await run_in_threadpool(get_sensor_image_for_curriculum, text)
+        if local_img:
+            images = [local_img]
+
+        result = await run_in_threadpool(
+            generate_assessment,
+            chapter_content=text,
+            assessment_type="pre_assembly",
+            question_count=5,
+            available_images=images,
+        )
+        questions = result.get("questions", [])
+        _register_issued_questions(questions)
+
+        return GenerateAssessmentResponse(
+            success=True,
+            message=f"Pre-assembly assessment generated successfully for {title}.",
+            assessment_type="pre_assembly",
+            chapter_name=title,
+            questions=questions,
+            metadata={"project_id": project_id, "question_count": len(questions)},
+        )
+    except Exception as exc:
+        raise _http_error(exc, "Project pre-assembly generation", "Failed to generate pre-assembly quiz") from exc
 
 
 def _grade_question(
     q: Dict[str, Any], idx: int, answers: Dict[str, Any], enforce: bool,
 ) -> Tuple[QuizQuestionDetail, bool]:
     qid = clean_text(q.get("id", idx), 64)
-    user_choice = answers.get(qid) or answers.get(str(idx))
+    user_choice = (
+        answers.get(qid)
+        or answers.get(str(idx))
+        or answers.get(str(idx + 1))
+        or answers.get(int(idx) if isinstance(idx, int) else None)
+    )
     user_choice = clean_text(user_choice, MAX_ANSWER_CHARS) if user_choice else None
 
     question_text = clean_text(q.get("question", f"Question {idx + 1}"), MAX_QUESTION_ECHO_CHARS)
@@ -428,7 +623,7 @@ async def verify_pre_assembly_submission(payload: PreAssemblyVerifyRequest):
 
     pct = round((score / total) * 100.0, 1)
     passed = pct >= PASS_THRESHOLD
-    auth_token = f"ASM-AUTH-{secrets.token_hex(8).upper()}" if passed else None
+    auth_token = f"ASM-AUTH-{secrets.token_hex(16).upper()}" if passed else None
 
     COMPLETED_PRE_ASSEMBLY[project_id.upper()] = {
         "title": project_title,
@@ -493,6 +688,68 @@ async def check_assembly_status(
         authorization_token=record.get("token"),
         message="Assembly clearance verified. User is authorized to proceed to physical assembly.",
     )
+
+
+@router.get("/assembly/verifications")
+async def list_assembly_verifications():
+    """List verified pre-assembly student records from completed verification sessions."""
+    results = []
+    for pid, data in COMPLETED_PRE_ASSEMBLY.items():
+        results.append({
+            "id": pid,
+            "project_id": pid,
+            "project_title": data.get("title", pid),
+            "passed": data.get("passed", False),
+            "score": data.get("score", 0),
+            "total": data.get("total", 0),
+            "percentage": data.get("percentage", 0.0),
+            "token": data.get("token"),
+            "verified_at": data.get("verified_at"),
+        })
+    return results
+
+
+def _load_grade_sensors(grade: int) -> List[Dict[str, Any]]:
+    possible = [
+        Path(f"assets/sensors/grade_{grade}/sensors.json").resolve(),
+        Path(f"../assets/sensors/grade_{grade}/sensors.json").resolve(),
+        Path(__file__).resolve().parents[4] / "assets" / "sensors" / f"grade_{grade}" / "sensors.json",
+    ]
+    for p in possible:
+        if p.is_file():
+            try:
+                import json
+                data = json.loads(p.read_text(encoding="utf-8"))
+                return data.get("sensors", [])
+            except Exception:
+                pass
+    return []
+
+
+@router.get("/curriculum/overview")
+async def get_curriculum_overview(grade: int = Query(7, ge=6, le=12)):
+    """
+    Returns authentic curriculum data for the requested grade dynamically from disk and verified sensor assets.
+    If no curriculum materials are staged on disk for this grade, returns staged=False and empty lists.
+    Zero hardcoded topics, activities, or projects.
+    """
+    sensors = _load_grade_sensors(grade)
+    discovered = _discover_grade_curriculum(grade)
+
+    return {
+        "grade": grade,
+        "title": discovered["title"],
+        "staged": discovered["staged"],
+        "topics": discovered["topics"],
+        "activities": discovered["activities"],
+        "projects": discovered["projects"],
+        "sensors": sensors,
+        "message": (
+            None
+            if discovered["staged"]
+            else f"No curriculum PDFs staged on disk for Grade {grade}. Upload PDF textbooks in Ingest to populate coursework."
+        ),
+    }
 
 
 @router.get("/chapter/quizzes")

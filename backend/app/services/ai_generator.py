@@ -126,12 +126,13 @@ _SECTION_RE = re.compile(
 
 _TITLE_PATTERNS = [
     re.compile(p, _I) for p in (
-        r"(?:project|p-\d+)\s*[\:\-]\s*([A-Za-z0-9\s\&\(\)\-\'\"]{4,70})",
-        r"Title\s*[\:\-]\s*([A-Za-z0-9\s\&\(\)\-\'\"]{4,70})",
-        r"Activity\s*(?:\d+|(?:name)?)\s*[\:\-]\s*([A-Za-z0-9\s\&\(\)\-\'\"]{4,70})",
+        r"(?:project|p-\d+)\s*[\:\-]\s*([^\r\n:;?!]{3,50})",
+        r"Title\s*[\:\-]\s*([^\r\n:;?!]{3,50})",
+        r"Activity\s*(?:\d+|(?:name)?)\s*[\:\-]\s*([^\r\n:;?!]{3,50})",
+        r"Chapter\s*(?:\d+|(?:name)?)\s*[\:\-]\s*([^\r\n:;?!]{3,50})",
     )
 ]
-_TITLE_BLACKLIST = ("page", "introduction", "activity", "topic", "chapter", "edinno")
+_TITLE_BLACKLIST = ("page", "introduction", "activity", "topic", "chapter", "edinno", "problem", "worksheet")
 _FILENAME_PREFIX_RE = re.compile(r"^(?:topic|activity|chapter|module|project|p)?[\d._\-]*\s*", _I)
 _BRACKET_RE = re.compile(r"\s*[\(\[].*?[\)\]]", re.DOTALL)
 
@@ -328,7 +329,7 @@ def compact_source_content(content: str, max_chars: int) -> str:
 
 def valid_project_title(title: str) -> bool:
     t = title.strip()
-    if len(t) < 4 or len(t) > 90:
+    if len(t) < 4 or len(t) > 70:
         return False
     return not t.lower().startswith(_TITLE_BLACKLIST)
 
@@ -349,32 +350,191 @@ def clean_title_brackets(title: str) -> str:
     return cleaned if len(cleaned) >= 3 else raw
 
 
+def clean_chapter_title(raw: Any, fallback: str = "STEM Curriculum Assessment") -> str:
+    """Sanitize and format a curriculum chapter title:
+    - Removes problem statements, narrative fluff ('The Problem', 'Problem Statement')
+    - Strips activity/module/chapter/project numbers and prefixes
+    - Strips file extensions, brackets, quotes, extra punctuation
+    - Preserves STEM acronyms (IoT, PIR, DC, PWM, LED, OLED, LCD, RFID, GPS, ADC, I2C, SPI)
+    - Enforces length: concise 2 to 5 words, max 45 characters (not too long)
+    """
+    if not raw:
+        return fallback
+
+    text = _CONTROL_CHARS_RE.sub("", str(raw)).strip()
+    if not text:
+        return fallback
+
+    # Take first line if multiple to prevent swallowing following section headers
+    first_line = text.splitlines()[0].strip()
+
+    # Strip prefixes like "Chapter Name:", "Project:", "Activity 1:", etc.
+    s = re.sub(
+        r"^(?:chapter|project|activity|title|module|unit|topic|lesson|p)\s*(?:name)?\s*[\:\-]\s*",
+        "", first_line, flags=re.I
+    )
+    s = re.sub(r"^[\d._\-]+\s*", "", s)
+    s = re.sub(r"\.pdf$", "", s, flags=re.I)
+    s = s.replace("_", " ")
+    s = re.sub(r"\s*-\s*merged\s*assessment\s*$", "", s, flags=re.I)
+    s = re.sub(r"\s*[\(\[][\s\S]*?[\)\]]", "", s)
+
+    # Strip problem statement & assignment noise
+    noise_patterns = [
+        r"\bthe\s+problem\s*(?:statement)?\b",
+        r"\bproblem\s*statement\b",
+        r"\bwhat\s+will\s+we\s+build\b",
+        r"\b(?:activity|project|module|unit|chapter|lesson|topic|p)\s*[\:\-]?\s*\d+\b",
+        r"\b(?:student|instructor|teacher)\s*(?:handout|worksheet|guide|manual)\b",
+        r"\b(?:worksheet|lab\s+manual|curriculum\s+guide|assessment\s+paper|merged\s+assessment)\b",
+    ]
+    for p in noise_patterns:
+        s = re.sub(p, "", s, flags=re.I)
+
+    # Clean characters and whitespace
+    s = re.sub(r"[^A-Za-z0-9\s\&\-\']", " ", s)
+    s = re.sub(r"\s+", " ", s).strip(" -:;,./\\\"'|")
+
+    if len(s) < 3 or s.lower() in ("stem", "curriculum", "assessment", "merged", "quiz", "paper"):
+        return fallback
+
+    # Title Case while preserving standard STEM acronyms
+    words = s.split()
+    cap_words = []
+    acronyms = {
+        "STEM", "IOT", "PIR", "DC", "PWM", "LED", "RGB", "OLED", "LCD",
+        "RFID", "GPS", "ADC", "I2C", "SPI", "UART", "AI", "HC-SR04", "DHT11", "L298N"
+    }
+    lower_words = {"and", "&", "of", "in", "for", "with", "the"}
+
+    for w in words:
+        w_clean = w.strip(" -")
+        if w_clean.upper() in acronyms:
+            cap_words.append(w_clean.upper())
+        elif w_clean.lower() in lower_words and cap_words:
+            cap_words.append(w_clean.lower())
+        else:
+            cap_words.append(w_clean.capitalize())
+
+    result = " ".join(cap_words)
+
+    # Length guard: "not too long" (max ~45 chars, word-bounded)
+    if len(result) > 45:
+        truncated = result[:45].rsplit(" ", 1)[0]
+        if len(truncated) >= 5:
+            result = truncated
+
+    return result or fallback
+
+
+_STEM_KNOWN_SYSTEMS: List[Tuple[re.Pattern, str]] = [
+    (re.compile(r"\bterrain\s+rover\b", re.I), "Terrain Rover"),
+    (re.compile(r"\bsmart\s+irrigation\b", re.I), "Smart Irrigation System"),
+    (re.compile(r"\btraffic\s+light\s+(?:controller|system)?\b", re.I), "Traffic Light Controller"),
+    (re.compile(r"\bcrop\s+ripeness\b", re.I), "Crop Ripeness Detection"),
+    (re.compile(r"\bobstacle\s+avoid(?:ance|ing)?\b", re.I), "Obstacle Avoidance System"),
+    (re.compile(r"\bline\s+follow(?:er|ing)?\b", re.I), "Line Follower Robot"),
+    (re.compile(r"\bsolar\s+tracker\b", re.I), "Solar Tracking System"),
+    (re.compile(r"\bweather\s+station\b", re.I), "Digital Weather Station"),
+    (re.compile(r"\bhome\s+automation\b", re.I), "Home Automation System"),
+    (re.compile(r"\bsmart\s+dustbin\b", re.I), "Touchless Smart Dustbin"),
+    (re.compile(r"\bradars?\s+system\b", re.I), "Ultrasonic Radar System"),
+    (re.compile(r"\bwater\s+level\b", re.I), "Water Level Indicator"),
+]
+
+_STEM_TOPIC_DOMAINS: List[Tuple[re.Pattern, str]] = [
+    (re.compile(r"\b(rover|robot|chassis|autonomous\s+vehicle)\b", re.I), "Robotics"),
+    (re.compile(r"\b(ultrasonic|distance|radar|sonar|hc-sr04)\b", re.I), "Ultrasonic Sensing"),
+    (re.compile(r"\b(dc\s+motor|stepper|servo|actuator|h-bridge|l298n)\b", re.I), "Motor Actuation"),
+    (re.compile(r"\b(dht11|temperature|humidity|environmental)\b", re.I), "Environmental Sensing"),
+    (re.compile(r"\b(pir|motion|infrared|presence)\b", re.I), "Motion Detection"),
+    (re.compile(r"\b(soil\s+moisture|irrigation|water\s+pump)\b", re.I), "Moisture & Fluid Systems"),
+    (re.compile(r"\b(traffic\s+light|led\s+signals?)\b", re.I), "Signaling Systems"),
+]
+
+
+def infer_curriculum_chapter_title(
+    resources: Dict[str, str],
+    filenames: Optional[List[str]] = None,
+    default_title: str = "STEM Curriculum Assessment",
+) -> str:
+    """Analyze the combined curriculum corpus across all uploaded PDFs to derive an
+    insightful, proper chapter title that reflects the core topics and hardware systems.
+    Guarantees a clean, concise result (3-5 words, max 45 chars).
+    """
+    filenames = filenames or []
+    snippets = []
+    for k, v in (resources or {}).items():
+        snippets.append(k)
+        if isinstance(v, str):
+            snippets.append(v[:1500])
+    corpus = " ".join(snippets) + " " + " ".join(filenames)
+
+    # 1. Match specific STEM systems with contextual refinement
+    for pattern, sys_name in _STEM_KNOWN_SYSTEMS:
+        if pattern.search(corpus):
+            if sys_name == "Terrain Rover":
+                if re.search(r"\b(obstacle|ultrasonic|sensor|robotics|autonomous)\b", corpus, re.I):
+                    return "Terrain Rover Robotics"
+                return "Terrain Rover System"
+            return clean_chapter_title(sys_name)
+
+    # 2. Check for explicit "Project: <name>" or "Title: <name>" inside the text
+    for pattern in _TITLE_PATTERNS:
+        m = pattern.search(corpus[:4000])
+        if m:
+            candidate = clean_chapter_title(m.group(1))
+            if candidate and candidate != "STEM Curriculum Assessment" and len(candidate) >= 4:
+                return candidate
+
+    # 3. Derive from top technical domains taught across the documents
+    matched_domains = []
+    for pattern, domain in _STEM_TOPIC_DOMAINS:
+        if pattern.search(corpus) and domain not in matched_domains:
+            matched_domains.append(domain)
+            if len(matched_domains) == 2:
+                break
+
+    if len(matched_domains) == 2:
+        return f"{matched_domains[0]} & {matched_domains[1]}"
+    if len(matched_domains) == 1:
+        return f"{matched_domains[0]} Fundamentals"
+
+    # 4. Check filenames
+    for fn in filenames:
+        candidate = clean_chapter_title(fn)
+        if candidate and candidate != "STEM Curriculum Assessment" and len(candidate) >= 4:
+            return candidate
+
+    return default_title
+
+
 def detect_project_title(pdf_text: str, filename: str = "") -> str:
-    head = str(pdf_text or "")[:2500]
+    head = str(pdf_text or "")[:3000]
     for pattern in _TITLE_PATTERNS:
         m = pattern.search(head)
         if m:
-            candidate = m.group(1).strip()
-            cleaned = clean_title_brackets(candidate)
-            if valid_project_title(cleaned):
-                return cleaned
+            candidate = clean_chapter_title(m.group(1))
             if valid_project_title(candidate):
                 return candidate
 
+    for pattern, sys_name in _STEM_KNOWN_SYSTEMS:
+        if pattern.search(head):
+            if sys_name == "Terrain Rover":
+                return "Terrain Rover Robotics"
+            return sys_name
+
     if filename:
-        name = _FILENAME_PREFIX_RE.sub("", str(filename))
-        name = re.sub(r"\.pdf$", "", name, flags=_I).strip().replace("_", " ").strip()
-        cleaned = re.sub(r"[\(\)]", "", clean_title_brackets(name)).strip()
-        if valid_project_title(cleaned):
-            return cleaned
+        candidate = clean_chapter_title(filename)
+        if valid_project_title(candidate):
+            return candidate
 
     return "STEM Curriculum Assessment"
 
 
 def _safe_chapter_name(value: Any, fallback: str = "STEM Curriculum Assessment") -> str:
-    """Model-supplied titles are untrusted: strip control chars and bound length."""
-    text = _CONTROL_CHARS_RE.sub("", str(value or "")).strip()[:200]
-    return text or fallback
+    """Model-supplied titles are untrusted: clean, bound, and strip fluff."""
+    return clean_chapter_title(value, fallback=fallback)
 
 
 # =========================================================
@@ -405,11 +565,12 @@ TYPE_INSTRUCTIONS: Dict[str, str] = {
         "   - Logical & Conceptual Reasoning"
     ),
     "pre_assembly": (
-        "Type: PRE-ASSEMBLY SAFETY & READINESS CHECK. "
-        "Generate objective multiple choice questions (type: 'mcq') each with 4 distinct options (A, B, C, D) "
-        "verifying component ratings, short-circuit hazards, breadboard power buses, "
-        "pin modes, and safety checks before hands-on physical wiring. "
-        "STRICTLY EXCLUDE code snippets, circuit diagram drawings, and project-specific pin numbers."
+        "Type: PRE-ASSEMBLY SAFETY & READINESS CHECK (EXACTLY 3 MCQS).\n"
+        "Generate exactly 3 multiple choice questions (type: 'mcq') with 4 distinct options (A, B, C, D) and exactly 1 correct answer each:\n"
+        "1. Question 1 (PICTURE-BASED): Must be a component or sensor identification/function question directly based on the reference image (e.g. 'Identify the hardware component or sensor shown in the reference image' or 'What is the primary function of the sensor shown in the reference image?'). Set 'image_index': 1.\n"
+        "2. Question 2 (SIMPLE MCQ): Standard text multiple choice question testing component pin counts, electrical ratings, or operating voltage (NO picture).\n"
+        "3. Question 3 (SIMPLE MCQ): Standard text multiple choice question testing sensor working principles, hardware safety, or logical reasoning (NO picture).\n"
+        "STRICTLY EXCLUDE code snippets, programming syntax, and circuit diagram drawings."
     ),
     "mixed": (
         "Type: COMPREHENSIVE MIXED CHAPTER EXAM (EXACTLY 10 QUESTIONS: 5 MCQs INCLUDING 2 SCENARIO-BASED + 5 TRUE/FALSE).\n"
@@ -438,6 +599,51 @@ TYPE_INSTRUCTIONS: Dict[str, str] = {
     ),
 }
 
+
+def get_type_instruction(assessment_type: str, question_count: int = 10, has_images: bool = False) -> str:
+    """Return calibrated prompt instructions tailored to the chosen assessment architecture."""
+    a_type = str(assessment_type or "").strip().lower()
+    target = max(3, min(int(question_count or 10), 25))
+
+    if target == 3 or a_type == "pre_assembly":
+        if has_images:
+            return (
+                "Type: 3 OBJECTIVE MULTIPLE CHOICE QUESTIONS (MCQ).\n"
+                "You MUST generate exactly 3 multiple choice questions (type: 'mcq') with 4 distinct options (A, B, C, D) and exactly 1 correct answer each:\n"
+                "1. Question 1 (PICTURE-BASED): MUST be a component or sensor identification/function question directly based on the reference image (e.g. 'Identify the hardware component or sensor shown in the reference image' or 'What is the primary function of the sensor shown in the reference image?'). Set 'image_index': 1.\n"
+                "2. Question 2 (SIMPLE MCQ): Standard text multiple choice question testing component pin counts, electrical ratings, or operating voltage (NO picture).\n"
+                "3. Question 3 (SIMPLE MCQ): Standard text multiple choice question testing sensor working principles, hardware safety, or logical reasoning (NO picture).\n"
+                "STRICTLY EXCLUDE code snippets, programming syntax, and circuit diagram drawings."
+            )
+        return (
+            "Type: 3 OBJECTIVE MULTIPLE CHOICE QUESTIONS (MCQ).\n"
+            "You MUST generate exactly 3 multiple choice questions (type: 'mcq') with 4 distinct options (A, B, C, D) and exactly 1 correct answer each:\n"
+            "1. Question 1: Component identification and primary operating function of the main sensor/hardware component.\n"
+            "2. Question 2: Component pin counts, electrical ratings, or operating voltage.\n"
+            "3. Question 3: Sensor working principles, hardware safety, or logical reasoning.\n"
+            "STRICTLY EXCLUDE code snippets, programming syntax, and circuit diagram drawings."
+        )
+
+    if a_type == "mixed":
+        mcq_count = max(2, round(target * 0.5))
+        tf_count = target - mcq_count
+        scenario_count = max(1, round(mcq_count * 0.4))
+        std_mcq_count = mcq_count - scenario_count
+        return (
+            f"Type: COMPREHENSIVE MIXED CHAPTER EXAM (TOTAL {target} QUESTIONS: "
+            f"{mcq_count} MCQs INCLUDING {scenario_count} SCENARIO-BASED + {tf_count} TRUE/FALSE).\n"
+            f"You MUST generate exactly {target} questions with this exact composition across two mandatory sections:\n"
+            f"1. Exactly {mcq_count} Multiple Choice Questions (type: 'mcq') including:\n"
+            f"   - Exactly {std_mcq_count} Standard MCQs focusing on component identification, functions, and pin counts. "
+            f"Each must have 4 distinct options (A, B, C, D) and exactly 1 correct answer.\n"
+            f"   - Exactly {scenario_count} Situation/Scenario-Based MCQs testing practical real-world hardware troubleshooting and edge cases. "
+            f"Each MUST include a realistic 'scenario' field, a practical diagnostic question, 4 distinct options (A, B, C, D), and exactly 1 correct answer.\n"
+            f"2. Exactly {tf_count} Conceptual True/False Questions (type: 'true_false') testing digital logic, pull-up/down resistors, electrical ratings, active-low/high signals, and common hardware misconceptions. "
+            f"For True/False questions, 'options' MUST be EXACTLY {{'A': 'True', 'B': 'False'}} and 'answer' must be 'A' or 'B'.\n"
+            f"STRICTLY EXCLUDE code snippets, programming syntax, circuit diagram drawings, and project-specific pin numbers."
+        )
+    return TYPE_INSTRUCTIONS.get(a_type, "Standard Assessment.")
+
 _PROMPT_TEMPLATE = Template("""You are an elite STEM educator and exam designer for the EDINNO curriculum system.
 Generate an official examination paper for: "$project_title".
 
@@ -446,7 +652,8 @@ REQUIREMENTS:
 - Cognitive Difficulty: $difficulty_upper ($diff_instruction)
 - $type_instruction
 - Questions must test the components, physical principles, and hardware concepts in the source curriculum.
-- STRICTLY NO project names, NO activity titles, NO problem stories, NO wiring steps, NO code snippets.
+- For "chapter_name", synthesize a concise, insightful STEM chapter title (3 to 5 words, max 45 characters) summarizing the core subject, domain, or technology taught across the curriculum (e.g. "Terrain Rover System", "Ultrasonic Sensing & Motor Actuation", "Smart Irrigation & Soil Sensors"). STRICTLY NEVER include narrative fluff like "The Problem", "Problem Statement", activity numbers, or worksheet prefixes.
+- STRICTLY NO project names in question text or options (all questions must test generalized STEM/electronics concepts), NO activity titles, NO problem stories, NO wiring steps, NO code snippets.
 - STRICTLY NO generic placeholders, NO duplicate questions, and NO rote copying of full sentences.
 - For MCQs (type: "mcq"), ensure 4 distinct options (A, B, C, D) with exactly one factually correct answer explicitly present.
 - For True/False questions (type: "true_false"), options MUST be {"A": "True", "B": "False"} and answer MUST be "A" or "B".
@@ -455,7 +662,7 @@ REQUIREMENTS:
 
 JSON SCHEMA:
 {
-  "chapter_name": "$project_title",
+  "chapter_name": "Concise, insightful STEM chapter title (3-5 words, max 45 chars)",
   "questions": [
     {
       "type": "mcq",
@@ -468,7 +675,8 @@ JSON SCHEMA:
         "D": "Plausible option text"
       },
       "answer": "B",
-      "explanation": "Clear explanation citing technical principle, pin count, or component function."
+      "explanation": "Clear explanation citing technical principle, pin count, or component function.",
+      "image_index": 1
     },
     {
       "type": "true_false",
@@ -494,18 +702,35 @@ def build_prompt(
     question_count: int,
     difficulty: str,
     content: str,
+    images: Optional[List[Dict[str, Any]]] = None,
 ) -> str:
     difficulty = str(difficulty or "medium").strip().lower()
     # Titles are regex-derived from untrusted text: neutralise quotes/newlines before embedding.
     safe_title = re.sub(r"[\"\\\r\n\t]+", " ", _CONTROL_CHARS_RE.sub("", str(project_title or ""))).strip()[:90]
     max_chars = int(getattr(settings, "CHAPTER_CONTEXT_CHARS", DEFAULT_CONTEXT_CHARS) or DEFAULT_CONTEXT_CHARS)
 
+    type_instruction = get_type_instruction(assessment_type, question_count, has_images=bool(images))
+    if images:
+        img_lines = []
+        for i, img in enumerate(images, start=1):
+            cap = (img.get("caption") or "").strip()
+            line = f"- Image {i}: Component/Diagram" + (f" ({cap})" if cap else "")
+            img_lines.append(line)
+        type_instruction += (
+            "\n\nATTACHED COMPONENT IMAGES:\n"
+            f"The following {len(images)} component/schematic image(s) from the PDF are attached to this prompt:\n"
+            + "\n".join(img_lines)
+            + "\nVISUAL COMPONENT QUESTION REQUIREMENT:\n"
+            "- Generate at least one Question testing the student on identifying the hardware component, pin configuration, or diagram function shown in the attached image(s).\n"
+            "- In that question's JSON object, include 'image_index': <1-based integer> referencing the image used."
+        )
+
     return _PROMPT_TEMPLATE.safe_substitute(
         project_title=safe_title or "STEM Curriculum Assessment",
         question_count=int(question_count),
         difficulty_upper=difficulty.upper(),
         diff_instruction=DIFFICULTY_INSTRUCTIONS.get(difficulty, "Standard curriculum level."),
-        type_instruction=TYPE_INSTRUCTIONS.get(str(assessment_type or "").lower(), "Standard Assessment."),
+        type_instruction=type_instruction,
         source_content=compact_source_content(content, max_chars),
     )
 
@@ -561,13 +786,43 @@ def select_gemini_keys_for_request(all_keys: Optional[List[str]] = None) -> List
 _ATTEMPT_OK, _ATTEMPT_NEXT_MODEL, _ATTEMPT_NEXT_KEY = "ok", "next_model", "next_key"
 
 
-def _gemini_attempt(key: str, model_name: str, prompt: str) -> Tuple[str, Any]:
+def _gemini_attempt(
+    key: str,
+    model_name: str,
+    prompt: str,
+    images: Optional[List[Dict[str, Any]]] = None,
+) -> Tuple[str, Any]:
     """One Gemini request. Returns (action, parsed_or_error)."""
     masked = mask_secret(key)
     url = GEMINI_URL_TEMPLATE.format(model=model_name)
     headers = {"x-goog-api-key": key}                   # never put the key in the URL
+
+    parts: List[Dict[str, Any]] = [{"text": prompt}]
+    if images:
+        for img in images:
+            data_uri = str(img.get("image_data") or "")
+            if not data_uri:
+                continue
+            mime = str(img.get("mime_type") or "image/jpeg")
+            if "," in data_uri:
+                hdr, b64_payload = data_uri.split(",", 1)
+                if "image/png" in hdr:
+                    mime = "image/png"
+                elif "image/jpeg" in hdr or "image/jpg" in hdr:
+                    mime = "image/jpeg"
+            else:
+                b64_payload = data_uri
+
+            if b64_payload:
+                parts.append({
+                    "inline_data": {
+                        "mime_type": mime,
+                        "data": b64_payload.strip(),
+                    }
+                })
+
     payload = {
-        "contents": [{"parts": [{"text": prompt}]}],
+        "contents": [{"parts": parts}],
         "generationConfig": {
             "response_mime_type": "application/json",
             "temperature": GENERATION_TEMPERATURE,
@@ -620,6 +875,7 @@ def call_gemini(
     prompt: str,
     model: Optional[str] = None,
     api_key: Optional[str] = None,
+    images: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     primary = model or getattr(settings, "GEMINI_MODEL", None) or DEFAULT_GEMINI_MODEL
     models_to_try = [primary]
@@ -645,7 +901,7 @@ def call_gemini(
         for model_name in models_to_try:
             logger.info("Calling Google Gemini (%s) key attempt #%d/%d [%s]...",
                         model_name, attempt, max_key_attempts, mask_secret(key))
-            action, value = _gemini_attempt(key, model_name, prompt)
+            action, value = _gemini_attempt(key, model_name, prompt, images=images)
             if action == _ATTEMPT_OK:
                 return value
             last_err = value
@@ -892,10 +1148,10 @@ def clean_and_filter_assessment_questions(
     chapter_content: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
-    Enforce the merged-assessment rules:
-    - MUST INCLUDE component ID/functions, pin counts, scenarios and logical reasoning.
+    Enforce merged-assessment rules on AI-generated questions:
     - MUST EXCLUDE coding, circuit-diagram, project-specific and wiring questions.
-    - No duplicates; balanced category coverage; backfilled from the knowledge bank.
+    - Zero duplicates.
+    - Strictly use AI-generated questions with zero mock or hardcoded backfilling.
     """
     valid: List[Dict[str, Any]] = []
 
@@ -909,39 +1165,6 @@ def clean_and_filter_assessment_questions(
         q = dict(original)                      # never mutate the caller's data
         q["category"] = q["section"] = classify_question_category(q)
         valid.append(q)
-
-    if chapter_content:
-        # 1) Make sure every mandatory category is present
-        present = {v.get("category") for v in valid}
-        missing = [c for c in CORE_CATEGORIES if c not in present]
-        if missing:
-            for sq in synthesize_parameter_questions_from_content(chapter_content, len(missing), missing):
-                if _is_duplicate(sq, valid):
-                    continue
-                if len(valid) < target_count:
-                    valid.append(sq)
-                    continue
-                # Full: swap out one question from the most over-represented category
-                counts = _category_counts(valid)
-                top = max(counts, key=counts.get)
-                if counts[top] > 1:
-                    for idx in range(len(valid) - 1, -1, -1):
-                        if valid[idx].get("category") == top:
-                            valid[idx] = sq
-                            break
-
-        # 2) Fill any remaining slots, favouring the least-represented categories
-        if len(valid) < target_count:
-            counts = _category_counts(valid)
-            order = sorted(CORE_CATEGORIES, key=lambda c: counts.get(c, 0))
-            for sq in synthesize_parameter_questions_from_content(
-                chapter_content, target_count - len(valid), order,
-            ):
-                if _is_duplicate(sq, valid):
-                    continue
-                valid.append(sq)
-                if len(valid) >= target_count:
-                    break
 
     for idx, item in enumerate(valid, start=1):
         item["id"] = idx
@@ -982,6 +1205,12 @@ def _normalize_one(q: Dict[str, Any], idx: int, assessment_type: str) -> Dict[st
         "scenario": scenario,
         "marks": _parse_marks(q.get("marks", 1)),
     }
+    if q.get("image_index") is not None:
+        item["image_index"] = q["image_index"]
+    if q.get("image_data"):
+        item["image_data"] = q["image_data"]
+    if q.get("image_caption"):
+        item["image_caption"] = q["image_caption"]
 
     if q_type in _TF_TYPES:
         item["type"] = "true_false"
@@ -1050,16 +1279,16 @@ class _ProviderSpec:
 # Lambdas defer the global lookup so the call_* functions stay patchable in tests.
 _PROVIDERS: Tuple[_ProviderSpec, ...] = (
     _ProviderSpec("gemini", "Google Gemini",
-                  lambda p, model=None, api_key=None: call_gemini(p, model=model, api_key=api_key),
+                  lambda p, model=None, api_key=None, images=None, **kw: call_gemini(p, model=model, api_key=api_key, images=images),
                   "_gemini_model", lambda: getattr(settings, "GEMINI_MODEL", None)),
     _ProviderSpec("groq", "Groq",
-                  lambda p, model=None, api_key=None: call_groq(p, model=model, api_key=api_key),
+                  lambda p, model=None, api_key=None, **kw: call_groq(p, model=model, api_key=api_key),
                   "_groq_model", lambda: getattr(settings, "GROQ_MODEL", None), accepts_api_key=True),
     _ProviderSpec("openrouter", "OpenRouter",
-                  lambda p, model=None, api_key=None: call_openrouter(p, model=model, api_key=api_key),
+                  lambda p, model=None, api_key=None, **kw: call_openrouter(p, model=model, api_key=api_key),
                   "_openrouter_model", lambda: getattr(settings, "OPENROUTER_MODEL", None), accepts_api_key=True),
     _ProviderSpec("ollama", "Local Ollama",
-                  lambda p, model=None, api_key=None: call_ollama(p, model=model),
+                  lambda p, model=None, api_key=None, **kw: call_ollama(p, model=model),
                   None, lambda: getattr(settings, "STANDARD_MODEL", None), accepts_api_key=False),
 )
 _PROVIDER_BY_NAME = {spec.name: spec for spec in _PROVIDERS}
@@ -1076,6 +1305,7 @@ def _finalize(
     difficulty: str,
     content: str,
     default_title: str,
+    images: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     if a_type == "merged_conceptual":
         final = clean_and_filter_assessment_questions(
@@ -1086,26 +1316,81 @@ def _finalize(
         mcqs = [q for q in cleaned if q.get("type") == "mcq" and not q.get("scenario")]
         scenarios = [q for q in cleaned if q.get("type") == "mcq" and q.get("scenario")]
         tfs = [q for q in cleaned if q.get("type") == "true_false"]
-        if len(mcqs) < 3 or len(scenarios) < 2 or len(tfs) < 5:
-            final = get_curriculum_component_questions(content, target_count=10, assessment_type="mixed")
-        else:
-            final = (mcqs[:3] + scenarios[:2] + tfs[:5])
+
+        target_mcq = max(2, round(target_count * 0.5))
+        target_tf = target_count - target_mcq
+        target_scenario = max(1, round(target_mcq * 0.4))
+        target_std_mcq = target_mcq - target_scenario
+
+        final = (mcqs[:target_std_mcq] + scenarios[:target_scenario] + tfs[:target_tf])
+        if len(final) < target_count and len(cleaned) > len(final):
+            remaining = [q for q in cleaned if q not in final]
+            final = (final + remaining)[:target_count]
         for idx, item in enumerate(final, start=1):
             item["id"] = idx
     else:
         cleaned = [q for q in questions if not any(check(q) for check in _EXCLUSION_CHECKS)]
-        if len(cleaned) < target_count:
-            more = get_curriculum_component_questions(content, target_count=target_count, assessment_type=a_type)
-            for m in more:
-                if len(cleaned) >= target_count:
-                    break
-                if not _is_duplicate(m, cleaned):
-                    cleaned.append(m)
         final = cleaned[:target_count]
         for idx, item in enumerate(final, start=1):
             item["id"] = idx
+
+    # Bind images to questions if available
+    if images and final:
+        if target_count == 3 or a_type == "pre_assembly":
+            # Exactly 1 picture-based MCQ on component or sensor (Question 1)
+            final[0]["image_data"] = images[0].get("image_data")
+            final[0]["image_caption"] = images[0].get("caption") or "Component / Sensor Reference Diagram"
+            if not final[0].get("category") or final[0].get("category") == "General":
+                final[0]["category"] = "Component Identification"
+
+            q0_text = final[0].get("question", "")
+            if not any(k in q0_text.lower() for k in ("image", "shown", "diagram", "picture", "figure", "photo", "reference")):
+                final[0]["question"] = f"Based on the reference image below, {q0_text[0].lower() + q0_text[1:]}"
+
+            # Ensure rest two questions are simple MCQs without images
+            for q in final[1:]:
+                q["image_data"] = None
+                q["image_caption"] = None
+                q.pop("image_index", None)
+        elif a_type == "mixed":
+            # In a Comprehensive Mixed Exam, attach the component/sensor diagram to Question 1 (Component Identification)
+            final[0]["image_data"] = images[0].get("image_data")
+            final[0]["image_caption"] = images[0].get("caption") or "Component Reference Diagram"
+            if not final[0].get("category") or final[0].get("category") == "General":
+                final[0]["category"] = "Component Identification"
+
+            q0_text = final[0].get("question", "")
+            if not any(k in q0_text.lower() for k in ("image", "shown", "diagram", "picture", "figure", "photo", "reference")):
+                final[0]["question"] = f"Based on the reference image below, {q0_text[0].lower() + q0_text[1:]}"
+
+            # Keep remaining questions as clean text MCQs and True/False questions
+            for q in final[1:]:
+                q["image_data"] = None
+                q["image_caption"] = None
+                q.pop("image_index", None)
+        else:
+            used_image_indices = set()
+            for q in final:
+                idx = q.get("image_index")
+                if isinstance(idx, int) and 1 <= idx <= len(images):
+                    img = images[idx - 1]
+                    q["image_data"] = img.get("image_data")
+                    q["image_caption"] = img.get("caption") or f"Component Reference Diagram {idx}"
+                    used_image_indices.add(idx)
+
+            # Fallback: if no question was explicitly tagged by image_index, attach to a component question
+            if not used_image_indices:
+                for q in final:
+                    cat = (q.get("category") or "").lower()
+                    q_text = (q.get("question") or "").lower()
+                    if "component" in cat or "pin" in cat or "image" in q_text or "shown" in q_text or "identify" in q_text:
+                        q["image_data"] = images[0].get("image_data")
+                        q["image_caption"] = images[0].get("caption") or "Component Reference Diagram"
+                        used_image_indices.add(1)
+                        break
+
     return {
-        "chapter_name": clean_title_brackets(_safe_chapter_name(chapter_name, default_title)),
+        "chapter_name": clean_chapter_title(chapter_name or default_title),
         "questions": final,
         "provider_used": provider_label,
         "model_used": model_name,
@@ -1121,6 +1406,7 @@ def generate_assessment(
     model: Optional[str] = None,
     rejected_questions: Optional[List[str]] = None,   # reserved; accepted for API compatibility
     api_key: Optional[str] = None,
+    available_images: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     content = str(chapter_content or "").strip()
     if not content:
@@ -1132,23 +1418,31 @@ def generate_assessment(
     difficulty = str(difficulty or "medium").strip().lower()
     project_title = detect_project_title(content)
 
-    if a_type == "mixed":
-        target_count = 10
-    else:
-        try:
-            requested = int(question_count or 5)
-        except (TypeError, ValueError):
-            requested = 5
-        target_count = max(3, min(requested, 25))
+    try:
+        default_count = 3 if a_type == "pre_assembly" else (10 if a_type == "mixed" else 5)
+        requested = int(question_count or default_count)
+    except (TypeError, ValueError):
+        requested = 3 if a_type == "pre_assembly" else (10 if a_type == "mixed" else 5)
+    target_count = max(3, min(requested, 25))
 
-    prompt = build_prompt(project_title, a_type, target_count, difficulty, content)
+    safe_images: Optional[List[Dict[str, Any]]] = list(available_images[:5]) if available_images else []
+    if not safe_images:
+        try:
+            from app.services.sensor_library import get_sensor_image_for_curriculum
+            local_img = get_sensor_image_for_curriculum(content)
+            if local_img:
+                safe_images = [local_img]
+        except Exception as _sl_exc:
+            logger.warning("Sensor library lookup skipped: %s", _sl_exc)
+    safe_images = safe_images or None
+    prompt = build_prompt(project_title, a_type, target_count, difficulty, content, images=safe_images)
 
     def attempt(spec: _ProviderSpec, call_model: Optional[str], call_key: Optional[str],
                 min_questions: int) -> Optional[Dict[str, Any]]:
         """Run one provider; return a finalized result, or None to continue the cascade."""
         logger.info("Executing assessment generation via %s...", spec.label)
         try:
-            res = spec.call(prompt, model=call_model, api_key=call_key if spec.accepts_api_key else None)
+            res = spec.call(prompt, model=call_model, api_key=call_key if spec.accepts_api_key else None, images=safe_images)
             questions = normalize_questions(res.get("questions", []), assessment_type=a_type)
             if len(questions) < min_questions:
                 raise ValueError(f"{spec.label} returned too few questions ({len(questions)}).")
@@ -1157,6 +1451,7 @@ def generate_assessment(
                 questions, res.get("chapter_name", project_title), spec.label, used_model,
                 a_type=a_type, target_count=target_count, difficulty=difficulty,
                 content=content, default_title=project_title,
+                images=safe_images,
             )
         except Exception as exc:
             logger.warning("%s step failed: %s. Cascading...", spec.label, redact_secrets(str(exc)))
@@ -1179,14 +1474,11 @@ def generate_assessment(
         if result:
             return result
 
-    logger.info("All AI providers unavailable. Engaging dynamic text synthesizer...")
-    fallback = fallback_synthesizer(content, a_type, question_count=target_count)
-    if a_type == "merged_conceptual":
-        fallback["questions"] = clean_and_filter_assessment_questions(
-            fallback.get("questions", []),
-            target_count=target_count, difficulty=difficulty, chapter_content=content,
-        )
-    return fallback
+    logger.error("All AI providers (Gemini/Groq/OpenRouter/Ollama) unavailable or failed.")
+    raise RuntimeError(
+        "AI assessment generation failed: Unable to connect to configured AI providers (Google Gemini / Groq / OpenRouter). "
+        "Please check your GEMINI_API_KEY, internet connection, and model availability."
+    )
 
 
 # =========================================================
@@ -1199,6 +1491,7 @@ def generate_merged_assessment(
     difficulty: str = "medium",
     provider: str = "auto",
     model: Optional[str] = None,
+    available_images: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """
     Merged question paper over the supplied curriculum.
@@ -1223,17 +1516,16 @@ def generate_merged_assessment(
         raw = generate_assessment(
             chapter_content=content, assessment_type="merged_conceptual",
             question_count=target_count, difficulty=difficulty, provider=provider, model=model,
+            available_images=available_images,
         )
         questions = raw.get("questions", [])
     except Exception as exc:
-        logger.warning("Merged assessment generation failed (%s). Synthesizing from content.",
-                       redact_secrets(str(exc)))
-        raw = {}
-        questions = []
+        logger.error("Merged assessment generation failed: %s", redact_secrets(str(exc)))
+        raise RuntimeError(f"AI assessment generation failed: {exc}") from exc
 
     if not questions:
-        questions = clean_and_filter_assessment_questions(
-            [], target_count=target_count, difficulty=difficulty, chapter_content=content,
+        raise RuntimeError(
+            "AI returned no valid questions for the supplied curriculum content. Please verify your curriculum text or prompt."
         )
 
     sections: Dict[str, int] = {}
@@ -1241,12 +1533,11 @@ def generate_merged_assessment(
         cat = q.get("category", "General")
         sections[cat] = sections.get(cat, 0) + 1
 
-    title = detect_project_title(content)
-    label = (
-        f"{title} - Merged Assessment"
-        if title and title != "STEM Curriculum Assessment"
-        else "Merged Curriculum Assessment"
-    )
+    raw_title = raw.get("chapter_name")
+    if raw_title and clean_chapter_title(raw_title) not in ("STEM Curriculum Assessment", "STEM Assessment"):
+        label = clean_chapter_title(raw_title)
+    else:
+        label = infer_curriculum_chapter_title({"curriculum": content}, default_title="STEM Curriculum Assessment")
     provider_name = str(provider or "auto")
 
     return {

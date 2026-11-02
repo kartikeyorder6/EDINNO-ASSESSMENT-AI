@@ -104,9 +104,29 @@ class Settings(BaseSettings):
     # Auth & Verification Controls
     ADMIN_API_TOKEN: Optional[str] = Field(default=None, repr=False)
     ENFORCE_SERVER_SIDE_GRADING: bool = Field(default=False)
+    RATE_LIMIT_PER_MINUTE: int = Field(default=120, ge=0)
 
     # Logging
     LOG_LEVEL: str = "INFO"
+
+    # Google Drive Integration (Centralized Organization Workspace & OAuth 2.0)
+    GOOGLE_DRIVE_ENABLED: bool = Field(default=True)
+    GOOGLE_CLIENT_ID: Optional[str] = Field(default=None)
+    GOOGLE_CLIENT_SECRET: Optional[str] = Field(default=None, repr=False)
+    GOOGLE_REDIRECT_URI: str = Field(default="http://localhost:8000/api/v1/drive/auth/callback")
+    GOOGLE_DRIVE_REFRESH_TOKEN: Optional[str] = Field(default=None, repr=False)
+    GOOGLE_SERVICE_ACCOUNT_JSON: Optional[str] = Field(default=None, repr=False)
+    GOOGLE_SERVICE_ACCOUNT_PATH: Optional[str] = Field(default=None)
+    GOOGLE_DRIVE_WORKSPACE_ROOT_ID: Optional[str] = Field(default=None)
+    GOOGLE_DRIVE_DELEGATED_USER: Optional[str] = Field(default=None)
+    GOOGLE_DRIVE_WEBHOOK_URL: Optional[str] = Field(default=None)
+
+    # Cloudinary PDF Storage Configuration
+    CLOUDINARY_CLOUD_NAME: Optional[str] = Field(default=None)
+    CLOUDINARY_API_KEY: Optional[str] = Field(default=None)
+    CLOUDINARY_API_SECRET: Optional[str] = Field(default=None, repr=False)
+    CLOUDINARY_URL: Optional[str] = Field(default=None, repr=False)
+    CLOUDINARY_FOLDER_PREFIX: str = Field(default="edinno_curriculum")
 
     model_config = SettingsConfigDict(
         env_file=_ENV_FILE,
@@ -122,7 +142,17 @@ class Settings(BaseSettings):
     def _parse_list_fields(cls, value: Any) -> Any:
         return _coerce_list(value)
 
-    @field_validator("GEMINI_API_KEY", "GROQ_API_KEY", "OPENROUTER_API_KEY", mode="before")
+    @field_validator(
+        "GEMINI_API_KEY",
+        "GROQ_API_KEY",
+        "OPENROUTER_API_KEY",
+        "GOOGLE_SERVICE_ACCOUNT_JSON",
+        "GOOGLE_CLIENT_SECRET",
+        "GOOGLE_DRIVE_REFRESH_TOKEN",
+        "CLOUDINARY_API_SECRET",
+        "CLOUDINARY_URL",
+        mode="before",
+    )
     @classmethod
     def _blank_secret_is_none(cls, value: Any) -> Any:
         """An empty `KEY=` line in .env should mean 'not configured'."""
@@ -163,6 +193,30 @@ class Settings(BaseSettings):
     def gemini_api_keys(self) -> List[str]:
         """Backward-compatible property for callers accessing settings.gemini_api_keys."""
         return self.get_gemini_api_keys()
+
+    def get_cloudinary_config(self) -> dict[str, Optional[str]]:
+        """Resolve Cloudinary configuration from discrete settings or CLOUDINARY_URL."""
+        cloud_name = self.CLOUDINARY_CLOUD_NAME
+        api_key = self.CLOUDINARY_API_KEY
+        api_secret = self.CLOUDINARY_API_SECRET
+
+        if self.CLOUDINARY_URL and (not cloud_name or not api_key or not api_secret):
+            import urllib.parse
+            try:
+                parsed = urllib.parse.urlparse(self.CLOUDINARY_URL)
+                if parsed.scheme == "cloudinary":
+                    cloud_name = cloud_name or parsed.hostname
+                    api_key = api_key or parsed.username
+                    api_secret = api_secret or parsed.password
+            except Exception:
+                pass
+
+        return {
+            "cloud_name": cloud_name,
+            "api_key": api_key,
+            "api_secret": api_secret,
+            "folder_prefix": self.CLOUDINARY_FOLDER_PREFIX or "edinno_curriculum",
+        }
 
 
 @lru_cache(maxsize=1)

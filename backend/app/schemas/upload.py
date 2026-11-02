@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -13,6 +13,7 @@ class ResourceMetadata(BaseModel):
     char_count: int = Field(ge=0)
     preview: str
     category: Optional[str] = "topic"
+    image_count: Optional[int] = 0
 
 
 class UploadResponse(BaseModel):
@@ -21,6 +22,8 @@ class UploadResponse(BaseModel):
     count: int = Field(ge=0)
     resources: Dict[str, str] = Field(default_factory=dict)
     metadata: Optional[Dict[str, ResourceMetadata]] = None
+    suggested_chapter_title: Optional[str] = None
+    extracted_images: Optional[List[Dict[str, Any]]] = None
 
 
 class DetectProjectResponse(BaseModel):
